@@ -1,0 +1,31 @@
+{
+  "name": "@lodestar/bun",
+  "description": "Bun FFI bindings for Lodestar",
+  "module": "bun/index.ts",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "generate": "bun node_modules/.bin/bun-ffi-z generate-binding"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@chainsafe/bun-ffi-z": "^1.1.1"
+  },
+  "bun-ffi-z": {
+    "name": "lodestar_z_bun",
+    "targets": [
+      "linux-x64-gnu",
+      "linux-arm64-gnu",
+      "darwin-arm64"
+    ],
+    "optimize": "ReleaseFast",
+    "zigExportFiles": [
+      "zig/*.zig"
+    ]
+  }
+}

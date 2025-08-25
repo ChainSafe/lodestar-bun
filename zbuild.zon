@@ -1,0 +1,31 @@
+.{
+    .name = .lodestar_z_bun,
+    .version = "0.1.0",
+    .dependencies = .{
+        .hashtree = .{
+            .url = "git+https://github.com/chainsafe/hashtree-z#6b96e3f0c7c1cc935bd9cfe1cfcbce84ed5a396a",
+        },
+        .ssz = .{
+            .url = "git+https://github.com/chainsafe/ssz-z#592ca8544177072c369ec8267abd3035e236eb94",
+        },
+    },
+    .fingerprint = 0xed854bdae2354180,
+    .minimum_zig_version = "0.14.1",
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "zig",
+    },
+    .libraries = .{
+        .lodestar_z_bun = .{
+            .root_module = .{
+                .root_source_file = "zig/root.zig",
+                .imports = .{
+                    .hashtree,
+                    "ssz:persistent_merkle_tree",
+                },
+            },
+            .linkage = .dynamic,
+        },
+    },
+}
