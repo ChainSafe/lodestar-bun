@@ -36,3 +36,6 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 # zig build output
 .zig-cache
 zig-out
+
+# benchmark
+benchmark_data
