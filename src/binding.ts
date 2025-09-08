@@ -5,6 +5,23 @@ import path from "node:path";
 import { openLibrary } from "@chainsafe/bun-ffi-z";
 
 const fns = {
+  "u64_to_bytes": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32",
+      "bool"
+    ],
+    "returns": "i32"
+  },
+  "bytes_to_u64": {
+    "args": [
+      "ptr",
+      "u32",
+      "bool"
+    ],
+    "returns": "u64"
+  },
   "hashtree_hash_": {
     "args": [
       "ptr",

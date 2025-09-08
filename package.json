@@ -5,10 +5,13 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
+    "bench": "bun node_modules/.bin/benchmark bench/bytes.bench.ts",
     "generate": "bun node_modules/.bin/bun-ffi-z generate-binding"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@chainsafe/benchmark": "^2.0.1",
+    "@types/bun": "latest",
+    "bigint-buffer": "^1.1.5"
   },
   "peerDependencies": {
     "typescript": "^5"
