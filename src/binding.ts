@@ -30,6 +30,169 @@ const fns = {
     ],
     "returns": "i32"
   },
+  "lmdb_set_len_ptr": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "void"
+  },
+  "lmdb_set_err_ptr": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "void"
+  },
+  "lmdb_environment_init": {
+    "args": [
+      "ptr",
+      "u32",
+      "u64"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_environment_deinit": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "lmdb_transaction_begin": {
+    "args": [
+      "ptr",
+      "bool"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_transaction_abort": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "lmdb_transaction_commit": {
+    "args": [
+      "u64"
+    ],
+    "returns": "i32"
+  },
+  "lmdb_database_open": {
+    "args": [
+      "u64",
+      "ptr",
+      "bool",
+      "bool",
+      "bool"
+    ],
+    "returns": "u32"
+  },
+  "lmdb_database_get": {
+    "args": [
+      "ptr",
+      "u32",
+      "ptr",
+      "u32"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_database_set": {
+    "args": [
+      "u64",
+      "u32",
+      "ptr",
+      "u32",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "lmdb_database_delete": {
+    "args": [
+      "u64",
+      "u32",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "lmdb_database_cursor": {
+    "args": [
+      "ptr",
+      "u32"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_cursor_deinit": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "lmdb_cursor_get_current_key": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_cursor_get_current_value": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_cursor_set_current_value": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "lmdb_cursor_delete_current_key": {
+    "args": [
+      "u64"
+    ],
+    "returns": "i32"
+  },
+  "lmdb_cursor_go_to_next": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_cursor_go_to_previous": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_cursor_go_to_first": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_cursor_go_to_last": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_cursor_go_to_key": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "lmdb_cursor_seek": {
+    "args": [
+      "ptr",
+      "ptr",
+      "u32"
+    ],
+    "returns": "ptr"
+  },
   "err_name": {
     "args": [
       "u16"
