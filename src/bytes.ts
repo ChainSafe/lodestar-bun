@@ -6,8 +6,10 @@ export function bytesToBigint(bytes: Uint8Array, endian: Endian = "le"): bigint 
     if (bytes.length > 8) throw new Error("Cannot convert more than 8 bytes");
     return binding.bytes_to_u64(bytes, bytes.length, endian === "le");
 }
+
 export function bytesToInt(bytes: Uint8Array, endian: Endian = "le"): number {
-    return Number(binding.bytes_to_u64(bytes, bytes.length, endian === "le"));
+    if (bytes.length > 8) throw new Error("Cannot convert more than 8 bytes");
+    return binding.bytes_to_u64_fast(bytes, bytes.length, endian === "le") ?? 0;
 }
 
 export function intToBytes(value: number | bigint, length: number, endian: Endian = "le"): Uint8Array {

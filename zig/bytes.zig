@@ -29,3 +29,8 @@ pub export fn bytes_to_u64(in: [*c]const u8, in_len: u32, little_endian: bool) u
     @memcpy(buffer[0..in_len], if (little_endian) in[0..in_len] else in[8 - in_len .. 8]);
     return std.mem.readInt(u64, &buffer, if (little_endian) .little else .big);
 }
+
+// bun-ffi-z: bytes_to_u64_fast (ptr, u32, bool) ptr
+pub export fn bytes_to_u64_fast(in: [*c]const u8, in_len: u32, little_endian: bool) u64 {
+    return bytes_to_u64(in, in_len, little_endian);
+}

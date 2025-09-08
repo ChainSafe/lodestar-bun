@@ -2,7 +2,7 @@
 import {describe, expect, it} from "bun:test";
 import { bytesToInt, intToBytes } from "../src/bytes";
 
-describe.only("intToBytes", () => {
+describe("intToBytes", () => {
   const zeroedArray = (length: number): number[] => Array.from({length}, () => 0);
   const testCases: {input: [bigint | number, number]; output: Buffer}[] = [
     {input: [255, 1], output: Buffer.from([255])},
@@ -28,6 +28,7 @@ describe.only("intToBytes", () => {
 
 describe("bytesToInt", () => {
   const testCases: {input: Buffer; output: number}[] = [
+    {input: Buffer.from([0]), output: 0},
     {input: Buffer.from([3]), output: 3},
     {input: Buffer.from([20, 0]), output: 20},
     {input: Buffer.from([3, 20]), output: 5123},
