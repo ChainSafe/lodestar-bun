@@ -6,6 +6,9 @@ import {bytesToBigint, bytesToInt, intToBytes} from "../src/bytes.ts";
 import * as other from "bigint-buffer";
 
 describe("bytes", () => {
+    bench("bytesToInt", () => {
+        bytesToInt(randomBytes(8), "le");
+    });
     bench("bytesToBigint", () => {
         bytesToBigint(randomBytes(8), "le");
     });

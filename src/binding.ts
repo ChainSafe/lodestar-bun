@@ -22,6 +22,14 @@ const fns = {
     ],
     "returns": "u64"
   },
+  "bytes_to_u64_fast": {
+    "args": [
+      "ptr",
+      "u32",
+      "bool"
+    ],
+    "returns": "ptr"
+  },
   "hashtree_hash_": {
     "args": [
       "ptr",
