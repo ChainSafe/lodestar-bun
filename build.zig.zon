@@ -14,6 +14,10 @@
             .url = "git+https://github.com/chainsafe/ssz-z#592ca8544177072c369ec8267abd3035e236eb94",
             .hash = "ssz-0.1.0-yORmzKu_BAA2ywtTed4Xku3ogb4QkKn4IMzGrEpIId_z",
         },
+        .lmdb = .{
+            .url = "git+https://github.com/nDimensional/zig-lmdb#557de4d6d89fe6818e143715cea224cbd33c4f7e",
+            .hash = "lmdb-0.2.1-6TpzoNI-AADdNyodc3HCb9xo-srkPeDaAPWrrATdwNcf",
+        },
     },
     .paths = .{ "build.zig", "build.zig.zon", "zig" },
 }

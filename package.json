@@ -5,7 +5,8 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "bench": "bun node_modules/.bin/benchmark bench/bytes.bench.ts",
+    "bench:files": "bun node_modules/.bin/benchmark",
+    "bench": "bun run bench:files bench/bytes.bench.ts",
     "generate": "bun node_modules/.bin/bun-ffi-z generate-binding"
   },
   "devDependencies": {

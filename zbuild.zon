@@ -5,6 +5,9 @@
         .hashtree = .{
             .url = "git+https://github.com/chainsafe/hashtree-z#6b96e3f0c7c1cc935bd9cfe1cfcbce84ed5a396a",
         },
+        .lmdb = .{
+            .url = "git+https://github.com/nDimensional/zig-lmdb#557de4d6d89fe6818e143715cea224cbd33c4f7e",
+        },
         .ssz = .{
             .url = "git+https://github.com/chainsafe/ssz-z#592ca8544177072c369ec8267abd3035e236eb94",
         },
@@ -22,6 +25,7 @@
                 .root_source_file = "zig/root.zig",
                 .imports = .{
                     .hashtree,
+                    .lmdb,
                     "ssz:persistent_merkle_tree",
                 },
             },
