@@ -201,6 +201,185 @@ const fns = {
     ],
     "returns": "ptr"
   },
+  "leveldb_set_len_ptr": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "void"
+  },
+  "leveldb_set_err_ptr": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "void"
+  },
+  "leveldb_free_": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "void"
+  },
+  "leveldb_db_open": {
+    "args": [
+      "ptr",
+      "bool",
+      "bool",
+      "bool",
+      "u32",
+      "i32",
+      "u32",
+      "i32"
+    ],
+    "returns": "ptr"
+  },
+  "leveldb_db_close": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "leveldb_db_put": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "leveldb_db_get": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "ptr"
+  },
+  "leveldb_db_delete": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "leveldb_writebatch_create_": {
+    "args": [],
+    "returns": "ptr"
+  },
+  "leveldb_writebatch_destroy_": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "leveldb_writebatch_clear_": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "leveldb_writebatch_put_": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32",
+      "ptr",
+      "u32"
+    ],
+    "returns": "void"
+  },
+  "leveldb_writebatch_delete_": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "void"
+  },
+  "leveldb_writebatch_append_": {
+    "args": [
+      "u64",
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "leveldb_db_write": {
+    "args": [
+      "u64",
+      "u64"
+    ],
+    "returns": "i32"
+  },
+  "leveldb_db_create_iterator": {
+    "args": [
+      "u64"
+    ],
+    "returns": "ptr"
+  },
+  "leveldb_iterator_destroy": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "leveldb_iterator_valid": {
+    "args": [
+      "u64"
+    ],
+    "returns": "bool"
+  },
+  "leveldb_iterator_seek_to_first": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "leveldb_iterator_seek_to_last": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "leveldb_iterator_seek": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "void"
+  },
+  "leveldb_iterator_next": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "leveldb_iterator_prev": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "leveldb_iterator_key": {
+    "args": [
+      "u64"
+    ],
+    "returns": "ptr"
+  },
+  "leveldb_iterator_value": {
+    "args": [
+      "u64"
+    ],
+    "returns": "ptr"
+  },
+  "leveldb_iterator_get_error": {
+    "args": [
+      "u64"
+    ],
+    "returns": "i32"
+  },
   "err_name": {
     "args": [
       "u16"

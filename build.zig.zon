@@ -18,6 +18,10 @@
             .url = "git+https://github.com/nDimensional/zig-lmdb#557de4d6d89fe6818e143715cea224cbd33c4f7e",
             .hash = "lmdb-0.2.1-6TpzoNI-AADdNyodc3HCb9xo-srkPeDaAPWrrATdwNcf",
         },
+        .leveldb = .{
+            .url = "git+https://github.com/chainsafe/leveldb#8ab81f3663ff04a30f30e2e95bcba0f50692a84c",
+            .hash = "leveldb-0.1.0-nY4h8AQnDQCzTiOrdGfiQiJRorrKfpVsGoHPDLEbvsMR",
+        },
     },
     .paths = .{ "build.zig", "build.zig.zon", "zig" },
 }
