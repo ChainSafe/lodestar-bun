@@ -11,6 +11,9 @@
         .ssz = .{
             .url = "git+https://github.com/chainsafe/ssz-z#592ca8544177072c369ec8267abd3035e236eb94",
         },
+        .leveldb = .{
+            .url = "git+https://github.com/chainsafe/leveldb#8ab81f3663ff04a30f30e2e95bcba0f50692a84c",
+        },
     },
     .fingerprint = 0xed854bdae2354180,
     .minimum_zig_version = "0.14.1",
@@ -26,6 +29,7 @@
                 .imports = .{
                     .hashtree,
                     .lmdb,
+                    .leveldb,
                     "ssz:persistent_merkle_tree",
                 },
             },
