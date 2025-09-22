@@ -35,7 +35,7 @@ describe("leveldb", () => {
         for (let i = 0; i < n; i++) {
           batch.push({key: intToBytes(i, 4, "le"), value: val});
         }
-        leveldb.dbWrite(db, batch);
+        leveldb.dbBatchPut(db, batch);
       },
     });
 
@@ -47,7 +47,7 @@ describe("leveldb", () => {
         for (let i = 0; i < n; i++) {
           batch.push({key: intToBytes(i, 4, "le"), value: val});
         }
-        leveldb.dbWrite(db, batch);
+        leveldb.dbBatchPut(db, batch);
       },
       fn: () => {
         for (let i = 0; i < n; i++) {
@@ -64,7 +64,7 @@ describe("leveldb", () => {
         for (let i = 0; i < n; i++) {
           batch.push({key: intToBytes(i, 4, "le"), value: val});
         }
-        leveldb.dbWrite(db, batch);
+        leveldb.dbBatchPut(db, batch);
       },
       fn: () => {
         const iter = leveldb.dbIterator(db);

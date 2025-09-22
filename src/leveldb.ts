@@ -87,7 +87,7 @@ export function dbDelete(db: DB, key: Uint8Array): void {
   ));
 }
 
-export function dbWrite(db: DB, batch: {key: Uint8Array; value: Uint8Array}[]): void {
+export function dbBatchPut(db: DB, batch: {key: Uint8Array; value: Uint8Array}[]): void {
   const batchPtr = binding.leveldb_writebatch_create_() as number;
   for (const {key, value} of batch) {
     binding.leveldb_writebatch_put_(
@@ -96,6 +96,20 @@ export function dbWrite(db: DB, batch: {key: Uint8Array; value: Uint8Array}[]): 
       key.length,
       value,
       value.length,
+    );
+  }
+  const result = binding.leveldb_db_write(db, batchPtr);
+  binding.leveldb_writebatch_destroy_(batchPtr);
+  throwErr(result);
+}
+
+export function dbBatchDelete(db: DB, batch: Uint8Array[]): void {
+  const batchPtr = binding.leveldb_writebatch_create_() as number;
+  for (const key of batch) {
+    binding.leveldb_writebatch_delete_(
+      batchPtr,
+      key,
+      key.length,
     );
   }
   const result = binding.leveldb_db_write(db, batchPtr);
