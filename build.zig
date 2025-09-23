@@ -18,6 +18,7 @@ pub fn build(b: *std.Build) void {
         .root_source_file = b.path("zig/root.zig"),
         .target = target,
         .optimize = optimize,
+        .pic = true,
     });
     b.modules.put(b.dupe("lodestar_z_bun"), module_lodestar_z_bun) catch @panic("OOM");
 

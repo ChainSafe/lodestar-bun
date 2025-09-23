@@ -201,21 +201,17 @@ const fns = {
     ],
     "returns": "ptr"
   },
-  "leveldb_set_len_ptr": {
-    "args": [
-      "ptr"
-    ],
-    "returns": "void"
+  "leveldb_get_len_ptr": {
+    "args": [],
+    "returns": "ptr"
   },
-  "leveldb_set_err_ptr": {
-    "args": [
-      "ptr"
-    ],
-    "returns": "void"
+  "leveldb_get_err_ptr": {
+    "args": [],
+    "returns": "ptr"
   },
   "leveldb_free_": {
     "args": [
-      "ptr"
+      "u64"
     ],
     "returns": "void"
   },

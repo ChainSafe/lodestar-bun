@@ -2,18 +2,21 @@ const std = @import("std");
 const leveldb = @import("leveldb");
 const toErrCode = @import("common.zig").toErrCode;
 
-var len_ptr: *u32 = undefined;
-var err_ptr: *i32 = undefined;
+var len: u32 = undefined;
+var err: i32 = undefined;
 
-pub export fn leveldb_set_len_ptr(ptr: *u32) void {
-    len_ptr = ptr;
-}
-pub export fn leveldb_set_err_ptr(ptr: *i32) void {
-    err_ptr = ptr;
+// bun-ffi-z: leveldb_get_len_ptr () ptr
+pub export fn leveldb_get_len_ptr() u64 {
+    return @intFromPtr(&len);
 }
 
-pub export fn leveldb_free_(data: [*c]const u8) void {
-    leveldb.free(data);
+// bun-ffi-z: leveldb_get_err_ptr () ptr
+pub export fn leveldb_get_err_ptr() u64 {
+    return @intFromPtr(&err);
+}
+
+pub export fn leveldb_free_(data: u64) void {
+    leveldb.free(@ptrFromInt(data));
 }
 
 // bun-ffi-z: leveldb_db_open (ptr, bool, bool, bool, u32, i32, u32, i32) ptr
@@ -39,7 +42,7 @@ pub export fn leveldb_db_open(
     options.setBlockRestartInterval(block_restart_interval);
 
     const db = leveldb.DB.open(&options, std.mem.span(path)) catch |e| {
-        err_ptr.* = toErrCode(e);
+        err = toErrCode(e);
         return 0;
     };
     return @intFromPtr(db.inner);
@@ -68,13 +71,13 @@ pub export fn leveldb_db_get(db_ptr: u64, key: [*c]const u8, key_len: u32) u64 {
     defer options.destroy();
 
     const value = db.get(&options, key[0..key_len]) catch |e| {
-        err_ptr.* = toErrCode(e);
+        err = toErrCode(e);
         return 0;
     } orelse {
-        err_ptr.* = 0;
+        err = 0;
         return 0;
     };
-    len_ptr.* = @intCast(value.len);
+    len = @intCast(value.len);
     return @intFromPtr(value.ptr);
 }
 
@@ -181,7 +184,7 @@ pub export fn leveldb_iterator_prev(iter_ptr: u64) void {
 pub export fn leveldb_iterator_key(iter_ptr: u64) u64 {
     var iter = leveldb.Iterator{ .inner = @ptrFromInt(iter_ptr) };
     const key = iter.key();
-    len_ptr.* = @intCast(key.len);
+    len = @intCast(key.len);
     return @intFromPtr(key.ptr);
 }
 
@@ -189,7 +192,7 @@ pub export fn leveldb_iterator_key(iter_ptr: u64) u64 {
 pub export fn leveldb_iterator_value(iter_ptr: u64) u64 {
     var iter = leveldb.Iterator{ .inner = @ptrFromInt(iter_ptr) };
     const value = iter.value();
-    len_ptr.* = @intCast(value.len);
+    len = @intCast(value.len);
     return @intFromPtr(value.ptr);
 }
 

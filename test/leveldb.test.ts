@@ -16,7 +16,7 @@ describe("leveldb", () => {
     const db = leveldb.dbOpen(dbPath, {create_if_missing: true});
 
     const key = new Uint8Array([1, 2, 3]);
-    const value = new Uint8Array([4, 5, 6]);
+    const value = new Uint8Array(Array.from({length: 256}, (_, i) => i));
 
     leveldb.dbPut(db, key, value);
     const retrieved = leveldb.dbGet(db, key);
@@ -76,6 +76,40 @@ describe("leveldb", () => {
     expect(index).toBe(entries.length);
 
     leveldb.iteratorDestroy(iter);
+    leveldb.dbClose(db);
+  });
+
+  test("get many", () => {
+    const db = leveldb.dbOpen(dbPath, {create_if_missing: true});
+
+    const keyLength = 32;
+    const valueMinLength = 10000;
+    const valueMaxLength = 20000;
+    const numEntries = 1000;
+
+    const keys = Array.from({length: numEntries}, () => {
+      const key = new Uint8Array(keyLength);
+      crypto.getRandomValues(key);
+      return key;
+    });
+
+    const entries = keys.map((key) => {
+      const valueLength = Math.floor(Math.random() * (valueMaxLength - valueMinLength + 1)) + valueMinLength;
+      const value = new Uint8Array(valueLength);
+      crypto.getRandomValues(value);
+      return {key, value};
+    });
+
+    for (const {key, value} of entries) {
+      leveldb.dbPut(db, key, value.slice());
+    }
+
+    for (let i = 0; i < numEntries; i ++) {
+      const {key, value} = entries[i]!;
+      const retrieved = leveldb.dbGet(db, key);
+      expect(retrieved).toEqual(value);
+    }
+
     leveldb.dbClose(db);
   });
 });
