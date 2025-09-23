@@ -38,7 +38,7 @@ describe("leveldb", () => {
       {key: new Uint8Array([3]), value: new Uint8Array([30])},
     ];
 
-    leveldb.dbWrite(db, batch);
+    leveldb.dbBatchPut(db, batch);
 
     for (const {key, value} of batch) {
       const retrieved = leveldb.dbGet(db, key);

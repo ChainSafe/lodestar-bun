@@ -1,9 +1,11 @@
 {
   "name": "@lodestar/bun",
   "description": "Bun FFI bindings for Lodestar",
-  "module": "bun/index.ts",
+  "version": "0.1.0",
+  "module": "src/index.ts",
   "type": "module",
   "license": "MIT",
+  "exports": "./src/index.ts",
   "scripts": {
     "bench:files": "bun node_modules/.bin/benchmark",
     "bench": "bun run bench:files bench/bytes.bench.ts",
