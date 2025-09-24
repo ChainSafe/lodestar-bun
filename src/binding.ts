@@ -234,6 +234,12 @@ const fns = {
     ],
     "returns": "void"
   },
+  "leveldb_db_destroy": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "i32"
+  },
   "leveldb_db_put": {
     "args": [
       "u64",

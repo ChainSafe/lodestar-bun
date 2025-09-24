@@ -112,4 +112,11 @@ describe("leveldb", () => {
 
     leveldb.dbClose(db);
   });
+
+  test("destroy", () => {
+    const db = leveldb.dbOpen(dbPath, {create_if_missing: true});
+    leveldb.dbClose(db);
+    leveldb.dbDestroy(dbPath);
+    expect(fs.existsSync(dbPath)).toBe(false);
+  });
 });
