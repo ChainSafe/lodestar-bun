@@ -20,7 +20,7 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "@chainsafe/bun-ffi-z": "^1.1.1"
+    "@chainsafe/bun-ffi-z": "^1.1.2"
   },
   "bun-ffi-z": {
     "name": "lodestar_z_bun",
