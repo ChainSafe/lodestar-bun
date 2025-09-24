@@ -1,12 +1,10 @@
-import {toArrayBuffer, type Pointer} from "bun:ffi";
+import {read, toArrayBuffer, type Pointer} from "bun:ffi";
 import {binding} from "./binding.ts";
 import {throwErr} from "./common.ts";
 
-// Buffers to hold length and error codes from zig binding
-const lenBuf = new Uint32Array(1);
-const errBuf = new Int32Array(1);
-binding.leveldb_set_len_ptr(lenBuf);
-binding.leveldb_set_err_ptr(errBuf);
+// ptrs to hold length and error codes from zig binding
+const lenPtr = binding.leveldb_get_len_ptr() as Pointer;
+const errPtr = binding.leveldb_get_err_ptr() as Pointer;
 
 const textEncoder = new TextEncoder();
 
@@ -33,7 +31,7 @@ export function dbOpen(path: string, options: {
     options.block_restart_interval ?? 16,
   );
   if (db === null) {
-    throwErr(errBuf[0] as number);
+    throwErr(read.i32(errPtr, 0));
   }
   return db as number as DB;
 
@@ -55,7 +53,9 @@ export function dbPut(db: DB, key: Uint8Array, value: Uint8Array): void {
 
 
 const data_finalizer = new FinalizationRegistry((data_ptr: number) => {
-  binding.leveldb_free_(data_ptr as Pointer);
+  // console.log("Freeing data_ptr", data_ptr);
+  // binding.leveldb_free_(data_ptr as Pointer);
+  // console.log("Freed data_ptr", data_ptr);
 });
 
 export function dbGet(db: DB, key: Uint8Array): Uint8Array | null {
@@ -65,17 +65,18 @@ export function dbGet(db: DB, key: Uint8Array): Uint8Array | null {
     key.length,
   );
   if (valuePtr === null) {
-    throwErr(errBuf[0] as number);
+    throwErr(read.i32(errPtr, 0));
     return null;
   }
-  const valueLen = lenBuf[0];
-  const valueBuffer = toArrayBuffer(
-    valuePtr,
-    0,
-    valueLen,
+  const valueLen = read.u32(lenPtr, 0);
+  const value = new Uint8Array(
+    toArrayBuffer(
+      valuePtr,
+      0,
+      valueLen,
+    ).slice()
   );
-  const value = new Uint8Array(valueBuffer);
-  data_finalizer.register(valueBuffer, valuePtr);
+  binding.leveldb_free_(valuePtr);
   return value;
 }
 
@@ -154,30 +155,30 @@ export function iteratorValid(it: Iterator): boolean {
 export function iteratorKey(it: Iterator): Uint8Array {
   const keyPtr = binding.leveldb_iterator_key(it);
   if (keyPtr === null) {
-    throwErr(errBuf[0] as number);
+    throwErr(read.i32(errPtr, 0));
   }
-  const keyLen = lenBuf[0];
+  const keyLen = read.u32(lenPtr, 0);
   return new Uint8Array(
     toArrayBuffer(
       keyPtr as Pointer,
       0,
       keyLen,
-    )
+    ).slice()
   );
 }
 
 export function iteratorValue(it: Iterator): Uint8Array {
   const valuePtr = binding.leveldb_iterator_value(it);
   if (valuePtr === null) {
-    throwErr(errBuf[0] as number);
+    throwErr(read.i32(errPtr, 0));
   }
-  const valueLen = lenBuf[0];
+  const valueLen = read.u32(lenPtr, 0);
   return new Uint8Array(
     toArrayBuffer(
       valuePtr as Pointer,
       0,
       valueLen,
-    )
+    ).slice()
   );
 }
 
