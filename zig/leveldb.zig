@@ -2,8 +2,8 @@ const std = @import("std");
 const leveldb = @import("leveldb");
 const toErrCode = @import("common.zig").toErrCode;
 
-var len: u32 = undefined;
-var err: i32 = undefined;
+threadlocal var len: u32 = undefined;
+threadlocal var err: i32 = undefined;
 
 // bun-ffi-z: leveldb_get_len_ptr () ptr
 pub export fn leveldb_get_len_ptr() u64 {
