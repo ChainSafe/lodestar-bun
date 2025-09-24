@@ -9,6 +9,7 @@
   "scripts": {
     "bench:files": "bun node_modules/.bin/benchmark",
     "bench": "bun run bench:files bench/bytes.bench.ts",
+    "check": "tsc --noEmit",
     "generate": "bun node_modules/.bin/bun-ffi-z generate-binding"
   },
   "devDependencies": {
@@ -20,7 +21,7 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "@chainsafe/bun-ffi-z": "^1.1.2"
+    "@chainsafe/bun-ffi-z": "^1.1.3"
   },
   "bun-ffi-z": {
     "name": "lodestar_z_bun",

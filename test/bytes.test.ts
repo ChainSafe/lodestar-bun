@@ -1,6 +1,6 @@
 
 import {describe, expect, it} from "bun:test";
-import { bytesToInt, intToBytes } from "../src/bytes";
+import { bytesToInt, intToBytes } from "../src/bytes.ts";
 
 describe("intToBytes", () => {
   const zeroedArray = (length: number): number[] => Array.from({length}, () => 0);

@@ -55,13 +55,6 @@ export function dbPut(db: DB, key: Uint8Array, value: Uint8Array): void {
   ));
 }
 
-
-const data_finalizer = new FinalizationRegistry((data_ptr: number) => {
-  // console.log("Freeing data_ptr", data_ptr);
-  // binding.leveldb_free_(data_ptr as Pointer);
-  // console.log("Freed data_ptr", data_ptr);
-});
-
 export function dbGet(db: DB, key: Uint8Array): Uint8Array | null {
   const valuePtr = binding.leveldb_db_get(
     db,

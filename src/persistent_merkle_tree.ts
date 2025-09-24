@@ -98,7 +98,7 @@ export function setNodesAtDepth(rootNode: Node, depth: number, indices: number[]
   )) as Node;
 }
 
-export function setNodes(rootNode: Node, depth: number, gindices: (number | bigint)[], newNodes: Node[]): Node {
+export function setNodes(rootNode: Node, gindices: (number | bigint)[], newNodes: Node[]): Node {
   if (gindices.length !== newNodes.length) {
     throw new Error("Gindices and newNodes must have the same length");
   }
