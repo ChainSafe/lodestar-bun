@@ -2,6 +2,7 @@ import {afterEach, beforeEach, describe, expect, test} from "bun:test";
 import * as fs from "node:fs";
 
 import * as leveldb from "../src/leveldb.ts";
+import path from "node:path";
 
 describe("leveldb", () => {
   let dbPath: string;
@@ -111,5 +112,18 @@ describe("leveldb", () => {
     }
 
     leveldb.dbClose(db);
+  });
+
+  test("destroy", () => {
+    const db = leveldb.dbOpen(dbPath, {create_if_missing: true});
+    leveldb.dbClose(db);
+    leveldb.dbDestroy(dbPath);
+    expect(fs.existsSync(dbPath)).toBe(false);
+  });
+
+  test("destroy non-existent db", () => {
+    const nonExistentPath = path.join(dbPath, "non-existent");
+    expect(fs.existsSync(nonExistentPath)).toBe(false);
+    expect(() => leveldb.dbDestroy(nonExistentPath)).not.toThrow();
   });
 });

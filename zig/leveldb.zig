@@ -53,6 +53,14 @@ pub export fn leveldb_db_close(db_ptr: u64) void {
     db.close();
 }
 
+pub export fn leveldb_db_destroy(path: [*c]const u8) i32 {
+    var options = leveldb.Options.create();
+    defer options.destroy();
+
+    leveldb.destroyDB(&options, std.mem.span(path)) catch |e| return toErrCode(e);
+    return 0;
+}
+
 pub export fn leveldb_db_put(db_ptr: u64, key: [*c]const u8, key_len: u32, value: [*c]const u8, value_len: u32) i32 {
     var db = leveldb.DB{ .inner = @ptrFromInt(db_ptr) };
 

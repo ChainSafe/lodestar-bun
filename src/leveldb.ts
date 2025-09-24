@@ -41,6 +41,10 @@ export function dbClose(db: DB): void {
   binding.leveldb_db_close(db);
 }
 
+export function dbDestroy(path: string): void {
+  throwErr(binding.leveldb_db_destroy(textEncoder.encode(path + "\0")));
+}
+
 export function dbPut(db: DB, key: Uint8Array, value: Uint8Array): void {
   throwErr(binding.leveldb_db_put(
     db,
