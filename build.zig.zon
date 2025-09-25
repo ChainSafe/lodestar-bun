@@ -7,20 +7,20 @@
     .minimum_zig_version = "0.14.1",
     .dependencies = .{
         .hashtree = .{
-            .url = "git+https://github.com/chainsafe/hashtree-z#6b96e3f0c7c1cc935bd9cfe1cfcbce84ed5a396a",
-            .hash = "hashtree-0.1.0-sBOovqq8DACfez1ldXMSZ6qr_-yZPCbSv9d9o8G16uU3",
+            .url = "git+https://github.com/chainsafe/hashtree-z#43a58b0fd4813515cda3d0ffc622125243a01c54",
+            .hash = "hashtree-0.1.0-sBOovrYSAAArAQVa-a6BhOPWPTrgKrJtufxWjQYMNNAN",
         },
-        .ssz = .{
-            .url = "git+https://github.com/chainsafe/ssz-z#592ca8544177072c369ec8267abd3035e236eb94",
-            .hash = "ssz-0.1.0-yORmzKu_BAA2ywtTed4Xku3ogb4QkKn4IMzGrEpIId_z",
+        .leveldb = .{
+            .url = "git+https://github.com/chainsafe/leveldb.zig#2c067912633619c6a80280c18ff889523da9a0c1",
+            .hash = "leveldb-0.1.0-nY4h8HufAAD1gatwJyBnDtV8cGWReax_Sw7ln0bFV39O",
         },
         .lmdb = .{
             .url = "git+https://github.com/nDimensional/zig-lmdb#557de4d6d89fe6818e143715cea224cbd33c4f7e",
             .hash = "lmdb-0.2.1-6TpzoNI-AADdNyodc3HCb9xo-srkPeDaAPWrrATdwNcf",
         },
-        .leveldb = .{
-            .url = "git+https://github.com/chainsafe/leveldb#8ab81f3663ff04a30f30e2e95bcba0f50692a84c",
-            .hash = "leveldb-0.1.0-nY4h8AQnDQCzTiOrdGfiQiJRorrKfpVsGoHPDLEbvsMR",
+        .ssz = .{
+            .url = "git+https://github.com/chainsafe/ssz-z#c8d7ad9e31befb7eb696d570d31433b4e855a19b",
+            .hash = "ssz-0.1.0-yORmzNDdBABQVmaEPy9-VDWHx7MH_qZFIxrZ4WWhtkTn",
         },
     },
     .paths = .{ "build.zig", "build.zig.zon", "zig" },

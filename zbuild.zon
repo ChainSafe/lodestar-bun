@@ -3,16 +3,16 @@
     .version = "0.1.0",
     .dependencies = .{
         .hashtree = .{
-            .url = "git+https://github.com/chainsafe/hashtree-z#6b96e3f0c7c1cc935bd9cfe1cfcbce84ed5a396a",
+            .url = "git+https://github.com/chainsafe/hashtree-z#43a58b0fd4813515cda3d0ffc622125243a01c54",
+        },
+        .leveldb = .{
+            .url = "git+https://github.com/chainsafe/leveldb.zig#2c067912633619c6a80280c18ff889523da9a0c1",
         },
         .lmdb = .{
             .url = "git+https://github.com/nDimensional/zig-lmdb#557de4d6d89fe6818e143715cea224cbd33c4f7e",
         },
         .ssz = .{
-            .url = "git+https://github.com/chainsafe/ssz-z#592ca8544177072c369ec8267abd3035e236eb94",
-        },
-        .leveldb = .{
-            .url = "git+https://github.com/chainsafe/leveldb#8ab81f3663ff04a30f30e2e95bcba0f50692a84c",
+            .url = "git+https://github.com/chainsafe/ssz-z#c8d7ad9e31befb7eb696d570d31433b4e855a19b",
         },
     },
     .fingerprint = 0xed854bdae2354180,
