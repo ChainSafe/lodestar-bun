@@ -49,6 +49,9 @@ jobs:
       - name: zig build (Release Safe)
         run: zig build --release=safe
 
+      - if: matrix.os != 'windows-latest'
+        run: dir zig-out/lib
+
       - name: Test
         run: bun test
 
