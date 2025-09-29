@@ -11,8 +11,8 @@
             .hash = "hashtree-0.1.0-sBOovrYSAAArAQVa-a6BhOPWPTrgKrJtufxWjQYMNNAN",
         },
         .leveldb = .{
-            .url = "git+https://github.com/chainsafe/leveldb.zig#2c067912633619c6a80280c18ff889523da9a0c1",
-            .hash = "leveldb-0.1.0-nY4h8HufAAD1gatwJyBnDtV8cGWReax_Sw7ln0bFV39O",
+            .url = "git+https://github.com/chainsafe/leveldb.zig#08c6d2256877c89a4e15dd1e6236f34c366f58c5",
+            .hash = "leveldb-0.1.0-nY4h8CebAABF74LwoYJ-dpECxZEIZQd4tMovgueHZveh",
         },
         .lmdb = .{
             .url = "git+https://github.com/nDimensional/zig-lmdb#557de4d6d89fe6818e143715cea224cbd33c4f7e",

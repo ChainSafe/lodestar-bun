@@ -6,7 +6,7 @@
             .url = "git+https://github.com/chainsafe/hashtree-z#43a58b0fd4813515cda3d0ffc622125243a01c54",
         },
         .leveldb = .{
-            .url = "git+https://github.com/chainsafe/leveldb.zig#2c067912633619c6a80280c18ff889523da9a0c1",
+            .url = "git+https://github.com/chainsafe/leveldb.zig#08c6d2256877c89a4e15dd1e6236f34c366f58c5",
         },
         .lmdb = .{
             .url = "git+https://github.com/nDimensional/zig-lmdb#557de4d6d89fe6818e143715cea224cbd33c4f7e",
