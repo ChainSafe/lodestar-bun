@@ -7,7 +7,9 @@
         "@chainsafe/bun-ffi-z": "^1.1.4",
       },
       "devDependencies": {
+        "@chainsafe/as-sha256": "^1.2.0",
         "@chainsafe/benchmark": "^2.0.1",
+        "@chainsafe/hashtree": "^1.0.2",
         "@types/bun": "latest",
         "bigint-buffer": "^1.1.5",
       },
@@ -59,9 +61,25 @@
 
     "@azure/storage-common": ["@azure/storage-common@12.1.0", "", { "dependencies": { "@azure/abort-controller": "^2.1.2", "@azure/core-auth": "^1.9.0", "@azure/core-http-compat": "^2.2.0", "@azure/core-rest-pipeline": "^1.19.1", "@azure/core-tracing": "^1.2.0", "@azure/core-util": "^1.11.0", "@azure/logger": "^1.1.4", "events": "^3.3.0", "tslib": "^2.8.1" } }, "sha512-5HZu1stgW5I7cH2LaLlr4x6tk5AlDRGXBfxynPqI6027KwYaS/u1ucOYIrITmu7M+rhqsbUbkuIHQG7oxKN2uQ=="],
 
+    "@chainsafe/as-sha256": ["@chainsafe/as-sha256@1.2.0", "", {}, "sha512-H2BNHQ5C3RS+H0ZvOdovK6GjFAyq5T6LClad8ivwj9Oaiy28uvdsGVS7gNJKuZmg0FGHAI+n7F0Qju6U0QkKDA=="],
+
     "@chainsafe/benchmark": ["@chainsafe/benchmark@2.0.1", "", { "dependencies": { "@actions/cache": "^4.0.0", "@actions/github": "^6.0.0", "@vitest/runner": "^2.1.8", "ajv": "^8.17.1", "aws-sdk": "^2.932.0", "cli-table3": "^0.6.5", "csv-parse": "^5.6.0", "csv-stringify": "^6.5.2", "debug": "^4.4.0", "glob": "^10.4.5", "log-symbols": "^7.0.0", "yaml": "^2.7.0", "yargs": "^17.7.2" }, "bin": { "benchmark": "bin/index.js" } }, "sha512-Noecu9z6kjXWdKl9ZL/PckJxfi+Ax4/8/i4F862jo3FZcViK8LWR5Byc8pKeNC5vcDMSP73/ME3vgUovYGqwUw=="],
 
     "@chainsafe/bun-ffi-z": ["@chainsafe/bun-ffi-z@1.1.4", "", { "peerDependencies": { "typescript": "^5" }, "bin": { "bun-ffi-z": "src/cli.ts" } }, "sha512-yegYWjcj9pMwrf554iuFGoUc+Kq8EWDrVpeGiPl/nmXu/lm5EaUzxsiLG6WR1J9tpTQk012213y9RA5PwDrUTQ=="],
+
+    "@chainsafe/hashtree": ["@chainsafe/hashtree@1.0.2", "", { "optionalDependencies": { "@chainsafe/hashtree-darwin-arm64": "1.0.2", "@chainsafe/hashtree-linux-arm64-gnu": "1.0.2", "@chainsafe/hashtree-linux-arm64-musl": "1.0.2", "@chainsafe/hashtree-linux-x64-gnu": "1.0.2", "@chainsafe/hashtree-linux-x64-musl": "1.0.2", "@chainsafe/hashtree-win32-x64-msvc": "1.0.2" } }, "sha512-OaWjsZ6S/GaT2RvaqdpsF5Mux8qQOE2KbitX2yHmQJZNUZkdh7C3N4PA5LsvewqX+z8Nkv8mr1uSe0LSrHGiQw=="],
+
+    "@chainsafe/hashtree-darwin-arm64": ["@chainsafe/hashtree-darwin-arm64@1.0.2", "", { "os": "darwin", "cpu": "arm64" }, "sha512-yIIwn9SUR5ZTl2vN1QqRtDFL/w2xYW4o68A1k8UexMbieGAnE7Ab7NvtCZRHRe8x0eONO46F/bWn5bxxyYlFXw=="],
+
+    "@chainsafe/hashtree-linux-arm64-gnu": ["@chainsafe/hashtree-linux-arm64-gnu@1.0.2", "", { "os": "linux", "cpu": "arm64" }, "sha512-MDz1xBRTRHw2eezGqx1Ff8NoeUUQP3bhbeeVG8ZZTkFYqvRc8O65OQOTtgO+fFGvqnDjVBSRHmiTXU5eNeH/mQ=="],
+
+    "@chainsafe/hashtree-linux-arm64-musl": ["@chainsafe/hashtree-linux-arm64-musl@1.0.2", "", { "os": "linux", "cpu": "arm64" }, "sha512-BUy+/9brJwAFAtraro4y/1F+aP/8j/7HrnYdde8PTu7jHWAClI9xZygadaJbk0GoWxyCOUAJKUs8KHVnYxJDeg=="],
+
+    "@chainsafe/hashtree-linux-x64-gnu": ["@chainsafe/hashtree-linux-x64-gnu@1.0.2", "", { "os": "linux", "cpu": "x64" }, "sha512-bFy9ffFG77SivmeOjOlZmOCrxzQ/WqUESy0I+dW6IX7wquTXHldJKWvohs9+FEn3TSXgeigFmEATz5tfxBfIZw=="],
+
+    "@chainsafe/hashtree-linux-x64-musl": ["@chainsafe/hashtree-linux-x64-musl@1.0.2", "", { "os": "linux", "cpu": "x64" }, "sha512-mbJB3C0RjwpqOMPZIUQm3IBH6d3sYiKDXMU6ORt5nuk7Ix2I80xxffAciDO1d7kKNnW6HStOj5s/rGhIDxK1ug=="],
+
+    "@chainsafe/hashtree-win32-x64-msvc": ["@chainsafe/hashtree-win32-x64-msvc@1.0.2", "", { "os": "win32", "cpu": "x64" }, "sha512-wXFhGqaydgadefQbjSTGqZY1R1MBhnJj+gbJhULNRUXco5pHsXfOk3QhCDAefp1PPW+wQwfT4clEnQCqJIf58w=="],
 
     "@colors/colors": ["@colors/colors@1.5.0", "", {}, "sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ=="],
 

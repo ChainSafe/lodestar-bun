@@ -38,6 +38,21 @@ const fns = {
     ],
     "returns": "i32"
   },
+  "hashtree_digest64": {
+    "args": [
+      "ptr",
+      "ptr"
+    ],
+    "returns": "i32"
+  },
+  "hashtree_digest_2_bytes32": {
+    "args": [
+      "ptr",
+      "ptr",
+      "ptr"
+    ],
+    "returns": "i32"
+  },
   "lmdb_set_len_ptr": {
     "args": [
       "ptr"
