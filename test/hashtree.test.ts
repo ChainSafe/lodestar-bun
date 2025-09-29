@@ -1,7 +1,7 @@
 import {describe, expect, test} from "bun:test";
 
 import {createHash} from "node:crypto";
-import {hash, hashInto} from "../src/hashtree.ts";
+import {digest2Bytes32, digest64, digest64Into, hash, hashInto} from "../src/hashtree.ts";
 
 const CHUNK_SIZE = 64;
 
@@ -56,4 +56,16 @@ describe("hashInto should be equivalent to node:crypto", () => {
       }
     });
   }
+});
+
+describe("digest64/digest2Bytes32", () => {
+  test("correctness", () => {
+    for (let i = 0; i < 255; i++) {
+      const a = Buffer.alloc(32, i);
+      const b = Buffer.alloc(32, i + 1);
+      const expected = createHash("sha256").update(Buffer.concat([a, b])).digest();
+      expect(digest2Bytes32(a, b)).toEqual(expected);
+      expect(digest64(Buffer.concat([a, b]))).toEqual(expected);
+    }
+  });
 });
