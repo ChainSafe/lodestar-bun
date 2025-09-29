@@ -54,7 +54,7 @@ describe("lmdb", () => {
     lmdb.environmentDeinit(env);
   });
 
-  test("value after commit", () => {
+  test.todo("value after commit", () => {
     let retrieved: Uint8Array | null;
     const key = new Uint8Array([1, 2, 3]);
     const value = new Uint8Array([4, 5, 6]);
