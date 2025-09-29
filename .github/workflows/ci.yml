@@ -50,5 +50,5 @@ jobs:
         run: zig build --release=safe
 
       - name: Test
-        run: bun run test
+        run: bun test
 
