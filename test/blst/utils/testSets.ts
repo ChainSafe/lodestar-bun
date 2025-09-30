@@ -1,7 +1,24 @@
 import crypto from "node:crypto";
 import {SECRET_KEY_SIZE, SecretKey, type Signature} from "../../../src/blst.ts";
 import {arrayOfIndexes} from "./helpers.js";
-import type {SameMessageTestSets, SerializedSet, TestSet} from "./types.js";
+
+interface TestSet {
+	msg: Uint8Array;
+	sk: bindings.SecretKey;
+	pk: bindings.PublicKey;
+	sig: bindings.Signature;
+}
+
+interface SameMessageTestSets {
+	msg: Uint8Array;
+	sets: {
+		sk: bindings.SecretKey;
+		pk: bindings.PublicKey;
+		sig: bindings.Signature;
+	}[];
+}
+
+type SerializedSet = Record<keyof TestSet, Uint8Array>;
 
 const DEFAULT_TEST_MESSAGE = Uint8Array.from(Buffer.from("test-message"));
 

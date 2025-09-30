@@ -4,7 +4,6 @@ import {PublicKey} from "../../src/blst.ts";
 import {SecretKey} from "../../src/blst.ts";
 import {G1_POINT_AT_INFINITY, SECRET_KEY_BYTES, invalidInputs, validPublicKey} from "./__fixtures__/index.js";
 import {expectEqualHex, expectNotEqualHex, sullyUint8Array} from "./utils/helpers.js";
-import type {CodeError} from "./utils/types.js";
 
 describe("PublicKey", () => {
 	it("should exist", () => {
