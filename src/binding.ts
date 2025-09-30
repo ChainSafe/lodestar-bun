@@ -5,216 +5,360 @@ import path from "node:path";
 import { openLibrary } from "@chainsafe/bun-ffi-z";
 
 const fns = {
-  "u64_to_bytes": {
+  "persistent_merkle_tree_pool_init": {
     "args": [
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_pool_deinit": {
+    "args": [],
+    "returns": "void"
+  },
+  "persistent_merkle_tree_pool_create_leaf": {
+    "args": [
+      "ptr",
+      "bool"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_pool_create_branch": {
+    "args": [
+      "u32",
+      "u32",
+      "bool"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_pool_ref": {
+    "args": [
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_pool_unref": {
+    "args": [
+      "u32"
+    ],
+    "returns": "void"
+  },
+  "persistent_merkle_tree_node_get_left": {
+    "args": [
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_node_get_right": {
+    "args": [
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_node_get_hash": {
+    "args": [
+      "u32"
+    ],
+    "returns": "ptr"
+  },
+  "persistent_merkle_tree_node_get_state": {
+    "args": [
+      "u32"
+    ],
+    "returns": "u32"
+  },
+  "persistent_merkle_tree_node_get_node": {
+    "args": [
+      "u32",
+      "u64"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_node_get_node_at_depth": {
+    "args": [
+      "u32",
+      "u8",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_node_get_nodes_at_depth": {
+    "args": [
+      "u32",
+      "u8",
+      "u32",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_node_set_node": {
+    "args": [
+      "u32",
       "u64",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_node_set_node_at_depth": {
+    "args": [
+      "u32",
+      "u8",
+      "u32",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_node_set_nodes_at_depth": {
+    "args": [
+      "u32",
+      "u8",
       "ptr",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_node_set_nodes": {
+    "args": [
+      "u32",
+      "ptr",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_node_fill_to_depth": {
+    "args": [
+      "u32",
+      "u8",
+      "bool"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_node_fill_to_length": {
+    "args": [
+      "u32",
+      "u8",
       "u32",
       "bool"
     ],
     "returns": "i32"
   },
-  "bytes_to_u64": {
+  "persistent_merkle_tree_node_fill_with_contents": {
     "args": [
       "ptr",
       "u32",
+      "u8",
       "bool"
     ],
-    "returns": "u64"
+    "returns": "i32"
   },
-  "bytes_to_u64_fast": {
+  "secretKeyFromBytes": {
     "args": [
+      "ptr",
+      "ptr",
+      "u32"
+    ],
+    "returns": "u32"
+  },
+  "secretKeyToBytes": {
+    "args": [
+      "ptr",
+      "ptr"
+    ],
+    "returns": "void"
+  },
+  "secretKeyKeyGen": {
+    "args": [
+      "ptr",
+      "ptr",
+      "u32"
+    ],
+    "returns": "u32"
+  },
+  "secretKeyKeyGenV3": {
+    "args": [
+      "ptr",
+      "ptr",
+      "u32"
+    ],
+    "returns": "u32"
+  },
+  "secretKeyKeyGenV45": {
+    "args": [
+      "ptr",
       "ptr",
       "u32",
-      "bool"
+      "ptr",
+      "u32"
     ],
-    "returns": "ptr"
+    "returns": "u32"
   },
-  "hashtree_hash_": {
+  "secretKeyDeriveMasterEip2333": {
     "args": [
       "ptr",
       "ptr",
-      "u64"
+      "u32"
     ],
-    "returns": "i32"
+    "returns": "u32"
   },
-  "hashtree_digest64": {
-    "args": [
-      "ptr",
-      "ptr"
-    ],
-    "returns": "i32"
-  },
-  "hashtree_digest_2_bytes32": {
+  "secretKeyDeriveChildEip2333": {
     "args": [
       "ptr",
       "ptr",
-      "ptr"
+      "u32"
     ],
-    "returns": "i32"
+    "returns": "u32"
   },
-  "lmdb_set_len_ptr": {
+  "secretKeyToPublicKey": {
     "args": [
+      "ptr",
       "ptr"
     ],
     "returns": "void"
   },
-  "lmdb_set_err_ptr": {
+  "secretKeySign": {
     "args": [
+      "ptr",
+      "ptr",
+      "ptr",
+      "u32"
+    ],
+    "returns": "u32"
+  },
+  "publicKeyFromBytes": {
+    "args": [
+      "ptr",
+      "ptr",
+      "u32"
+    ],
+    "returns": "u32"
+  },
+  "publicKeyToBytes": {
+    "args": [
+      "ptr",
       "ptr"
     ],
     "returns": "void"
   },
-  "lmdb_environment_init": {
+  "publicKeyValidate": {
     "args": [
+      "ptr"
+    ],
+    "returns": "u32"
+  },
+  "aggregateWithRandomness": {
+    "args": [
+      "ptr",
       "ptr",
       "u32",
-      "u64"
-    ],
-    "returns": "ptr"
-  },
-  "lmdb_environment_deinit": {
-    "args": [
-      "u64"
-    ],
-    "returns": "void"
-  },
-  "lmdb_transaction_begin": {
-    "args": [
       "ptr",
-      "bool"
-    ],
-    "returns": "ptr"
-  },
-  "lmdb_transaction_abort": {
-    "args": [
-      "u64"
-    ],
-    "returns": "void"
-  },
-  "lmdb_transaction_commit": {
-    "args": [
-      "u64"
-    ],
-    "returns": "i32"
-  },
-  "lmdb_database_open": {
-    "args": [
-      "u64",
       "ptr",
-      "bool",
       "bool",
       "bool"
     ],
     "returns": "u32"
   },
-  "lmdb_database_get": {
+  "publicKeyAggregateWithRandomness": {
     "args": [
       "ptr",
+      "ptr",
       "u32",
+      "bool"
+    ],
+    "returns": "u32"
+  },
+  "publicKeyAggregate": {
+    "args": [
+      "ptr",
+      "ptr",
+      "u32",
+      "bool"
+    ],
+    "returns": "u32"
+  },
+  "signatureFromBytes": {
+    "args": [
+      "ptr",
       "ptr",
       "u32"
     ],
-    "returns": "ptr"
+    "returns": "u32"
   },
-  "lmdb_database_set": {
-    "args": [
-      "u64",
-      "u32",
-      "ptr",
-      "u32",
-      "ptr",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "lmdb_database_delete": {
-    "args": [
-      "u64",
-      "u32",
-      "ptr",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "lmdb_database_cursor": {
+  "signatureToBytes": {
     "args": [
       "ptr",
-      "u32"
-    ],
-    "returns": "ptr"
-  },
-  "lmdb_cursor_deinit": {
-    "args": [
-      "u64"
+      "ptr"
     ],
     "returns": "void"
   },
-  "lmdb_cursor_get_current_key": {
+  "signatureValidate": {
     "args": [
-      "ptr"
-    ],
-    "returns": "ptr"
-  },
-  "lmdb_cursor_get_current_value": {
-    "args": [
-      "ptr"
-    ],
-    "returns": "ptr"
-  },
-  "lmdb_cursor_set_current_value": {
-    "args": [
-      "u64",
       "ptr",
-      "u32"
+      "bool"
     ],
-    "returns": "i32"
+    "returns": "u32"
   },
-  "lmdb_cursor_delete_current_key": {
+  "signatureVerify": {
     "args": [
-      "u64"
-    ],
-    "returns": "i32"
-  },
-  "lmdb_cursor_go_to_next": {
-    "args": [
-      "ptr"
-    ],
-    "returns": "ptr"
-  },
-  "lmdb_cursor_go_to_previous": {
-    "args": [
-      "ptr"
-    ],
-    "returns": "ptr"
-  },
-  "lmdb_cursor_go_to_first": {
-    "args": [
-      "ptr"
-    ],
-    "returns": "ptr"
-  },
-  "lmdb_cursor_go_to_last": {
-    "args": [
-      "ptr"
-    ],
-    "returns": "ptr"
-  },
-  "lmdb_cursor_go_to_key": {
-    "args": [
-      "u64",
       "ptr",
-      "u32"
+      "bool",
+      "ptr",
+      "u32",
+      "ptr",
+      "bool"
     ],
-    "returns": "i32"
+    "returns": "u32"
   },
-  "lmdb_cursor_seek": {
+  "signatureAggregateVerify": {
     "args": [
+      "ptr",
+      "bool",
+      "ptr",
+      "ptr",
+      "u32",
+      "bool"
+    ],
+    "returns": "u32"
+  },
+  "signatureFastAggregateVerify": {
+    "args": [
+      "ptr",
+      "bool",
       "ptr",
       "ptr",
       "u32"
     ],
-    "returns": "ptr"
+    "returns": "u32"
+  },
+  "signatureVerifyMultipleAggregateSignatures": {
+    "args": [
+      "u32",
+      "ptr",
+      "ptr",
+      "bool",
+      "ptr",
+      "bool"
+    ],
+    "returns": "u32"
+  },
+  "signatureAggregateWithRandomness": {
+    "args": [
+      "ptr",
+      "ptr",
+      "u32",
+      "bool"
+    ],
+    "returns": "u32"
+  },
+  "signatureAggregate": {
+    "args": [
+      "ptr",
+      "ptr",
+      "u32",
+      "bool"
+    ],
+    "returns": "u32"
   },
   "leveldb_get_len_ptr": {
     "args": [],
@@ -403,151 +547,214 @@ const fns = {
     ],
     "returns": "cstring"
   },
-  "persistent_merkle_tree_pool_init": {
+  "u64_to_bytes": {
     "args": [
-      "u32"
+      "u64",
+      "ptr",
+      "u32",
+      "bool"
     ],
     "returns": "i32"
   },
-  "persistent_merkle_tree_pool_deinit": {
-    "args": [],
+  "bytes_to_u64": {
+    "args": [
+      "ptr",
+      "u32",
+      "bool"
+    ],
+    "returns": "u64"
+  },
+  "bytes_to_u64_fast": {
+    "args": [
+      "ptr",
+      "u32",
+      "bool"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_set_len_ptr": {
+    "args": [
+      "ptr"
+    ],
     "returns": "void"
   },
-  "persistent_merkle_tree_pool_create_leaf": {
+  "lmdb_set_err_ptr": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "void"
+  },
+  "lmdb_environment_init": {
+    "args": [
+      "ptr",
+      "u32",
+      "u64"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_environment_deinit": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "lmdb_transaction_begin": {
     "args": [
       "ptr",
       "bool"
     ],
-    "returns": "i32"
+    "returns": "ptr"
   },
-  "persistent_merkle_tree_pool_create_branch": {
+  "lmdb_transaction_abort": {
     "args": [
-      "u32",
-      "u32",
-      "bool"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_pool_ref": {
-    "args": [
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_pool_unref": {
-    "args": [
-      "u32"
+      "u64"
     ],
     "returns": "void"
   },
-  "persistent_merkle_tree_node_get_left": {
+  "lmdb_transaction_commit": {
     "args": [
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_node_get_right": {
-    "args": [
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_node_get_hash": {
-    "args": [
-      "u32"
-    ],
-    "returns": "ptr"
-  },
-  "persistent_merkle_tree_node_get_state": {
-    "args": [
-      "u32"
-    ],
-    "returns": "u32"
-  },
-  "persistent_merkle_tree_node_get_node": {
-    "args": [
-      "u32",
       "u64"
     ],
     "returns": "i32"
   },
-  "persistent_merkle_tree_node_get_node_at_depth": {
+  "lmdb_database_open": {
     "args": [
-      "u32",
-      "u8",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_node_get_nodes_at_depth": {
-    "args": [
-      "u32",
-      "u8",
-      "u32",
-      "ptr",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_node_set_node": {
-    "args": [
-      "u32",
       "u64",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_node_set_node_at_depth": {
-    "args": [
-      "u32",
-      "u8",
-      "u32",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_node_set_nodes_at_depth": {
-    "args": [
-      "u32",
-      "u8",
       "ptr",
-      "ptr",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_node_set_nodes": {
-    "args": [
-      "u32",
-      "ptr",
-      "ptr",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_node_fill_to_depth": {
-    "args": [
-      "u32",
-      "u8",
+      "bool",
+      "bool",
       "bool"
     ],
-    "returns": "i32"
+    "returns": "u32"
   },
-  "persistent_merkle_tree_node_fill_to_length": {
-    "args": [
-      "u32",
-      "u8",
-      "u32",
-      "bool"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_node_fill_with_contents": {
+  "lmdb_database_get": {
     "args": [
       "ptr",
       "u32",
-      "u8",
-      "bool"
+      "ptr",
+      "u32"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_database_set": {
+    "args": [
+      "u64",
+      "u32",
+      "ptr",
+      "u32",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "lmdb_database_delete": {
+    "args": [
+      "u64",
+      "u32",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "lmdb_database_cursor": {
+    "args": [
+      "ptr",
+      "u32"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_cursor_deinit": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "lmdb_cursor_get_current_key": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_cursor_get_current_value": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_cursor_set_current_value": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "lmdb_cursor_delete_current_key": {
+    "args": [
+      "u64"
+    ],
+    "returns": "i32"
+  },
+  "lmdb_cursor_go_to_next": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_cursor_go_to_previous": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_cursor_go_to_first": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_cursor_go_to_last": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_cursor_go_to_key": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "lmdb_cursor_seek": {
+    "args": [
+      "ptr",
+      "ptr",
+      "u32"
+    ],
+    "returns": "ptr"
+  },
+  "hashtree_hash_": {
+    "args": [
+      "ptr",
+      "ptr",
+      "u64"
+    ],
+    "returns": "i32"
+  },
+  "hashtree_digest64": {
+    "args": [
+      "ptr",
+      "ptr"
+    ],
+    "returns": "i32"
+  },
+  "hashtree_digest_2_bytes32": {
+    "args": [
+      "ptr",
+      "ptr",
+      "ptr"
     ],
     "returns": "i32"
   }
