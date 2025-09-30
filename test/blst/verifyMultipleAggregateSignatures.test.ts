@@ -20,17 +20,6 @@ describe("Verify Multiple Aggregate Signatures", () => {
 			sets[0] = {...sets[0], sig: randomSet.sig};
 			expect(verifyMultipleAggregateSignatures(sets)).toBeFalse();
 		});
-
-		// TODO: benchmark
-		// it("benchmark verifyMultipleAggregateSignatures()", () => {
-		//   let now = Date.now();
-		//   const sets = getTestSets(128);
-		//   for (let i = 0; i < 1_000; i++) {
-		//     verifyMultipleAggregateSignatures(sets);
-		//   }
-		//   now = Date.now() - now;
-		//   console.log("verifyMultipleAggregateSignatures", now / 1000);
-		// });
 	});
 });
 
