@@ -8,7 +8,6 @@ describe("Signature", () => {
 		expect(Signature).toBeFunction();
 	});
 	describe("constructor", () => {
-		// skip "should have a private new Signature()"
 		describe("Signature.fromBytes()", () => {
 			it("should take compressed byte arrays", () => {
 				expectEqualHex(Signature.fromBytes(validSignature.compressed).toBytes(), validSignature.compressed);
@@ -59,7 +58,3 @@ describe("Signature", () => {
 	});
 });
 
-afterAll(() => {
-	// TODO: enable this on all tests cause "segmentation fault" on CI
-	// closeBinding();
-});

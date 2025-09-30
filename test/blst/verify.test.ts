@@ -68,7 +68,3 @@ describe("Fast Aggregate Verify", () => {
 	});
 });
 
-afterAll(() => {
-	// TODO: enable this on all tests cause "segmentation fault" on CI
-	// closeBinding();
-});
