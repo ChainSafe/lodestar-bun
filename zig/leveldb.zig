@@ -5,6 +5,8 @@ const toErrCode = @import("common.zig").toErrCode;
 threadlocal var len: u32 = undefined;
 threadlocal var err: i32 = undefined;
 
+const allocator = std.heap.c_allocator;
+
 // bun-ffi-z: leveldb_get_len_ptr () ptr
 pub export fn leveldb_get_len_ptr() u64 {
     return @intFromPtr(&len);
@@ -87,6 +89,85 @@ pub export fn leveldb_db_get(db_ptr: u64, key: [*c]const u8, key_len: u32) u64 {
     };
     len = @intCast(value.len);
     return @intFromPtr(value.ptr);
+}
+
+// Single value representation when returning many values
+pub const ResultRef = extern struct {
+    // Pointer to the value allocated with malloc within LevelDB
+    ptr: u64,
+    // Length of the item returned from the leveldb
+    len: u32,
+    // Define if the result is empty or does not exists
+    // To cross platform C ABI compatibility we are using u8 instead of bool
+    found: u8,
+};
+
+pub export fn leveldb_get_result_ref_byte_size() u32 {
+    return @intCast(@sizeOf(ResultRef));
+}
+
+pub export fn leveldb_db_result_ref_free(result_ptr: u64, count: u32, clean_values: bool) void {
+    if (result_ptr == 0) return;
+    var results: [*]ResultRef = @ptrFromInt(result_ptr);
+
+    if (clean_values) {
+        var i: u32 = 0;
+        while (i < count) : (i += 1) {
+            if (results[i].found == 1 and results[i].ptr != 0) {
+                leveldb.free(@ptrFromInt(results[i].ptr));
+            }
+        }
+    }
+
+    allocator.free(results[0..count]);
+}
+
+// bun-ffi-z: leveldb_db_get_many (u64, ptr, ptr, u32) ptr
+pub export fn leveldb_db_get_many(db_ptr: u64, keys_ptrs: [*c]const [*c]const u8, key_lens: [*c]const u32, count: u32) u64 {
+    // Reset the local thread references
+    err = 0;
+    len = 0;
+
+    if (keys_ptrs == null or key_lens == null or count == 0) {
+        return 0;
+    }
+
+    var db = leveldb.DB{ .inner = @ptrFromInt(db_ptr) };
+    var options = leveldb.ReadOptions.create();
+    defer options.destroy();
+
+    // Initialize the result array for th length of the requested keys
+    var results = allocator.alloc(ResultRef, count) catch {
+        err = toErrCode(error.OutOfMemory);
+        return 0;
+    };
+    // Initialize all results to zeros meant not-found
+    @memset(results, std.mem.zeroes(ResultRef));
+
+    // If function encounter an error free up all memory
+    errdefer leveldb_db_result_ref_free(results, count, true);
+
+    var i: u32 = 0;
+    while (i < count) : (i += 1) {
+        const kptr: [*]const u8 = keys_ptrs[i];
+        const klen: u32 = key_lens[i];
+
+        const maybe_val = db.get(&options, kptr[0..klen]) catch |e| {
+            err = toErrCode(e);
+            return 0;
+        };
+
+        if (maybe_val) |val| {
+            results[i] = .{
+                .ptr = @intFromPtr(val.ptr),
+                .len = @intCast(val.len),
+                .found = 1,
+            };
+        }
+    }
+
+    len = count;
+    return @intFromPtr(results.ptr);
 }
 
 pub export fn leveldb_db_delete(db_ptr: u64, key: [*c]const u8, key_len: u32) i32 {
