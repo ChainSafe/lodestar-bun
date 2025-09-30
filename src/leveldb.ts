@@ -122,7 +122,7 @@ export function dbGetMany(db: DB, keys: Uint8Array[]): (Uint8Array | null)[] | n
     }
   }
 
-  // Free native value buffers + result array
+  // Free allocated memory of result array and leveldb values
   binding.leveldb_db_result_ref_free(resultsPtr, count, true);
 
   return result;
