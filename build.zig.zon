@@ -35,8 +35,12 @@
             .hash = "blst_z-0.0.0-td3FNITDAABergevSWDuqgbvCHqdS2o3PJq9jH2jwcFA",
         },
         .blst = .{
-            .url = "git+https://github.com/Chainsafe/blst-z#2bb539542f63c3841f87ea227eb8729eb5fb4aab",
-            .hash = "blst_z-0.0.0-td3FNITDAABergevSWDuqgbvCHqdS2o3PJq9jH2jwcFA",
+            .url = "git+https://github.com/ChainSafe/blst.git#4d5bbcc0dd06f80b76fb124420c899570a4dd1e4",
+            .hash = "blst_zig-0.0.0-cnAxzogIAAB8nH6TSAGbUtZ6scv2F64aVlcuJabg5HWi",
+        },
+        .blst_zig = .{
+            .url = "git+https://github.com/ChainSafe/blst.git#4d5bbcc0dd06f80b76fb124420c899570a4dd1e4",
+            .hash = "blst_zig-0.0.0-cnAxzogIAAB8nH6TSAGbUtZ6scv2F64aVlcuJabg5HWi",
         },
     },
     .paths = .{ "build.zig", "build.zig.zon", "zig" },

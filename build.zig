@@ -36,6 +36,11 @@ pub fn build(b: *std.Build) void {
         .target = target,
     });
 
+    const dep_blst_z = b.dependency("blst_z", .{
+        .optimize = optimize,
+        .target = target,
+    });
+
     const dep_blst = b.dependency("blst", .{
         .optimize = optimize,
         .target = target,
@@ -84,4 +89,6 @@ pub fn build(b: *std.Build) void {
     module_lodestar_z_bun.addImport("state_transition", dep_state_transition.module("state_transition"));
     module_lodestar_z_bun.addImport("blst", dep_blst.module("blst"));
     module_lodestar_z_bun.addImport("ssz:persistent_merkle_tree", dep_ssz.module("persistent_merkle_tree"));
+
+    _ = dep_blst_z;
 }

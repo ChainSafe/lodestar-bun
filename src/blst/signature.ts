@@ -1,5 +1,5 @@
 import type {Pointer} from "bun:ffi";
-import {binding} from "./binding.js";
+import {binding} from "../binding.js";
 import {msgsU8, pksU8, writeMessages, writePublicKeys} from "./buffer.js";
 import {SIGNATURE_LENGTH, SIGNATURE_LENGTH_COMPRESSED} from "./const.js";
 import type {PublicKey} from "./publicKey.js";

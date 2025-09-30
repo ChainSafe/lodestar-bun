@@ -1,5 +1,5 @@
 import type {Pointer} from "bun:ffi";
-import {binding} from "./binding.js";
+import {binding} from "../binding.js";
 import {PUBLIC_KEY_SIZE, SECRET_KEY_SIZE, SIGNATURE_LENGTH} from "./const.js";
 import {PublicKey} from "./publicKey.js";
 import {Signature} from "./signature.js";

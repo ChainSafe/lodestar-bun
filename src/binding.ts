@@ -195,6 +195,213 @@ const fns = {
     ],
     "returns": "i32"
   },
+  "secretKeyFromBytes": {
+    "args": [
+      "ptr",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "secretKeyToBytes": {
+    "args": [
+      "ptr",
+      "ptr"
+    ],
+    "returns": "void"
+  },
+  "secretKeyKeyGen": {
+    "args": [
+      "ptr",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "secretKeyKeyGenV3": {
+    "args": [
+      "ptr",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "secretKeyKeyGenV45": {
+    "args": [
+      "ptr",
+      "ptr",
+      "u32",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "secretKeyDeriveMasterEip2333": {
+    "args": [
+      "ptr",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "secretKeyDeriveChildEip2333": {
+    "args": [
+      "ptr",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "secretKeyToPublicKey": {
+    "args": [
+      "ptr",
+      "ptr"
+    ],
+    "returns": "void"
+  },
+  "secretKeySign": {
+    "args": [
+      "ptr",
+      "ptr",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "publicKeyFromBytes": {
+    "args": [
+      "ptr",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "publicKeyToBytes": {
+    "args": [
+      "ptr",
+      "ptr"
+    ],
+    "returns": "void"
+  },
+  "publicKeyValidate": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "i32"
+  },
+  "aggregateWithRandomness": {
+    "args": [
+      "ptr",
+      "ptr",
+      "u32",
+      "ptr",
+      "ptr",
+      "bool",
+      "bool"
+    ],
+    "returns": "i32"
+  },
+  "publicKeyAggregateWithRandomness": {
+    "args": [
+      "ptr",
+      "ptr",
+      "u32",
+      "bool"
+    ],
+    "returns": "i32"
+  },
+  "publicKeyAggregate": {
+    "args": [
+      "ptr",
+      "ptr",
+      "u32",
+      "bool"
+    ],
+    "returns": "i32"
+  },
+  "signatureFromBytes": {
+    "args": [
+      "ptr",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "signatureToBytes": {
+    "args": [
+      "ptr",
+      "ptr"
+    ],
+    "returns": "void"
+  },
+  "signatureValidate": {
+    "args": [
+      "ptr",
+      "bool"
+    ],
+    "returns": "i32"
+  },
+  "signatureVerify": {
+    "args": [
+      "ptr",
+      "bool",
+      "ptr",
+      "u32",
+      "ptr",
+      "bool"
+    ],
+    "returns": "i32"
+  },
+  "signatureAggregateVerify": {
+    "args": [
+      "ptr",
+      "bool",
+      "ptr",
+      "ptr",
+      "u32",
+      "bool"
+    ],
+    "returns": "i32"
+  },
+  "signatureFastAggregateVerify": {
+    "args": [
+      "ptr",
+      "bool",
+      "ptr",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "signatureVerifyMultipleAggregateSignatures": {
+    "args": [
+      "u32",
+      "ptr",
+      "ptr",
+      "bool",
+      "ptr",
+      "bool"
+    ],
+    "returns": "i32"
+  },
+  "signatureAggregateWithRandomness": {
+    "args": [
+      "ptr",
+      "ptr",
+      "u32",
+      "bool"
+    ],
+    "returns": "i32"
+  },
+  "signatureAggregate": {
+    "args": [
+      "ptr",
+      "ptr",
+      "u32",
+      "bool"
+    ],
+    "returns": "i32"
+  },
   "createPubkeyIndexMap": {
     "args": [],
     "returns": "u64"

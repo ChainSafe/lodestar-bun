@@ -1,4 +1,4 @@
-import {binding} from "./binding.js";
+import {binding} from "../binding.js";
 import {msgsU8, writeMessages} from "./buffer.ts";
 import {MAX_SIGNATURE_SETS_PER_JOB} from "./const.js";
 import type {PublicKey} from "./publicKey.js";

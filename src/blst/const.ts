@@ -1,5 +1,3 @@
-import {binding} from "./binding.js";
-
 export const SECRET_KEY_SIZE = 32;
 export const PUBLIC_KEY_SIZE = 96;
 export const PUBLIC_KEY_COMPRESS_SIZE = 48;
