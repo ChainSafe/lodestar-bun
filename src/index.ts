@@ -4,4 +4,4 @@ export * as leveldb from "./leveldb.ts";
 export * as lmdb from "./lmdb.ts";
 export * as persistentMerkleTree from "./persistent_merkle_tree.ts";
 export * as snappy from "./snappy.ts";
-export * as blst from "./blst/index.ts";
+export * as blst from "./blst.ts";

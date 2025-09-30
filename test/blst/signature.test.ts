@@ -1,6 +1,5 @@
 import {afterAll, describe, expect, it} from "bun:test";
-import {SIGNATURE_LENGTH_COMPRESSED, SIGNATURE_LENGTH_UNCOMPRESSED} from "../../src/blst.ts";
-import {SecretKey, Signature} from "../../src/index.ts";
+import {SecretKey, Signature, SIGNATURE_LENGTH_COMPRESSED, SIGNATURE_LENGTH_UNCOMPRESSED} from "../../src/blst.ts";
 import {KEY_MATERIAL, invalidInputs, validSignature} from "./__fixtures__/index.js";
 import {expectEqualHex, expectNotEqualHex, sullyUint8Array} from "./utils/helpers.js";
 

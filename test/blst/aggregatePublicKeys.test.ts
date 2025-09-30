@@ -1,5 +1,5 @@
 import {describe, expect, it} from "bun:test";
-import {PublicKey, aggregatePublicKeys} from "../../src/blst/index.ts";
+import {PublicKey, aggregatePublicKeys} from "../../src/blst.ts";
 import {badPublicKey} from "./__fixtures__/index.js";
 import {isEqualBytes} from "./utils/helpers.js";
 import {getTestSets} from "./utils/testSets.js";
