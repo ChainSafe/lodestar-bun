@@ -111,8 +111,7 @@ export function runInstanceTestCases<InstanceType extends {[key: string]: any}>(
 				} else if (res.serialize || res instanceof Uint8Array) {
 					expectEqualHex(res, testCase.res);
 				} else {
-					// TODO: find equivalent of chai's deep equal
-					expect(res).toBe(testCase.res);
+					expect(res).toEqual(testCase.res);
 				}
 			});
 		}
