@@ -39,6 +39,7 @@ export function aggregateWithRandomness(sets: Array<PkAndSerializedSig>): PkAndS
 	const res = binding.aggregateWithRandomness(pkOut.ptr, sigOut.ptr, sets.length, pksRef, sigsRef, false, false);
 
 	if (res) {
+		throwErr(res);
 		throw new Error("Failed to aggregate with randomness res = " + res);
 	}
 
