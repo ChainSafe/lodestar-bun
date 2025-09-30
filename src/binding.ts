@@ -159,7 +159,7 @@ const fns = {
       "ptr",
       "u32"
     ],
-    "returns": "u32"
+    "returns": "i32"
   },
   "secretKeyToBytes": {
     "args": [
@@ -174,7 +174,7 @@ const fns = {
       "ptr",
       "u32"
     ],
-    "returns": "u32"
+    "returns": "i32"
   },
   "secretKeyKeyGenV3": {
     "args": [
@@ -182,7 +182,7 @@ const fns = {
       "ptr",
       "u32"
     ],
-    "returns": "u32"
+    "returns": "i32"
   },
   "secretKeyKeyGenV45": {
     "args": [
@@ -192,7 +192,7 @@ const fns = {
       "ptr",
       "u32"
     ],
-    "returns": "u32"
+    "returns": "i32"
   },
   "secretKeyDeriveMasterEip2333": {
     "args": [
@@ -200,7 +200,7 @@ const fns = {
       "ptr",
       "u32"
     ],
-    "returns": "u32"
+    "returns": "i32"
   },
   "secretKeyDeriveChildEip2333": {
     "args": [
@@ -208,7 +208,7 @@ const fns = {
       "ptr",
       "u32"
     ],
-    "returns": "u32"
+    "returns": "i32"
   },
   "secretKeyToPublicKey": {
     "args": [
@@ -224,7 +224,7 @@ const fns = {
       "ptr",
       "u32"
     ],
-    "returns": "u32"
+    "returns": "i32"
   },
   "publicKeyFromBytes": {
     "args": [
@@ -232,7 +232,7 @@ const fns = {
       "ptr",
       "u32"
     ],
-    "returns": "u32"
+    "returns": "i32"
   },
   "publicKeyToBytes": {
     "args": [
@@ -245,7 +245,7 @@ const fns = {
     "args": [
       "ptr"
     ],
-    "returns": "u32"
+    "returns": "i32"
   },
   "aggregateWithRandomness": {
     "args": [
@@ -257,7 +257,7 @@ const fns = {
       "bool",
       "bool"
     ],
-    "returns": "u32"
+    "returns": "i32"
   },
   "publicKeyAggregateWithRandomness": {
     "args": [
@@ -266,7 +266,7 @@ const fns = {
       "u32",
       "bool"
     ],
-    "returns": "u32"
+    "returns": "i32"
   },
   "publicKeyAggregate": {
     "args": [
@@ -275,7 +275,7 @@ const fns = {
       "u32",
       "bool"
     ],
-    "returns": "u32"
+    "returns": "i32"
   },
   "signatureFromBytes": {
     "args": [
@@ -283,7 +283,7 @@ const fns = {
       "ptr",
       "u32"
     ],
-    "returns": "u32"
+    "returns": "i32"
   },
   "signatureToBytes": {
     "args": [
@@ -297,7 +297,7 @@ const fns = {
       "ptr",
       "bool"
     ],
-    "returns": "u32"
+    "returns": "i32"
   },
   "signatureVerify": {
     "args": [
@@ -308,7 +308,7 @@ const fns = {
       "ptr",
       "bool"
     ],
-    "returns": "u32"
+    "returns": "i32"
   },
   "signatureAggregateVerify": {
     "args": [
@@ -319,7 +319,7 @@ const fns = {
       "u32",
       "bool"
     ],
-    "returns": "u32"
+    "returns": "i32"
   },
   "signatureFastAggregateVerify": {
     "args": [
@@ -329,7 +329,7 @@ const fns = {
       "ptr",
       "u32"
     ],
-    "returns": "u32"
+    "returns": "i32"
   },
   "signatureVerifyMultipleAggregateSignatures": {
     "args": [
@@ -340,7 +340,7 @@ const fns = {
       "ptr",
       "bool"
     ],
-    "returns": "u32"
+    "returns": "i32"
   },
   "signatureAggregateWithRandomness": {
     "args": [
@@ -349,7 +349,7 @@ const fns = {
       "u32",
       "bool"
     ],
-    "returns": "u32"
+    "returns": "i32"
   },
   "signatureAggregate": {
     "args": [
@@ -358,7 +358,7 @@ const fns = {
       "u32",
       "bool"
     ],
-    "returns": "u32"
+    "returns": "i32"
   },
   "leveldb_get_len_ptr": {
     "args": [],

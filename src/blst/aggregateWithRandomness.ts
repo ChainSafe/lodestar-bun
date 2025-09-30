@@ -1,5 +1,5 @@
 import {JSCallback} from "bun:ffi";
-import {binding} from "./binding.js";
+import {binding} from "../binding.js";
 import {pksU8, writePublicKeys} from "./buffer.ts";
 import {MAX_AGGREGATE_WITH_RANDOMNESS_PER_JOB, PUBLIC_KEY_SIZE, SIGNATURE_LENGTH} from "./const.js";
 import {PublicKey} from "./publicKey.js";

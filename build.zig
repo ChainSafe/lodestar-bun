@@ -14,7 +14,9 @@ pub fn build(b: *std.Build) void {
 
     const dep_ssz = b.dependency("ssz", .{});
 
-    const dep_blst = b.dependency("blst", .{});
+    const dep_blst_z = b.dependency("blst_z", .{});
+
+    // const dep_blst = b.dependency("blst", .{});
 
     const module_lodestar_z_bun = b.createModule(.{
         .root_source_file = b.path("zig/root.zig"),
@@ -55,6 +57,7 @@ pub fn build(b: *std.Build) void {
     module_lodestar_z_bun.addImport("hashtree", dep_hashtree.module("hashtree"));
     module_lodestar_z_bun.addImport("lmdb", dep_lmdb.module("lmdb"));
     module_lodestar_z_bun.addImport("leveldb", dep_leveldb.module("leveldb"));
-    module_lodestar_z_bun.addImport("blst", dep_blst.module("blst"));
+    module_lodestar_z_bun.addImport("blst", dep_blst_z.module("blst"));
+    // module_lodestar_z_bun.linkLibrary(dep_blst.artifact("blst"));
     module_lodestar_z_bun.addImport("ssz:persistent_merkle_tree", dep_ssz.module("persistent_merkle_tree"));
 }

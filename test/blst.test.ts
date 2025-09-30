@@ -1,10 +1,12 @@
-import {describe, expect, test} from "bun:test";
 
-import {Signature} from "../src/blst/index.ts";
-describe("signature", () => {
+import {afterEach, beforeEach, describe, expect, test} from "bun:test";
+import * as fs from "node:fs";
+import {Signature} from "../src/index.ts";
 
-    it("should exist", () => {
-            expect(Signature).toBeFunction();
-    });
 
+describe("Signature", () => {
+  test("should eistin", () => {
+    expect(Signature).toBeFunction();
+  })
 });
+
