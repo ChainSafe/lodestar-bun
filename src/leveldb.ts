@@ -1,4 +1,4 @@
-import {read, toArrayBuffer, type Pointer} from "bun:ffi";
+import {ptr, read, toArrayBuffer, type Pointer} from "bun:ffi";
 import {binding} from "./binding.ts";
 import {throwErr} from "./common.ts";
 
@@ -75,6 +75,57 @@ export function dbGet(db: DB, key: Uint8Array): Uint8Array | null {
   );
   binding.leveldb_free_(valuePtr);
   return value;
+}
+
+export function dbGetMany(db: DB, keys: Uint8Array[]): (Uint8Array | null)[] | null {
+  const n = keys.length;
+  if (n === 0) return [];
+
+  const keyPtrs = new BigUint64Array(n);
+  const keyLens = new Uint32Array(n);
+  for (let i = 0; i < n; i++) {
+    keyPtrs[i] = BigInt(ptr(keys[i]!));
+    keyLens[i] = keys[i]!.length;
+  }
+
+  const resultsPtr = binding.leveldb_db_get_many(
+    db,
+    ptr(keyPtrs),
+    ptr(keyLens),
+    n,
+  )
+  
+  if (resultsPtr === null) {
+    throwErr(read.i32(errPtr, 0));
+    return null;
+  }
+
+  // Count & stride
+  const count = read.u32(lenPtr);
+  const resultObjectByteSize = binding.leveldb_get_result_ref_byte_size();
+
+  const result: (Uint8Array | null)[] = new Array(count);
+
+  for (let i = 0; i < count; i++) {
+    const base = i * resultObjectByteSize;
+
+    const valPtr = read.ptr(resultsPtr, base + 0) as Pointer;
+    const len    = read.u32(resultsPtr, base + 8);
+    const found  = read.u8(resultsPtr, base + 12);
+
+    if (!found || valPtr === null || len === 0) {
+      result[i] = null;
+    } else {
+      result[i] = new Uint8Array(
+        toArrayBuffer(valPtr, 0, len).slice()
+      );
+    }
+  }
+
+  // Free native value buffers + result array
+  binding.leveldb_db_result_ref_free(resultsPtr, count, true);
+
+  return result;
 }
 
 export function dbDelete(db: DB, key: Uint8Array): void {
