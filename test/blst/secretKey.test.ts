@@ -9,7 +9,6 @@ describe("SecretKey", () => {
 	});
 
 	describe("constructors", () => {
-		// no need "should have a private constructor"
 		describe("SecretKey.fromKeygen", () => {
 			it("should create an instance from Uint8Array ikm", () => {
 				expect(SecretKey.fromKeygen(KEY_MATERIAL)).toBeInstanceOf(SecretKey);
