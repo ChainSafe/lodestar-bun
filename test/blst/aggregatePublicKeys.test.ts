@@ -3,7 +3,6 @@ import {PublicKey, aggregatePublicKeys} from "../../src/blst/index.ts";
 import {badPublicKey} from "./__fixtures__/index.js";
 import {isEqualBytes} from "./utils/helpers.js";
 import {getTestSets} from "./utils/testSets.js";
-import {type CodeError} from "./utils/types.js";
 
 describe("Aggregate Public Keys", () => {
 	const sets = getTestSets(10);

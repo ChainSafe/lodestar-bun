@@ -1,6 +1,19 @@
 // import {expect} from "chai";
 import {expect, it} from "bun:test";
-import type {BufferLike, InstanceTestCases} from "./types.js";
+
+type BufferLike = string | Uint8Array | Buffer | bindings.PublicKey | bindings.Signature;
+
+/**
+ * Enforce tests for all instance methods
+ */
+type InstanceTestCases<InstanceType extends {[key: string]: any}> = {
+	[P in keyof Omit<InstanceType, "type">]: {
+		id?: string;
+		instance?: InstanceType;
+		args: Parameters<InstanceType[P]>;
+		res?: ReturnType<InstanceType[P]>;
+	}[];
+};
 
 function toHexString(bytes: BufferLike): string {
 	if (typeof bytes === "string") return bytes;
