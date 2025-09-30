@@ -9,8 +9,6 @@ describe("PublicKey", () => {
 	});
 
 	describe("constructors", () => {
-		// no need "should have a private constructor"
-
 		describe("deserialize", () => {
 			it("should only take 48 or 96 bytes", () => {
 				expect(() => PublicKey.fromBytes(Buffer.alloc(32, "*"))).toThrow("Invalid encoding");
