@@ -20,11 +20,8 @@
         .state_transition = .{
             .url = "git+https://github.com/chainsafe/state-transition-z#22cd4532933de1cd2d0df299e52e6bc582e5a1c0",
         },
-        .blst_z = .{
-            .url = "git+https://github.com/Chainsafe/blst-z#2bb539542f63c3841f87ea227eb8729eb5fb4aab",
-        },
         .blst = .{
-            .url = "git+https://github.com/ChainSafe/blst.git#4d5bbcc0dd06f80b76fb124420c899570a4dd1e4",
+            .url = "git+https://github.com/Chainsafe/blst-z#2bb539542f63c3841f87ea227eb8729eb5fb4aab",
         },
     },
     .fingerprint = 0xed854bdae2354180,
@@ -38,9 +35,6 @@
         .lodestar_z_bun = .{
             .root_module = .{
                 .root_source_file = "zig/root.zig",
-                .libraries = .{
-                    .blst,
-                },
                 .imports = .{
                     .hashtree,
                     .lmdb,
