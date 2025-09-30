@@ -34,7 +34,3 @@ describe("Verify Multiple Aggregate Signatures", () => {
 	});
 });
 
-afterAll(() => {
-	// TODO: enable this on all tests cause "segmentation fault" on CI
-	// closeBinding();
-});

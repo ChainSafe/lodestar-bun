@@ -1,4 +1,3 @@
-// import {expect} from "chai";
 import {expect, it} from "bun:test";
 
 type BufferLike = string | Uint8Array | Buffer | bindings.PublicKey | bindings.Signature;
@@ -19,7 +18,6 @@ function toHexString(bytes: BufferLike): string {
 	if (typeof bytes === "string") return bytes;
 	if (bytes instanceof Buffer) return bytes.toString("hex");
 	if (bytes instanceof Uint8Array) return Buffer.from(bytes).toString("hex");
-	// if (typeof bytes.toBytes === "function") return Buffer.from(bytes.toBytes()).toString("hex");
 	throw Error("toHexString only accepts BufferLike types");
 }
 
@@ -113,7 +111,6 @@ export function runInstanceTestCases<InstanceType extends {[key: string]: any}>(
 				} else if (res.serialize || res instanceof Uint8Array) {
 					expectEqualHex(res, testCase.res);
 				} else {
-					// expect(res).to.deep.equal(testCase.res);
 					// TODO: find equivalent of chai's deep equal
 					expect(res).toBe(testCase.res);
 				}
