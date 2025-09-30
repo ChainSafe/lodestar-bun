@@ -36,6 +36,11 @@ pub fn build(b: *std.Build) void {
         .target = target,
     });
 
+    const dep_blst = b.dependency("blst", .{
+        .optimize = optimize,
+        .target = target,
+    });
+
     const module_lodestar_z_bun = b.createModule(.{
         .root_source_file = b.path("zig/root.zig"),
         .target = target,
@@ -77,5 +82,6 @@ pub fn build(b: *std.Build) void {
     module_lodestar_z_bun.addImport("leveldb", dep_leveldb.module("leveldb"));
     module_lodestar_z_bun.addImport("snappy", dep_snappy.module("snappy"));
     module_lodestar_z_bun.addImport("state_transition", dep_state_transition.module("state_transition"));
+    module_lodestar_z_bun.addImport("blst", dep_blst.module("blst"));
     module_lodestar_z_bun.addImport("ssz:persistent_merkle_tree", dep_ssz.module("persistent_merkle_tree"));
 }

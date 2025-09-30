@@ -30,6 +30,14 @@
             .url = "git+https://github.com/chainsafe/state-transition-z#22cd4532933de1cd2d0df299e52e6bc582e5a1c0",
             .hash = "state_transition_z-0.0.0-BO5n4AetCADaGuua8Bx77ZefJhonyr7dma8bU1kVCz8-",
         },
+        .blst_z = .{
+            .url = "git+https://github.com/Chainsafe/blst-z#2bb539542f63c3841f87ea227eb8729eb5fb4aab",
+            .hash = "blst_z-0.0.0-td3FNITDAABergevSWDuqgbvCHqdS2o3PJq9jH2jwcFA",
+        },
+        .blst = .{
+            .url = "git+https://github.com/Chainsafe/blst-z#2bb539542f63c3841f87ea227eb8729eb5fb4aab",
+            .hash = "blst_z-0.0.0-td3FNITDAABergevSWDuqgbvCHqdS2o3PJq9jH2jwcFA",
+        },
     },
     .paths = .{ "build.zig", "build.zig.zon", "zig" },
 }

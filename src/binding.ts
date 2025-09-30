@@ -5,418 +5,11 @@ import path from "node:path";
 import { openLibrary } from "@chainsafe/bun-ffi-z";
 
 const fns = {
-  "u64_to_bytes": {
-    "args": [
-      "u64",
-      "ptr",
-      "u32",
-      "bool"
-    ],
-    "returns": "i32"
-  },
-  "bytes_to_u64": {
-    "args": [
-      "ptr",
-      "u32",
-      "bool"
-    ],
-    "returns": "u64"
-  },
-  "bytes_to_u64_fast": {
-    "args": [
-      "ptr",
-      "u32",
-      "bool"
-    ],
-    "returns": "ptr"
-  },
-  "computeProposerIndexElectra": {
-    "args": [
-      "ptr",
-      "u64",
-      "ptr",
-      "u64",
-      "ptr",
-      "u64",
-      "u64",
-      "u32",
-      "u32"
-    ],
-    "returns": "u32"
-  },
-  "computeProposerIndex": {
-    "args": [
-      "ptr",
-      "u64",
-      "ptr",
-      "u64",
-      "ptr",
-      "u64",
-      "u8",
-      "u64",
-      "u32",
-      "u32"
-    ],
-    "returns": "u32"
-  },
-  "computeSyncCommitteeIndicesElectra": {
-    "args": [
-      "ptr",
-      "u64",
-      "ptr",
-      "u64",
-      "ptr",
-      "u64",
-      "u64",
-      "u32",
-      "u32",
-      "ptr",
-      "u64"
-    ],
-    "returns": "u32"
-  },
-  "computeSyncCommitteeIndices": {
-    "args": [
-      "ptr",
-      "u64",
-      "ptr",
-      "u64",
-      "ptr",
-      "u64",
-      "u8",
-      "u64",
-      "u32",
-      "u32",
-      "ptr",
-      "u64"
-    ],
-    "returns": "u32"
-  },
-  "err_name": {
-    "args": [
-      "u16"
-    ],
-    "returns": "cstring"
-  },
-  "hashtree_hash_": {
-    "args": [
-      "ptr",
-      "ptr",
-      "u64"
-    ],
-    "returns": "i32"
-  },
-  "hashtree_digest64": {
-    "args": [
-      "ptr",
-      "ptr"
-    ],
-    "returns": "i32"
-  },
-  "hashtree_digest_2_bytes32": {
-    "args": [
-      "ptr",
-      "ptr",
-      "ptr"
-    ],
-    "returns": "i32"
-  },
-  "asyncShuffleList": {
-    "args": [
-      "ptr",
-      "u64",
-      "ptr",
-      "u64",
-      "u8"
-    ],
-    "returns": "u64"
-  },
-  "asyncUnshuffleList": {
-    "args": [
-      "ptr",
-      "u64",
-      "ptr",
-      "u64",
-      "u8"
-    ],
-    "returns": "u64"
-  },
-  "releaseAsyncResult": {
-    "args": [
-      "u64"
-    ],
-    "returns": "void"
-  },
-  "pollAsyncResult": {
-    "args": [
-      "u64"
-    ],
-    "returns": "i32"
-  },
-  "shuffleList": {
-    "args": [
-      "ptr",
-      "u64",
-      "ptr",
-      "u64",
-      "u8"
-    ],
-    "returns": "i32"
-  },
-  "unshuffleList": {
-    "args": [
-      "ptr",
-      "u64",
-      "ptr",
-      "u64",
-      "u8"
-    ],
-    "returns": "i32"
-  },
-  "doShuffleList": {
-    "args": [
-      "ptr",
-      "u64",
-      "ptr",
-      "u64",
-      "u8",
-      "bool"
-    ],
-    "returns": "i32"
-  },
-  "leveldb_get_len_ptr": {
+  "snappy_get_err_ptr": {
     "args": [],
     "returns": "ptr"
   },
-  "leveldb_get_err_ptr": {
-    "args": [],
-    "returns": "ptr"
-  },
-  "leveldb_free_": {
-    "args": [
-      "u64"
-    ],
-    "returns": "void"
-  },
-  "leveldb_db_open": {
-    "args": [
-      "ptr",
-      "bool",
-      "bool",
-      "bool",
-      "u32",
-      "i32",
-      "u32",
-      "i32"
-    ],
-    "returns": "ptr"
-  },
-  "leveldb_db_close": {
-    "args": [
-      "u64"
-    ],
-    "returns": "void"
-  },
-  "leveldb_db_destroy": {
-    "args": [
-      "ptr"
-    ],
-    "returns": "i32"
-  },
-  "leveldb_db_put": {
-    "args": [
-      "u64",
-      "ptr",
-      "u32",
-      "ptr",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "leveldb_db_get": {
-    "args": [
-      "u64",
-      "ptr",
-      "u32"
-    ],
-    "returns": "ptr"
-  },
-  "leveldb_db_delete": {
-    "args": [
-      "u64",
-      "ptr",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "leveldb_writebatch_create_": {
-    "args": [],
-    "returns": "ptr"
-  },
-  "leveldb_writebatch_destroy_": {
-    "args": [
-      "u64"
-    ],
-    "returns": "void"
-  },
-  "leveldb_writebatch_clear_": {
-    "args": [
-      "u64"
-    ],
-    "returns": "void"
-  },
-  "leveldb_writebatch_put_": {
-    "args": [
-      "u64",
-      "ptr",
-      "u32",
-      "ptr",
-      "u32"
-    ],
-    "returns": "void"
-  },
-  "leveldb_writebatch_delete_": {
-    "args": [
-      "u64",
-      "ptr",
-      "u32"
-    ],
-    "returns": "void"
-  },
-  "leveldb_writebatch_append_": {
-    "args": [
-      "u64",
-      "u64"
-    ],
-    "returns": "void"
-  },
-  "leveldb_db_write": {
-    "args": [
-      "u64",
-      "u64"
-    ],
-    "returns": "i32"
-  },
-  "leveldb_db_create_iterator": {
-    "args": [
-      "u64"
-    ],
-    "returns": "ptr"
-  },
-  "leveldb_iterator_destroy": {
-    "args": [
-      "u64"
-    ],
-    "returns": "void"
-  },
-  "leveldb_iterator_valid": {
-    "args": [
-      "u64"
-    ],
-    "returns": "bool"
-  },
-  "leveldb_iterator_seek_to_first": {
-    "args": [
-      "u64"
-    ],
-    "returns": "void"
-  },
-  "leveldb_iterator_seek_to_last": {
-    "args": [
-      "u64"
-    ],
-    "returns": "void"
-  },
-  "leveldb_iterator_seek": {
-    "args": [
-      "u64",
-      "ptr",
-      "u32"
-    ],
-    "returns": "void"
-  },
-  "leveldb_iterator_next": {
-    "args": [
-      "u64"
-    ],
-    "returns": "void"
-  },
-  "leveldb_iterator_prev": {
-    "args": [
-      "u64"
-    ],
-    "returns": "void"
-  },
-  "leveldb_iterator_key": {
-    "args": [
-      "u64"
-    ],
-    "returns": "ptr"
-  },
-  "leveldb_iterator_value": {
-    "args": [
-      "u64"
-    ],
-    "returns": "ptr"
-  },
-  "leveldb_iterator_get_error": {
-    "args": [
-      "u64"
-    ],
-    "returns": "i32"
-  },
-  "lmdb_get_len_ptr": {
-    "args": [],
-    "returns": "ptr"
-  },
-  "lmdb_get_err_ptr": {
-    "args": [],
-    "returns": "ptr"
-  },
-  "lmdb_environment_init": {
-    "args": [
-      "ptr",
-      "u32",
-      "u64"
-    ],
-    "returns": "ptr"
-  },
-  "lmdb_environment_deinit": {
-    "args": [
-      "u64"
-    ],
-    "returns": "void"
-  },
-  "lmdb_transaction_begin": {
-    "args": [
-      "ptr",
-      "bool"
-    ],
-    "returns": "ptr"
-  },
-  "lmdb_transaction_abort": {
-    "args": [
-      "u64"
-    ],
-    "returns": "void"
-  },
-  "lmdb_transaction_commit": {
-    "args": [
-      "u64"
-    ],
-    "returns": "i32"
-  },
-  "lmdb_database_open": {
-    "args": [
-      "u64",
-      "ptr",
-      "bool",
-      "bool",
-      "bool"
-    ],
-    "returns": "u32"
-  },
-  "lmdb_database_get": {
+  "snappy_compress_": {
     "args": [
       "ptr",
       "u32",
@@ -425,104 +18,34 @@ const fns = {
     ],
     "returns": "ptr"
   },
-  "lmdb_database_set": {
+  "snappy_uncompress_": {
     "args": [
-      "u64",
-      "u32",
       "ptr",
       "u32",
-      "ptr",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "lmdb_database_delete": {
-    "args": [
-      "u64",
-      "u32",
-      "ptr",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "lmdb_database_cursor": {
-    "args": [
       "ptr",
       "u32"
     ],
     "returns": "ptr"
   },
-  "lmdb_cursor_deinit": {
+  "snappy_max_compressed_length_": {
     "args": [
       "u64"
     ],
-    "returns": "void"
-  },
-  "lmdb_cursor_get_current_key": {
-    "args": [
-      "ptr"
-    ],
     "returns": "ptr"
   },
-  "lmdb_cursor_get_current_value": {
+  "snappy_uncompressed_length_": {
     "args": [
-      "ptr"
-    ],
-    "returns": "ptr"
-  },
-  "lmdb_cursor_set_current_value": {
-    "args": [
-      "u64",
-      "ptr",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "lmdb_cursor_delete_current_key": {
-    "args": [
-      "u64"
-    ],
-    "returns": "i32"
-  },
-  "lmdb_cursor_go_to_next": {
-    "args": [
-      "ptr"
-    ],
-    "returns": "ptr"
-  },
-  "lmdb_cursor_go_to_previous": {
-    "args": [
-      "ptr"
-    ],
-    "returns": "ptr"
-  },
-  "lmdb_cursor_go_to_first": {
-    "args": [
-      "ptr"
-    ],
-    "returns": "ptr"
-  },
-  "lmdb_cursor_go_to_last": {
-    "args": [
-      "ptr"
-    ],
-    "returns": "ptr"
-  },
-  "lmdb_cursor_go_to_key": {
-    "args": [
-      "u64",
-      "ptr",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "lmdb_cursor_seek": {
-    "args": [
-      "ptr",
       "ptr",
       "u32"
     ],
     "returns": "ptr"
+  },
+  "snappy_validate_compressed_buffer_": {
+    "args": [
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
   },
   "persistent_merkle_tree_pool_init": {
     "args": [
@@ -741,45 +264,522 @@ const fns = {
     ],
     "returns": "u32"
   },
-  "snappy_get_err_ptr": {
+  "computeProposerIndexElectra": {
+    "args": [
+      "ptr",
+      "u64",
+      "ptr",
+      "u64",
+      "ptr",
+      "u64",
+      "u64",
+      "u32",
+      "u32"
+    ],
+    "returns": "u32"
+  },
+  "computeProposerIndex": {
+    "args": [
+      "ptr",
+      "u64",
+      "ptr",
+      "u64",
+      "ptr",
+      "u64",
+      "u8",
+      "u64",
+      "u32",
+      "u32"
+    ],
+    "returns": "u32"
+  },
+  "computeSyncCommitteeIndicesElectra": {
+    "args": [
+      "ptr",
+      "u64",
+      "ptr",
+      "u64",
+      "ptr",
+      "u64",
+      "u64",
+      "u32",
+      "u32",
+      "ptr",
+      "u64"
+    ],
+    "returns": "u32"
+  },
+  "computeSyncCommitteeIndices": {
+    "args": [
+      "ptr",
+      "u64",
+      "ptr",
+      "u64",
+      "ptr",
+      "u64",
+      "u8",
+      "u64",
+      "u32",
+      "u32",
+      "ptr",
+      "u64"
+    ],
+    "returns": "u32"
+  },
+  "leveldb_get_len_ptr": {
     "args": [],
     "returns": "ptr"
   },
-  "snappy_compress_": {
+  "leveldb_get_err_ptr": {
+    "args": [],
+    "returns": "ptr"
+  },
+  "leveldb_free_": {
     "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "leveldb_db_open": {
+    "args": [
+      "ptr",
+      "bool",
+      "bool",
+      "bool",
+      "u32",
+      "i32",
+      "u32",
+      "i32"
+    ],
+    "returns": "ptr"
+  },
+  "leveldb_db_close": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "leveldb_db_destroy": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "i32"
+  },
+  "leveldb_db_put": {
+    "args": [
+      "u64",
       "ptr",
       "u32",
       "ptr",
       "u32"
     ],
-    "returns": "ptr"
+    "returns": "i32"
   },
-  "snappy_uncompress_": {
+  "leveldb_db_get": {
     "args": [
-      "ptr",
-      "u32",
+      "u64",
       "ptr",
       "u32"
     ],
     "returns": "ptr"
   },
-  "snappy_max_compressed_length_": {
+  "leveldb_db_delete": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "leveldb_writebatch_create_": {
+    "args": [],
+    "returns": "ptr"
+  },
+  "leveldb_writebatch_destroy_": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "leveldb_writebatch_clear_": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "leveldb_writebatch_put_": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32",
+      "ptr",
+      "u32"
+    ],
+    "returns": "void"
+  },
+  "leveldb_writebatch_delete_": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "void"
+  },
+  "leveldb_writebatch_append_": {
+    "args": [
+      "u64",
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "leveldb_db_write": {
+    "args": [
+      "u64",
+      "u64"
+    ],
+    "returns": "i32"
+  },
+  "leveldb_db_create_iterator": {
     "args": [
       "u64"
     ],
     "returns": "ptr"
   },
-  "snappy_uncompressed_length_": {
+  "leveldb_iterator_destroy": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "leveldb_iterator_valid": {
+    "args": [
+      "u64"
+    ],
+    "returns": "bool"
+  },
+  "leveldb_iterator_seek_to_first": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "leveldb_iterator_seek_to_last": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "leveldb_iterator_seek": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "void"
+  },
+  "leveldb_iterator_next": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "leveldb_iterator_prev": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "leveldb_iterator_key": {
+    "args": [
+      "u64"
+    ],
+    "returns": "ptr"
+  },
+  "leveldb_iterator_value": {
+    "args": [
+      "u64"
+    ],
+    "returns": "ptr"
+  },
+  "leveldb_iterator_get_error": {
+    "args": [
+      "u64"
+    ],
+    "returns": "i32"
+  },
+  "err_name": {
+    "args": [
+      "u16"
+    ],
+    "returns": "cstring"
+  },
+  "asyncShuffleList": {
+    "args": [
+      "ptr",
+      "u64",
+      "ptr",
+      "u64",
+      "u8"
+    ],
+    "returns": "u64"
+  },
+  "asyncUnshuffleList": {
+    "args": [
+      "ptr",
+      "u64",
+      "ptr",
+      "u64",
+      "u8"
+    ],
+    "returns": "u64"
+  },
+  "releaseAsyncResult": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "pollAsyncResult": {
+    "args": [
+      "u64"
+    ],
+    "returns": "i32"
+  },
+  "shuffleList": {
+    "args": [
+      "ptr",
+      "u64",
+      "ptr",
+      "u64",
+      "u8"
+    ],
+    "returns": "i32"
+  },
+  "unshuffleList": {
+    "args": [
+      "ptr",
+      "u64",
+      "ptr",
+      "u64",
+      "u8"
+    ],
+    "returns": "i32"
+  },
+  "doShuffleList": {
+    "args": [
+      "ptr",
+      "u64",
+      "ptr",
+      "u64",
+      "u8",
+      "bool"
+    ],
+    "returns": "i32"
+  },
+  "u64_to_bytes": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32",
+      "bool"
+    ],
+    "returns": "i32"
+  },
+  "bytes_to_u64": {
+    "args": [
+      "ptr",
+      "u32",
+      "bool"
+    ],
+    "returns": "u64"
+  },
+  "bytes_to_u64_fast": {
+    "args": [
+      "ptr",
+      "u32",
+      "bool"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_get_len_ptr": {
+    "args": [],
+    "returns": "ptr"
+  },
+  "lmdb_get_err_ptr": {
+    "args": [],
+    "returns": "ptr"
+  },
+  "lmdb_environment_init": {
+    "args": [
+      "ptr",
+      "u32",
+      "u64"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_environment_deinit": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "lmdb_transaction_begin": {
+    "args": [
+      "ptr",
+      "bool"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_transaction_abort": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "lmdb_transaction_commit": {
+    "args": [
+      "u64"
+    ],
+    "returns": "i32"
+  },
+  "lmdb_database_open": {
+    "args": [
+      "u64",
+      "ptr",
+      "bool",
+      "bool",
+      "bool"
+    ],
+    "returns": "u32"
+  },
+  "lmdb_database_get": {
+    "args": [
+      "ptr",
+      "u32",
+      "ptr",
+      "u32"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_database_set": {
+    "args": [
+      "u64",
+      "u32",
+      "ptr",
+      "u32",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "lmdb_database_delete": {
+    "args": [
+      "u64",
+      "u32",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "lmdb_database_cursor": {
     "args": [
       "ptr",
       "u32"
     ],
     "returns": "ptr"
   },
-  "snappy_validate_compressed_buffer_": {
+  "lmdb_cursor_deinit": {
     "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "lmdb_cursor_get_current_key": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_cursor_get_current_value": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_cursor_set_current_value": {
+    "args": [
+      "u64",
       "ptr",
       "u32"
+    ],
+    "returns": "i32"
+  },
+  "lmdb_cursor_delete_current_key": {
+    "args": [
+      "u64"
+    ],
+    "returns": "i32"
+  },
+  "lmdb_cursor_go_to_next": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_cursor_go_to_previous": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_cursor_go_to_first": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_cursor_go_to_last": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_cursor_go_to_key": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "lmdb_cursor_seek": {
+    "args": [
+      "ptr",
+      "ptr",
+      "u32"
+    ],
+    "returns": "ptr"
+  },
+  "hashtree_hash_": {
+    "args": [
+      "ptr",
+      "ptr",
+      "u64"
+    ],
+    "returns": "i32"
+  },
+  "hashtree_digest64": {
+    "args": [
+      "ptr",
+      "ptr"
+    ],
+    "returns": "i32"
+  },
+  "hashtree_digest_2_bytes32": {
+    "args": [
+      "ptr",
+      "ptr",
+      "ptr"
     ],
     "returns": "i32"
   }

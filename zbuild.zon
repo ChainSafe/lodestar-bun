@@ -20,6 +20,9 @@
         .state_transition = .{
             .url = "git+https://github.com/chainsafe/state-transition-z#22cd4532933de1cd2d0df299e52e6bc582e5a1c0",
         },
+        .blst = .{
+            .url = "git+https://github.com/Chainsafe/blst-z#2bb539542f63c3841f87ea227eb8729eb5fb4aab",
+        },
     },
     .fingerprint = 0xed854bdae2354180,
     .minimum_zig_version = "0.14.1",
@@ -38,6 +41,7 @@
                     .leveldb,
                     .snappy,
                     "state_transition",
+                    .blst,
                     "ssz:persistent_merkle_tree",
                 },
                 .pic = true,
