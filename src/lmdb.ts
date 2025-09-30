@@ -22,7 +22,7 @@ export type Environment = number & {["lmdb_environment"]: never};
  * @returns The initialized environment handle.
  */
 export function environmentInit(path: string, options: { mapSize?: number; maxDbs?: number } = {}): Environment {
-  const env = binding.lmdb_environment_init(textEncoder.encode(path), options.maxDbs ?? 64, options.mapSize ?? 1024 * 1024 * 1024);
+  const env = binding.lmdb_environment_init(textEncoder.encode(path + "\0"), options.maxDbs ?? 64, options.mapSize ?? 1024 * 1024 * 1024);
   if (env === null) {
     throwErr(errBuf[0] as number);
   }
@@ -89,8 +89,8 @@ export type Database = number & {["lmdb_database"]: never};
  * @param options.reverseKey Whether the database uses reverse keys. Default is false.
  * @returns The opened database handle.
  */
-export function databaseOpen(txn: Transaction, name: string, options: { create?: boolean, integerKey?: boolean, reverseKey?: boolean } = { create: false, integerKey: false, reverseKey: false} ): Database {
-  const dbi = binding.lmdb_database_open(txn as number as Pointer, textEncoder.encode(name), Boolean(options.create), Boolean(options.integerKey), Boolean(options.reverseKey));
+export function databaseOpen(txn: Transaction, name: string | null, options: { create?: boolean, integerKey?: boolean, reverseKey?: boolean } = { create: false, integerKey: false, reverseKey: false} ): Database {
+  const dbi = binding.lmdb_database_open(txn as number as Pointer, name ? textEncoder.encode(name + "\0") : null, Boolean(options.create), Boolean(options.integerKey), Boolean(options.reverseKey));
   if (dbi === 0) {
     throwErr(errBuf[0] as number);
   }
