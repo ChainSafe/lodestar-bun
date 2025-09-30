@@ -145,7 +145,7 @@ pub export fn leveldb_db_get_many(db_ptr: u64, keys_ptrs: [*c]const [*c]const u8
     @memset(results, std.mem.zeroes(ResultRef));
 
     // If function encounter an error free up all memory
-    errdefer leveldb_db_result_ref_free(results, count, true);
+    errdefer leveldb_db_result_ref_free(@intFromPtr(results.ptr), count, true);
 
     var i: u32 = 0;
     while (i < count) : (i += 1) {
