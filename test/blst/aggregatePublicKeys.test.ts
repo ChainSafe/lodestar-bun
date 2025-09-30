@@ -27,7 +27,6 @@ describe("Aggregate Public Keys", () => {
 						e.message === "PointNotInGroup" ||
 						e.message === "BadEncoding"
 				).toBeTrue();
-				// expect((e as Error).message.endsWith("Invalid key at index 10")).to.be.true;
 			}
 		});
 		it("should return a key that is not in the keys array", () => {
