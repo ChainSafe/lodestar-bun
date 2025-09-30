@@ -29,7 +29,8 @@ export function aggregatePublicKeys(pks: Array<PublicKey>, pksValidate?: boolean
 		const res = binding.publicKeyAggregate(outPk.ptr, pksU8, pksBatch.length, pksValidate ?? false);
 
 		if (res !== 0) {
-			throw new Error(`Failed to aggregate public keys: ${res}`);
+			throwErr(res);
+			// throw new Error(`Failed to aggregate public keys: ${res}`);
 		}
 		resultPks.push(outPk);
 	}

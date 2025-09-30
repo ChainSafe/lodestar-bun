@@ -1,3 +1,5 @@
+import {throwErr} from "../common.ts";
+
 export function toHex(buffer: Uint8Array | Parameters<typeof Buffer.from>[0]): string {
 	if (Buffer.isBuffer(buffer)) {
 		return "0x" + buffer.toString("hex");
@@ -17,17 +19,10 @@ export function fromHex(hex: string): Uint8Array {
 
 export function assertSuccess(blstErrorCode: number): void {
 	if (blstErrorCode !== 0) {
-		throw toError(blstErrorCode);
+		throw throwErr(blstErrorCode);
 	}
 }
 
-export function toError(blstErrorCode: number): Error {
-	const message = blstErrorToReason(blstErrorCode);
-	const error = new Error(message);
-	// this make it compliant to napi-rs binding
-	(error as unknown as {code: string}).code = blstErrorToCode(blstErrorCode);
-	return error;
-}
 
 function blstErrorToReason(blstErrorCode: number): string {
 	switch (blstErrorCode) {
