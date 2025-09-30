@@ -31,8 +31,8 @@
             .hash = "state_transition_z-0.0.0-BO5n4AetCADaGuua8Bx77ZefJhonyr7dma8bU1kVCz8-",
         },
         .blst = .{
-            .url = "git+https://github.com/Chainsafe/blst-z#2bb539542f63c3841f87ea227eb8729eb5fb4aab",
-            .hash = "blst_z-0.0.0-td3FNITDAABergevSWDuqgbvCHqdS2o3PJq9jH2jwcFA",
+            .url = "git+https://github.com/Chainsafe/blst-z#ea0ae943083ba24b6a3d60051f971d28d7ed560f",
+            .hash = "blst_z-0.0.0-td3FNAHEAACXKlQ_b8Dw6-4-_2zN1sxo5PcDIuZgnaMw",
         },
     },
     .paths = .{ "build.zig", "build.zig.zon", "zig" },

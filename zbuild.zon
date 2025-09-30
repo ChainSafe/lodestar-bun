@@ -21,7 +21,7 @@
             .url = "git+https://github.com/chainsafe/state-transition-z#22cd4532933de1cd2d0df299e52e6bc582e5a1c0",
         },
         .blst = .{
-            .url = "git+https://github.com/Chainsafe/blst-z#2bb539542f63c3841f87ea227eb8729eb5fb4aab",
+            .url = "git+https://github.com/Chainsafe/blst-z#ea0ae943083ba24b6a3d60051f971d28d7ed560f",
         },
     },
     .fingerprint = 0xed854bdae2354180,
