@@ -20,6 +20,7 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
         .pic = true,
     });
+    module_lodestar_z_bun.addIncludePath(b.path("include"));
     b.modules.put(b.dupe("lodestar_z_bun"), module_lodestar_z_bun) catch @panic("OOM");
 
     const lib_lodestar_z_bun = b.addLibrary(.{

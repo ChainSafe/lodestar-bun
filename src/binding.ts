@@ -273,6 +273,15 @@ const fns = {
     ],
     "returns": "ptr"
   },
+  "leveldb_db_get_promise": {
+    "args": [
+      "napi_env",
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "napi_value"
+  },
   "leveldb_db_delete": {
     "args": [
       "u64",

@@ -1,0 +1,87 @@
+pub const napi = @cImport({
+    @cDefine("NAPI_VERSION", "10");
+    @cInclude("node_api.h");
+});
+
+/// https://nodejs.org/api/n-api.html#napi_status
+pub const Status = enum(napi.napi_status) {
+    ok = napi.napi_ok,
+    invalid_arg = napi.napi_invalid_arg,
+    object_expected = napi.napi_object_expected,
+    string_expected = napi.napi_string_expected,
+    name_expected = napi.napi_name_expected,
+    function_expected = napi.napi_function_expected,
+    number_expected = napi.napi_number_expected,
+    boolean_expected = napi.napi_boolean_expected,
+    array_expected = napi.napi_array_expected,
+    generic_failure = napi.napi_generic_failure,
+    pending_exception = napi.napi_pending_exception,
+    cancelled = napi.napi_cancelled,
+    escape_called_twice = napi.napi_escape_called_twice,
+    handle_scope_mismatch = napi.napi_handle_scope_mismatch,
+    callback_scope_mismatch = napi.napi_callback_scope_mismatch,
+    queue_full = napi.napi_queue_full,
+    closing = napi.napi_closing,
+    bigint_expected = napi.napi_bigint_expected,
+    date_expected = napi.napi_date_expected,
+    arraybuffer_expected = napi.napi_arraybuffer_expected,
+    detachable_arraybuffer_expected = napi.napi_detachable_arraybuffer_expected,
+    would_deadlock = napi.napi_would_deadlock,
+    no_external_buffers_allowed = napi.napi_no_external_buffers_allowed,
+    cannot_run_js = napi.napi_cannot_run_js,
+};
+
+pub const NapiError = error{
+    InvalidArg,
+    ObjectExpected,
+    StringExpected,
+    NameExpected,
+    FunctionExpected,
+    NumberExpected,
+    BooleanExpected,
+    ArrayExpected,
+    GenericFailure,
+    PendingException,
+    Cancelled,
+    EscapeCalledTwice,
+    HandleScopeMismatch,
+    CallbackScopeMismatch,
+    QueueFull,
+    Closing,
+    BigIntExpected,
+    DateExpected,
+    ArrayBufferExpected,
+    DetachableArrayBufferExpected,
+    WouldDeadlock,
+    NoExternalBuffersAllowed,
+    CannotRunJS,
+};
+
+pub fn toError(code: c_uint) NapiError {
+    switch (@as(Status, @enumFromInt(code))) {
+        .ok => unreachable,
+        .invalid_arg => return error.InvalidArg,
+        .object_expected => return error.ObjectExpected,
+        .string_expected => return error.StringExpected,
+        .name_expected => return error.NameExpected,
+        .function_expected => return error.FunctionExpected,
+        .number_expected => return error.NumberExpected,
+        .boolean_expected => return error.BooleanExpected,
+        .array_expected => return error.ArrayExpected,
+        .generic_failure => return error.GenericFailure,
+        .pending_exception => return error.PendingException,
+        .cancelled => return error.Cancelled,
+        .escape_called_twice => return error.EscapeCalledTwice,
+        .handle_scope_mismatch => return error.HandleScopeMismatch,
+        .callback_scope_mismatch => return error.CallbackScopeMismatch,
+        .queue_full => return error.QueueFull,
+        .closing => return error.Closing,
+        .bigint_expected => return error.BigIntExpected,
+        .date_expected => return error.DateExpected,
+        .arraybuffer_expected => return error.ArrayBufferExpected,
+        .detachable_arraybuffer_expected => return error.DetachableArrayBufferExpected,
+        .would_deadlock => return error.WouldDeadlock,
+        .no_external_buffers_allowed => return error.NoExternalBuffersAllowed,
+        .cannot_run_js => return error.CannotRunJS,
+    }
+}

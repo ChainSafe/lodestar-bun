@@ -126,4 +126,34 @@ describe("leveldb", () => {
     expect(fs.existsSync(nonExistentPath)).toBe(false);
     expect(() => leveldb.dbDestroy(nonExistentPath)).not.toThrow();
   });
+
+  test.only("get promise", async () => {
+    const db = leveldb.dbOpen(dbPath, {create_if_missing: true});
+
+    const key = new Uint8Array([1, 2, 3]);
+    const value = new Uint8Array(Array.from({length: 256}, (_, i) => i));
+
+    leveldb.dbPut(db, key, value);
+    const retrieved = leveldb.dbGet(db, key);
+    expect(retrieved).toEqual(value);
+
+    {
+      const t1 = performance.now();
+      const d = leveldb.dbGetPromise(db, key);
+      const t2 = performance.now();
+      await d;
+      const t3 = performance.now();
+      console.log("async", t2 - t1, t3 - t2);
+    }
+
+    {
+      const t1 = performance.now();
+      leveldb.dbGet(db, key);
+      const t2 = performance.now();
+      console.log("sync", t2 - t1);
+    }
+
+    leveldb.dbClose(db);
+  });
+
 });

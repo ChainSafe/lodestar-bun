@@ -33,6 +33,7 @@
                     "ssz:persistent_merkle_tree",
                 },
                 .pic = true,
+                .include_paths = .{"include"},
             },
             .linkage = .dynamic,
         },
