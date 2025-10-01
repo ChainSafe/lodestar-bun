@@ -30,6 +30,78 @@ describe("leveldb", () => {
     leveldb.dbClose(db);
   });
 
+  describe("getMany", () => {
+    test("get many existing", async () => {
+      const db = leveldb.dbOpen(dbPath, {create_if_missing: true});
+
+      const key1 = new Uint8Array([1, 2, 3]);
+      const value1 = new Uint8Array(Array.from({length: 256}, () => 1));
+      const key2 = new Uint8Array([4, 5, 6]);
+      const value2 = new Uint8Array(Array.from({length: 256}, () => 2));
+
+      leveldb.dbPut(db, key1, value1);
+      leveldb.dbPut(db, key2, value2);
+
+      const results = leveldb.dbGetMany(db, [key1, key2]);
+
+      expect(results).toEqual([value1, value2]);
+
+      leveldb.dbClose(db);
+    });
+
+    test("get many missing", async () => {
+      const db = leveldb.dbOpen(dbPath, {create_if_missing: true});
+
+      const key1 = new Uint8Array([1, 2, 3]);
+      const value1 = new Uint8Array(Array.from({length: 256}, () => 1));;
+      const key2 = new Uint8Array([4, 5, 6]);
+      const key3 = new Uint8Array([7, 8, 9]);
+      const value3 = new Uint8Array(Array.from({length: 256}, () => 2));
+
+      leveldb.dbPut(db, key1, value1);
+      leveldb.dbPut(db, key3, value3);
+
+      const results = leveldb.dbGetMany(db, [key1, key2, key3]);
+
+      expect(results).toEqual([value1, null, value3]);
+
+      leveldb.dbClose(db);
+    });
+
+    test("get many all missing", async () => {
+      const db = leveldb.dbOpen(dbPath, {create_if_missing: true});
+
+      const key1 = new Uint8Array([1, 2, 3]);
+      const key2 = new Uint8Array([4, 5, 6]);
+
+      const results = leveldb.dbGetMany(db, [key1, key2]);
+
+      expect(results).toEqual([null, null]);
+
+      leveldb.dbClose(db);
+    });
+
+    test("get many large data set", async () => {
+      const db = leveldb.dbOpen(dbPath, {create_if_missing: true});
+      const numOfKeys = 300;
+      const singleValueSize = 256;
+
+      const data = Array.from({length: numOfKeys}, (_, i) => ({key: new Uint8Array([i, i, i, i]), value: new Uint8Array(Array.from({length: singleValueSize}, () => i))}));
+      const keys = data.map(d => d.key);
+      const values = data.map(d => d.value);
+
+      for(const {key, value} of data) {
+        leveldb.dbPut(db, key, value);
+      }
+
+      const results = leveldb.dbGetMany(db, keys);
+
+      expect(results).toEqual(values);
+
+      leveldb.dbClose(db);
+    });
+  });
+
   test("batch write", () => {
     const db = leveldb.dbOpen(dbPath, {create_if_missing: true});
 
