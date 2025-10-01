@@ -77,6 +77,15 @@ export function dbGet(db: DB, key: Uint8Array): Uint8Array | null {
   return value;
 }
 
+export function dbGetPromise(db: DB, key: Uint8Array): Promise<Uint8Array | null> {
+  return binding.leveldb_db_get_promise(
+    null,
+    db,
+    key,
+    key.length,
+  ) as Promise<Uint8Array | null>;
+}
+
 export function dbDelete(db: DB, key: Uint8Array): void {
   throwErr(binding.leveldb_db_delete(
     db,

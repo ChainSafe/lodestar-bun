@@ -89,6 +89,89 @@ pub export fn leveldb_db_get(db_ptr: u64, key: [*c]const u8, key_len: u32) u64 {
     return @intFromPtr(value.ptr);
 }
 
+const napi = @import("napi.zig").napi;
+const napiStatusToError = @import("napi.zig").toError;
+var gpa: std.heap.DebugAllocator(.{}) = .init;
+const allocator = gpa.allocator();
+
+const GetData = struct {
+    db_ptr: u64,
+    key: []const u8,
+    deferred: napi.napi_deferred = undefined,
+    value: ?[]const u8 = null,
+    err: i32 = 0,
+};
+
+fn leveldb_db_get_execute_callback(_: napi.napi_env, data: ?*anyopaque) callconv(.c) void {
+    const get_data: *GetData = @alignCast(@ptrCast(data));
+    var db = leveldb.DB{ .inner = @ptrFromInt(get_data.db_ptr) };
+
+    var options = leveldb.ReadOptions.create();
+    defer options.destroy();
+
+    get_data.value = db.get(&options, get_data.key) catch |e| {
+        get_data.err = toErrCode(e);
+        return;
+    } orelse null;
+}
+
+fn leveldb_db_get_complete_callback(env: napi.napi_env, status: napi.napi_status, data: ?*anyopaque) callconv(.c) void {
+    const get_data: *GetData = @alignCast(@ptrCast(data));
+    defer allocator.destroy(get_data);
+
+    if (status != napi.napi_ok) {
+        var error_value: napi.napi_value = undefined;
+        _ = napi.napi_create_int32(env, toErrCode(napiStatusToError(status)), &error_value);
+        _ = napi.napi_reject_deferred(env, get_data.deferred, error_value);
+    } else if (get_data.err != 0) {
+        var error_value: napi.napi_value = undefined;
+        _ = napi.napi_create_int32(env, get_data.err, &error_value);
+        _ = napi.napi_reject_deferred(env, get_data.deferred, error_value);
+    } else if (get_data.value) |value| {
+        defer leveldb.free(value.ptr);
+        var value_buf: napi.napi_value = undefined;
+        _ = napi.napi_create_buffer_copy(env, value.len, value.ptr, null, &value_buf);
+        _ = napi.napi_resolve_deferred(env, get_data.deferred, value_buf);
+    } else {
+        var null_value: napi.napi_value = undefined;
+        _ = napi.napi_get_null(env, &null_value);
+        _ = napi.napi_resolve_deferred(env, get_data.deferred, null_value);
+    }
+}
+
+// bun-ffi-z: leveldb_db_get_promise (napi_env, u64, ptr, u32) napi_value
+pub export fn leveldb_db_get_promise(env: napi.napi_env, db_ptr: u64, key: [*c]const u8, key_len: u32) napi.napi_value {
+    const get_data = allocator.create(GetData) catch {
+        // Out of memory
+        return null;
+    };
+
+    get_data.db_ptr = db_ptr;
+    get_data.key = key[0..key_len];
+    get_data.err = 0;
+    get_data.value = null;
+
+    var promise: napi.napi_value = undefined;
+    const create_promise_result = napi.napi_create_promise(env, &get_data.deferred, &promise);
+    if (create_promise_result != napi.napi_ok) {
+        allocator.destroy(get_data);
+        return null;
+    }
+    var async_work: napi.napi_async_work = undefined;
+    const create_async_work_result = napi.napi_create_async_work(env, null, null, leveldb_db_get_execute_callback, leveldb_db_get_complete_callback, get_data, &async_work);
+    if (create_async_work_result != napi.napi_ok) {
+        allocator.destroy(get_data);
+        return null;
+    }
+    const queue_result = napi.napi_queue_async_work(env, async_work);
+    if (queue_result != napi.napi_ok) {
+        _ = napi.napi_delete_async_work(env, async_work);
+        allocator.destroy(get_data);
+        return null;
+    }
+    return promise;
+}
+
 pub export fn leveldb_db_delete(db_ptr: u64, key: [*c]const u8, key_len: u32) i32 {
     var db = leveldb.DB{ .inner = @ptrFromInt(db_ptr) };
 
