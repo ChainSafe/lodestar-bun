@@ -1,8 +1,9 @@
 const std = @import("std");
-const state_transition = @import("state_transition");
+const stdx = @import("state_transition:stdx");
 
-const PubkeyIndexMap = state_transition.pubkey_index_map.PubkeyIndexMap;
-const PUBKEY_INDEX_MAP_KEY_SIZE = state_transition.pubkey_index_map.PUBKEY_INDEX_MAP_KEY_SIZE;
+const PubkeyIndexMap = stdx.PubkeyIndexMap;
+// BLS12-381 pubkey length in bytes
+const PUBKEY_INDEX_MAP_KEY_SIZE = 48;
 
 var gpa = std.heap.GeneralPurposeAllocator(.{}){};
 const PubkeyIndexMapU32 = PubkeyIndexMap(u32);
