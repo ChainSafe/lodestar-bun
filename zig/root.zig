@@ -5,6 +5,7 @@ const bytes = @import("bytes.zig");
 const lmdb = @import("lmdb.zig");
 const leveldb = @import("leveldb.zig");
 const snappy = @import("snappy.zig");
+const pubkey_map = @import("pubkey_map.zig");
 
 comptime {
     std.testing.refAllDecls(hashtree);
@@ -13,4 +14,5 @@ comptime {
     std.testing.refAllDecls(lmdb);
     std.testing.refAllDecls(leveldb);
     std.testing.refAllDecls(snappy);
+    std.testing.refAllDecls(pubkey_map);
 }
