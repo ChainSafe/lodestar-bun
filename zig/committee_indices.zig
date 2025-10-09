@@ -9,10 +9,6 @@ var gpa = @import("std").heap.GeneralPurposeAllocator(.{}){};
 pub const NOT_FOUND_INDEX = 0xffffffff;
 pub const ERROR_INDEX = 0xffffffff;
 
-const Error = enum(c_uint) {
-    Error = 2,
-};
-
 export fn computeProposerIndexElectra(
     seed: [*c]u8,
     seed_len: usize,
@@ -62,7 +58,7 @@ export fn computeSyncCommitteeIndicesElectra(
     out_len: usize,
 ) c_uint {
     const allocator = gpa.allocator();
-    committee_indices.computeSyncCommitteeIndicesElectra(allocator, seed[0..seed_len], active_indices[0..active_indices_len], effective_balance_increments[0..effective_balance_increments_len], max_effective_balance_electra, effective_balance_increment, rounds, out[0..out_len]) catch return Error.Error;
+    committee_indices.computeSyncCommitteeIndicesElectra(allocator, seed[0..seed_len], active_indices[0..active_indices_len], effective_balance_increments[0..effective_balance_increments_len], max_effective_balance_electra, effective_balance_increment, rounds, out[0..out_len]) catch return 1;
     return 0;
 }
 
@@ -81,6 +77,6 @@ export fn computeSyncCommitteeIndices(
     out_len: usize,
 ) c_uint {
     const allocator = gpa.allocator();
-    committee_indices.computeSyncCommitteeIndices(allocator, seed[0..seed_len], active_indices[0..active_indices_len], effective_balance_increments[0..effective_balance_increments_len], rand_byte_count, max_effective_balance, effective_balance_increment, rounds, out[0..out_len]) catch return Error.Error;
+    committee_indices.computeSyncCommitteeIndices(allocator, seed[0..seed_len], active_indices[0..active_indices_len], effective_balance_increments[0..effective_balance_increments_len], rand_byte_count, max_effective_balance, effective_balance_increment, rounds, out[0..out_len]) catch return 1;
     return 0;
 }
