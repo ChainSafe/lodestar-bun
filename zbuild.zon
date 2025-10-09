@@ -37,7 +37,6 @@
                     .lmdb,
                     .leveldb,
                     .snappy,
-                    .state_transition,
                     "state_transition:stdx",
                     "ssz:persistent_merkle_tree",
                 },
