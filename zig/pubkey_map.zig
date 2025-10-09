@@ -1,5 +1,6 @@
 const std = @import("std");
 const stdx = @import("state_transition:stdx");
+const toErrCode = @import("common.zig").toErrCode;
 
 const PubkeyIndexMap = stdx.PubkeyIndexMap;
 // BLS12-381 pubkey length in bytes
@@ -12,16 +13,7 @@ const PubkeyIndexMapU32 = PubkeyIndexMap(u32);
 pub const NOT_FOUND_INDEX = 0xffffffff;
 pub const ERROR_INDEX = 0xffffffff;
 
-pub const ErrorCode = struct {
-    pub const Success: c_uint = 0;
-    pub const InvalidInput: c_uint = 1;
-    pub const Error: c_uint = 2;
-    pub const TooManyThreadError: c_uint = 2;
-    pub const MemoryError: c_uint = 3;
-    pub const ThreadError: c_uint = 4;
-    pub const InvalidPointerError: c_uint = 5;
-    pub const Pending: c_uint = 10;
-};
+const Error = error{ InvalidInput, Error };
 
 /// C-ABI functions for PubkeyIndexMap
 /// create an instance of PubkeyIndexMap
@@ -48,13 +40,13 @@ export fn getErrorIndex() c_uint {
 }
 
 /// set a value to the specified PubkeyIndexMap instance
-export fn pubkeyIndexMapSet(nbr_ptr: u64, key: [*c]const u8, key_length: c_uint, value: c_uint) c_uint {
+export fn pubkeyIndexMapSet(nbr_ptr: u64, key: [*c]const u8, key_length: c_uint, value: c_uint) i32 {
     if (key_length != PUBKEY_INDEX_MAP_KEY_SIZE) {
-        return ErrorCode.InvalidInput;
+        return toErrCode(Error.InvalidInput);
     }
     const instance_ptr: *PubkeyIndexMapU32 = @ptrFromInt(nbr_ptr);
-    instance_ptr.set(key[0..key_length], value) catch return ErrorCode.Error;
-    return ErrorCode.Success;
+    instance_ptr.set(key[0..key_length], value) catch return toErrCode(Error.Error);
+    return 0;
 }
 
 /// get a value from the specified PubkeyIndexMap instance
