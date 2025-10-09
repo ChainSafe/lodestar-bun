@@ -233,3 +233,28 @@ export fn doShuffleList(
     ) catch return toErrCode(Error.Error);
     return 0;
 }
+
+// more tests for async shuffle and unshuffle at bun side
+test "asyncShuffleList - issue single thread and poll the result" {
+    var input = [_]u32{ 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+    var seed = [_]u8{0} ** SEED_SIZE;
+    const rounds = 32;
+
+    const pointer_index = asyncUnshuffleList(&input[0], input.len, &seed[0], seed.len, rounds);
+    defer releaseAsyncResult(pointer_index);
+
+    // poll the AsyncResult, this should happen in less than 100ms or the test wil fail
+    const start = std.time.milliTimestamp();
+    while (std.time.milliTimestamp() - start < 100) {
+        const status = pollAsyncResult(pointer_index);
+        if (status == 0) {
+            const expected = [_]u32{ 6, 2, 3, 5, 1, 7, 8, 0, 4 };
+            try std.testing.expectEqualSlices(u32, expected[0..], input[0..]);
+            return;
+        }
+        std.time.sleep(10 * std.time.ns_per_ms);
+    }
+
+    // after 100ms and still pending, this is a failure
+    try std.testing.expect(false);
+}
