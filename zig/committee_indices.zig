@@ -1,7 +1,7 @@
-const stdx = @import("state_transition:stdx");
+const state_transition = @import("state_transition");
 
-const ByteCount = stdx.ByteCount;
-const committee_indices = stdx.committee_indices;
+const committee_indices = state_transition.committee_indices;
+const ByteCount = committee_indices.ByteCount;
 
 var gpa = @import("std").heap.GeneralPurposeAllocator(.{}){};
 

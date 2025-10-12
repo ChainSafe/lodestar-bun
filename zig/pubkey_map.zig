@@ -1,8 +1,8 @@
 const std = @import("std");
-const stdx = @import("state_transition:stdx");
+const state_transition = @import("state_transition");
 const toErrCode = @import("common.zig").toErrCode;
 
-const PubkeyIndexMap = stdx.PubkeyIndexMap;
+const PubkeyIndexMap = state_transition.PubkeyIndexMap;
 // BLS12-381 pubkey length in bytes
 const PUBKEY_INDEX_MAP_KEY_SIZE = 48;
 

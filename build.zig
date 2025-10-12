@@ -58,6 +58,6 @@ pub fn build(b: *std.Build) void {
     module_lodestar_z_bun.addImport("lmdb", dep_lmdb.module("lmdb"));
     module_lodestar_z_bun.addImport("leveldb", dep_leveldb.module("leveldb"));
     module_lodestar_z_bun.addImport("snappy", dep_snappy.module("snappy"));
-    module_lodestar_z_bun.addImport("state_transition:stdx", dep_state_transition.module("stdx"));
+    module_lodestar_z_bun.addImport("state_transition", dep_state_transition.module("state_transition"));
     module_lodestar_z_bun.addImport("ssz:persistent_merkle_tree", dep_ssz.module("persistent_merkle_tree"));
 }

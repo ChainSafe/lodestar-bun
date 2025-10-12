@@ -18,7 +18,7 @@
             .url = "git+https://github.com/chainsafe/ssz-z#ef6e164c481068f60228ad9d865686b0232c0618",
         },
         .state_transition = .{
-            .url = "git+https://github.com/chainsafe/state-transition-z#c11200f59b7cf7372f316eb569cfe81b0300f055",
+            .url = "git+https://github.com/chainsafe/state-transition-z#aa183d07a96f162986361c5af5e3aa745d5aa615",
         },
     },
     .fingerprint = 0xed854bdae2354180,
@@ -37,7 +37,7 @@
                     .lmdb,
                     .leveldb,
                     .snappy,
-                    "state_transition:stdx",
+                    "state_transition",
                     "ssz:persistent_merkle_tree",
                 },
                 .pic = true,
