@@ -2,12 +2,12 @@ const std = @import("std");
 const Mutex = std.Thread.Mutex;
 const toErrCode = @import("common.zig").toErrCode;
 
-const stdx = @import("state_transition:stdx");
+const state_transition = @import("state_transition");
 
 var gpa = std.heap.GeneralPurposeAllocator(.{}){};
 
-const InnerShuffleList = stdx.InnerShuffleList;
-const SEED_SIZE = stdx.SEED_SIZE;
+const InnerShuffleList = state_transition.shuffle.innerShuffleList;
+const SEED_SIZE = state_transition.shuffle.SEED_SIZE;
 
 const Error = error{
     InvalidInput,
