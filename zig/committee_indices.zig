@@ -6,7 +6,6 @@ const ByteCount = committee_indices.ByteCount;
 var gpa = @import("std").heap.GeneralPurposeAllocator(.{}){};
 
 // this special index 4,294,967,295 is used to mark a not found
-pub const NOT_FOUND_INDEX = 0xffffffff;
 pub const ERROR_INDEX = 0xffffffff;
 
 export fn computeProposerIndexElectra(
