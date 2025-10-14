@@ -22,7 +22,15 @@ export fn computeProposerIndexElectra(
 ) u32 {
     const allocator = gpa.allocator();
     // TODO: is it better to define a Result struct with code and value
-    const proposer_index = committee_indices.computeProposerIndexElectra(allocator, seed[0..seed_len], active_indices[0..active_indices_len], effective_balance_increments[0..effective_balance_increments_len], max_effective_balance_electra, effective_balance_increment, rounds) catch return ERROR_INDEX;
+    const proposer_index = committee_indices.computeProposerIndexElectra(
+        allocator,
+        seed[0..seed_len],
+        active_indices[0..active_indices_len],
+        effective_balance_increments[0..effective_balance_increments_len],
+        max_effective_balance_electra,
+        effective_balance_increment,
+        rounds,
+    ) catch return ERROR_INDEX;
     return proposer_index;
 }
 
@@ -40,7 +48,16 @@ export fn computeProposerIndex(
 ) u32 {
     const allocator = gpa.allocator();
     // TODO: is it better to define a Result struct with code and value
-    const proposer_index = committee_indices.computeProposerIndex(allocator, seed[0..seed_len], active_indices[0..active_indices_len], effective_balance_increments[0..effective_balance_increments_len], rand_byte_count, max_effective_balance, effective_balance_increment, rounds) catch return ERROR_INDEX;
+    const proposer_index = committee_indices.computeProposerIndex(
+        allocator,
+        seed[0..seed_len],
+        active_indices[0..active_indices_len],
+        effective_balance_increments[0..effective_balance_increments_len],
+        rand_byte_count,
+        max_effective_balance,
+        effective_balance_increment,
+        rounds,
+    ) catch return ERROR_INDEX;
     return proposer_index;
 }
 
@@ -58,7 +75,16 @@ export fn computeSyncCommitteeIndicesElectra(
     out_len: usize,
 ) c_uint {
     const allocator = gpa.allocator();
-    committee_indices.computeSyncCommitteeIndicesElectra(allocator, seed[0..seed_len], active_indices[0..active_indices_len], effective_balance_increments[0..effective_balance_increments_len], max_effective_balance_electra, effective_balance_increment, rounds, out[0..out_len]) catch return 1;
+    committee_indices.computeSyncCommitteeIndicesElectra(
+        allocator,
+        seed[0..seed_len],
+        active_indices[0..active_indices_len],
+        effective_balance_increments[0..effective_balance_increments_len],
+        max_effective_balance_electra,
+        effective_balance_increment,
+        rounds,
+        out[0..out_len],
+    ) catch return 1;
     return 0;
 }
 
@@ -77,6 +103,16 @@ export fn computeSyncCommitteeIndices(
     out_len: usize,
 ) c_uint {
     const allocator = gpa.allocator();
-    committee_indices.computeSyncCommitteeIndices(allocator, seed[0..seed_len], active_indices[0..active_indices_len], effective_balance_increments[0..effective_balance_increments_len], rand_byte_count, max_effective_balance, effective_balance_increment, rounds, out[0..out_len]) catch return 1;
+    committee_indices.computeSyncCommitteeIndices(
+        allocator,
+        seed[0..seed_len],
+        active_indices[0..active_indices_len],
+        effective_balance_increments[0..effective_balance_increments_len],
+        rand_byte_count,
+        max_effective_balance,
+        effective_balance_increment,
+        rounds,
+        out[0..out_len],
+    ) catch return 1;
     return 0;
 }
