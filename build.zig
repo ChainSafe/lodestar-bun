@@ -6,6 +6,11 @@ pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
+    const dep_blst = b.dependency("blst", .{
+        .optimize = optimize,
+        .target = target,
+    });
+
     const dep_hashtree = b.dependency("hashtree", .{
         .optimize = optimize,
         .target = target,
@@ -32,11 +37,6 @@ pub fn build(b: *std.Build) void {
     });
 
     const dep_state_transition = b.dependency("state_transition", .{
-        .optimize = optimize,
-        .target = target,
-    });
-
-    const dep_blst = b.dependency("blst", .{
         .optimize = optimize,
         .target = target,
     });

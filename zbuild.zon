@@ -2,6 +2,9 @@
     .name = .lodestar_z_bun,
     .version = "0.1.0",
     .dependencies = .{
+        .blst = .{
+            .url = "git+https://github.com/Chainsafe/blst-z#ea0ae943083ba24b6a3d60051f971d28d7ed560f",
+        },
         .hashtree = .{
             .url = "git+https://github.com/chainsafe/hashtree-z#43a58b0fd4813515cda3d0ffc622125243a01c54",
         },
@@ -19,9 +22,6 @@
         },
         .state_transition = .{
             .url = "git+https://github.com/chainsafe/state-transition-z#22cd4532933de1cd2d0df299e52e6bc582e5a1c0",
-        },
-        .blst = .{
-            .url = "git+https://github.com/Chainsafe/blst-z#ea0ae943083ba24b6a3d60051f971d28d7ed560f",
         },
     },
     .fingerprint = 0xed854bdae2354180,

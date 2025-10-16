@@ -6,6 +6,10 @@
     .fingerprint = 0xed854bdae2354180,
     .minimum_zig_version = "0.14.1",
     .dependencies = .{
+        .blst = .{
+            .url = "git+https://github.com/Chainsafe/blst-z#ea0ae943083ba24b6a3d60051f971d28d7ed560f",
+            .hash = "blst_z-0.0.0-td3FNAHEAACXKlQ_b8Dw6-4-_2zN1sxo5PcDIuZgnaMw",
+        },
         .hashtree = .{
             .url = "git+https://github.com/chainsafe/hashtree-z#43a58b0fd4813515cda3d0ffc622125243a01c54",
             .hash = "hashtree-0.1.0-sBOovrYSAAArAQVa-a6BhOPWPTrgKrJtufxWjQYMNNAN",
@@ -29,10 +33,6 @@
         .state_transition = .{
             .url = "git+https://github.com/chainsafe/state-transition-z#22cd4532933de1cd2d0df299e52e6bc582e5a1c0",
             .hash = "state_transition_z-0.0.0-BO5n4AetCADaGuua8Bx77ZefJhonyr7dma8bU1kVCz8-",
-        },
-        .blst = .{
-            .url = "git+https://github.com/Chainsafe/blst-z#ea0ae943083ba24b6a3d60051f971d28d7ed560f",
-            .hash = "blst_z-0.0.0-td3FNAHEAACXKlQ_b8Dw6-4-_2zN1sxo5PcDIuZgnaMw",
         },
     },
     .paths = .{ "build.zig", "build.zig.zon", "zig" },
