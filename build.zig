@@ -6,6 +6,8 @@ pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
+    const dep_blst = b.dependency("blst", .{});
+
     const dep_hashtree = b.dependency("hashtree", .{});
 
     const dep_leveldb = b.dependency("leveldb", .{});
@@ -13,8 +15,6 @@ pub fn build(b: *std.Build) void {
     const dep_lmdb = b.dependency("lmdb", .{});
 
     const dep_ssz = b.dependency("ssz", .{});
-
-    const dep_blst = b.dependency("blst", .{});
 
     const module_lodestar_z_bun = b.createModule(.{
         .root_source_file = b.path("zig/root.zig"),
