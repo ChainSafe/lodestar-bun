@@ -9,6 +9,7 @@
       "devDependencies": {
         "@chainsafe/as-sha256": "^1.2.0",
         "@chainsafe/benchmark": "^2.0.1",
+        "@chainsafe/blst": "^2.2.0",
         "@chainsafe/hashtree": "^1.0.2",
         "@types/bun": "latest",
         "@types/snappyjs": "^0.7.1",
@@ -68,6 +69,23 @@
     "@chainsafe/benchmark": ["@chainsafe/benchmark@2.0.1", "", { "dependencies": { "@actions/cache": "^4.0.0", "@actions/github": "^6.0.0", "@vitest/runner": "^2.1.8", "ajv": "^8.17.1", "aws-sdk": "^2.932.0", "cli-table3": "^0.6.5", "csv-parse": "^5.6.0", "csv-stringify": "^6.5.2", "debug": "^4.4.0", "glob": "^10.4.5", "log-symbols": "^7.0.0", "yaml": "^2.7.0", "yargs": "^17.7.2" }, "bin": { "benchmark": "bin/index.js" } }, "sha512-Noecu9z6kjXWdKl9ZL/PckJxfi+Ax4/8/i4F862jo3FZcViK8LWR5Byc8pKeNC5vcDMSP73/ME3vgUovYGqwUw=="],
 
     "@chainsafe/bun-ffi-z": ["@chainsafe/bun-ffi-z@1.1.5", "", { "peerDependencies": { "typescript": "^5" }, "bin": { "bun-ffi-z": "src/cli.ts" } }, "sha512-nmiRudOInH2JQk32FEyOq/VeBftKuHxP44TYd345xCdZKv2j4ajecM6IZ9SzTQTNozFqt7gCsnWINJXYikfRzw=="],
+    "@chainsafe/blst": ["@chainsafe/blst@2.2.0", "", { "optionalDependencies": { "@chainsafe/blst-darwin-arm64": "2.2.0", "@chainsafe/blst-darwin-x64": "2.2.0", "@chainsafe/blst-linux-arm64-gnu": "2.2.0", "@chainsafe/blst-linux-arm64-musl": "2.2.0", "@chainsafe/blst-linux-x64-gnu": "2.2.0", "@chainsafe/blst-linux-x64-musl": "2.2.0", "@chainsafe/blst-win32-x64-msvc": "2.2.0" } }, "sha512-VBaQoNE2a9d9+skAjQKv3Suk0yGKqp3mZM0YWYJNPj/Ae/f6lAyeVSgKqo2LrsNQBzD/LqrJLKUY8rJT3vDKLA=="],
+
+    "@chainsafe/blst-darwin-arm64": ["@chainsafe/blst-darwin-arm64@2.2.0", "", { "os": "darwin", "cpu": "arm64" }, "sha512-BOOy2KHbV028cioPWaAMqHdLRKd6/3XyEmUEcQC2E/SpyYLdNcaKiBUYIU4pT9CrWBbJJxX68UI+3vZVg0M8/w=="],
+
+    "@chainsafe/blst-darwin-x64": ["@chainsafe/blst-darwin-x64@2.2.0", "", { "os": "darwin", "cpu": "x64" }, "sha512-jG64cwIdPT7u/haRrW26tWCpfMfHBQCfGY169mFQifCwO4VEwvaiVBPOh5olFis6LjpcmD+O0jpM8GqrnsmUHQ=="],
+
+    "@chainsafe/blst-linux-arm64-gnu": ["@chainsafe/blst-linux-arm64-gnu@2.2.0", "", { "os": "linux", "cpu": "arm64" }, "sha512-L8xV2uuLn8we76vdzfryS9ePdheuZrmY6yArGUFaF1Uzcwml6V1/VvyPl9/uooo/YfVRIrvF/D+lQfI2GFAnhw=="],
+
+    "@chainsafe/blst-linux-arm64-musl": ["@chainsafe/blst-linux-arm64-musl@2.2.0", "", { "os": "linux", "cpu": "arm64" }, "sha512-0Vn0luxLYVgC3lvWT1MapFHSAoz99PldqjhilXTGv0AcAk/X5LXPH2RC9Dp2KJGqthyUkpbk1j47jUBfBI+BIg=="],
+
+    "@chainsafe/blst-linux-x64-gnu": ["@chainsafe/blst-linux-x64-gnu@2.2.0", "", { "os": "linux", "cpu": "x64" }, "sha512-gEY/z2SDBA7kXtFEI9VNhWTJAIjx16jdeAyCaS2k4ACGurWZaWk+Ee4KniTsr4WieSqeuNTUr7Pdja0Sr4EKNQ=="],
+
+    "@chainsafe/blst-linux-x64-musl": ["@chainsafe/blst-linux-x64-musl@2.2.0", "", { "os": "linux", "cpu": "x64" }, "sha512-58GKtiUmtVSuerRzPEcMNQZpICPboBKFnL7+1Wo+PSuajkvbae7tEFrFTtWeMoKIPgOEsPMnk96LF+0yNgavUg=="],
+
+    "@chainsafe/blst-win32-x64-msvc": ["@chainsafe/blst-win32-x64-msvc@2.2.0", "", { "os": "win32", "cpu": "x64" }, "sha512-UFrZshl4dfX5Uh2zeKXAZtrkQ+otczHMON2tsrapQNICWmfHZrzE6pKuBL+9QeGAbgflwpbz7+D5nQRDpiuHxQ=="],
+
+    "@chainsafe/bun-ffi-z": ["@chainsafe/bun-ffi-z@1.1.4", "", { "peerDependencies": { "typescript": "^5" }, "bin": { "bun-ffi-z": "src/cli.ts" } }, "sha512-yegYWjcj9pMwrf554iuFGoUc+Kq8EWDrVpeGiPl/nmXu/lm5EaUzxsiLG6WR1J9tpTQk012213y9RA5PwDrUTQ=="],
 
     "@chainsafe/hashtree": ["@chainsafe/hashtree@1.0.2", "", { "optionalDependencies": { "@chainsafe/hashtree-darwin-arm64": "1.0.2", "@chainsafe/hashtree-linux-arm64-gnu": "1.0.2", "@chainsafe/hashtree-linux-arm64-musl": "1.0.2", "@chainsafe/hashtree-linux-x64-gnu": "1.0.2", "@chainsafe/hashtree-linux-x64-musl": "1.0.2", "@chainsafe/hashtree-win32-x64-msvc": "1.0.2" } }, "sha512-OaWjsZ6S/GaT2RvaqdpsF5Mux8qQOE2KbitX2yHmQJZNUZkdh7C3N4PA5LsvewqX+z8Nkv8mr1uSe0LSrHGiQw=="],
 

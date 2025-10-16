@@ -15,6 +15,7 @@
   "devDependencies": {
     "@chainsafe/as-sha256": "^1.2.0",
     "@chainsafe/benchmark": "^2.0.1",
+    "@chainsafe/blst": "^2.2.0",
     "@chainsafe/hashtree": "^1.0.2",
     "@types/bun": "latest",
     "@types/snappyjs": "^0.7.1",
