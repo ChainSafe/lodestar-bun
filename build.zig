@@ -6,6 +6,8 @@ pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
+    const dep_blst = b.dependency("blst", .{});
+
     const dep_hashtree = b.dependency("hashtree", .{});
 
     const dep_leveldb = b.dependency("leveldb", .{});
@@ -53,5 +55,6 @@ pub fn build(b: *std.Build) void {
     module_lodestar_z_bun.addImport("hashtree", dep_hashtree.module("hashtree"));
     module_lodestar_z_bun.addImport("lmdb", dep_lmdb.module("lmdb"));
     module_lodestar_z_bun.addImport("leveldb", dep_leveldb.module("leveldb"));
+    module_lodestar_z_bun.addImport("blst", dep_blst.module("blst"));
     module_lodestar_z_bun.addImport("ssz:persistent_merkle_tree", dep_ssz.module("persistent_merkle_tree"));
 }
