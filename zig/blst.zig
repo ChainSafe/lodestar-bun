@@ -11,7 +11,7 @@
 //! We do not define Zig native types for these raw C types in order to not obfuscate the underlying type.
 
 /// Size of the scratch buffer for pairing operations.
-pub const SCRATCH_SIZE_PAIRING: usize = @import("blst").Pairing.sizeOf();
+pub const SCRATCH_SIZE_PAIRING: usize = blst.Pairing.sizeOf();
 
 /// Scratch buffer used for pairing operations that require temporary storage.
 threadlocal var scratch_pairing: [SCRATCH_SIZE_PAIRING]u8 = undefined;
@@ -324,7 +324,7 @@ pub export fn signatureVerifyMultipleAggregateSignatures(
         std.Random.bytes(rand, &rands[i]);
     }
 
-    const res = @import("blst").verifyMultipleAggregateSignatures(
+    const res = blst.verifyMultipleAggregateSignatures(
         &scratch_pairing,
         n_elems,
         msgs[0..n_elems],
