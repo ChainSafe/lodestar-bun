@@ -5,151 +5,395 @@ import path from "node:path";
 import { openLibrary } from "@chainsafe/bun-ffi-z";
 
 const fns = {
-  "persistent_merkle_tree_pool_init": {
+  "u64_to_bytes": {
     "args": [
-      "u32"
+      "u64",
+      "ptr",
+      "u32",
+      "bool"
     ],
     "returns": "i32"
   },
-  "persistent_merkle_tree_pool_deinit": {
-    "args": [],
-    "returns": "void"
-  },
-  "persistent_merkle_tree_pool_create_leaf": {
+  "bytes_to_u64": {
     "args": [
       "ptr",
-      "bool"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_pool_create_branch": {
-    "args": [
-      "u32",
       "u32",
       "bool"
     ],
-    "returns": "i32"
+    "returns": "u64"
   },
-  "persistent_merkle_tree_pool_ref": {
+  "bytes_to_u64_fast": {
     "args": [
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_pool_unref": {
-    "args": [
-      "u32"
-    ],
-    "returns": "void"
-  },
-  "persistent_merkle_tree_node_get_left": {
-    "args": [
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_node_get_right": {
-    "args": [
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_node_get_hash": {
-    "args": [
-      "u32"
+      "ptr",
+      "u32",
+      "bool"
     ],
     "returns": "ptr"
   },
-  "persistent_merkle_tree_node_get_state": {
+  "hashtree_hash_": {
     "args": [
-      "u32"
-    ],
-    "returns": "u32"
-  },
-  "persistent_merkle_tree_node_get_node": {
-    "args": [
-      "u32",
+      "ptr",
+      "ptr",
       "u64"
     ],
     "returns": "i32"
   },
-  "persistent_merkle_tree_node_get_node_at_depth": {
+  "hashtree_digest64": {
     "args": [
-      "u32",
-      "u8",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_node_get_nodes_at_depth": {
-    "args": [
-      "u32",
-      "u8",
-      "u32",
       "ptr",
-      "u32"
+      "ptr"
     ],
     "returns": "i32"
   },
-  "persistent_merkle_tree_node_set_node": {
+  "hashtree_digest_2_bytes32": {
     "args": [
+      "ptr",
+      "ptr",
+      "ptr"
+    ],
+    "returns": "i32"
+  },
+  "lmdb_set_len_ptr": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "void"
+  },
+  "lmdb_set_err_ptr": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "void"
+  },
+  "lmdb_environment_init": {
+    "args": [
+      "ptr",
       "u32",
+      "u64"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_environment_deinit": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "lmdb_transaction_begin": {
+    "args": [
+      "ptr",
+      "bool"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_transaction_abort": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "lmdb_transaction_commit": {
+    "args": [
+      "u64"
+    ],
+    "returns": "i32"
+  },
+  "lmdb_database_open": {
+    "args": [
       "u64",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_node_set_node_at_depth": {
-    "args": [
-      "u32",
-      "u8",
-      "u32",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_node_set_nodes_at_depth": {
-    "args": [
-      "u32",
-      "u8",
       "ptr",
-      "ptr",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_node_set_nodes": {
-    "args": [
-      "u32",
-      "ptr",
-      "ptr",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_node_fill_to_depth": {
-    "args": [
-      "u32",
-      "u8",
+      "bool",
+      "bool",
       "bool"
     ],
-    "returns": "i32"
+    "returns": "u32"
   },
-  "persistent_merkle_tree_node_fill_to_length": {
-    "args": [
-      "u32",
-      "u8",
-      "u32",
-      "bool"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_node_fill_with_contents": {
+  "lmdb_database_get": {
     "args": [
       "ptr",
       "u32",
-      "u8",
-      "bool"
+      "ptr",
+      "u32"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_database_set": {
+    "args": [
+      "u64",
+      "u32",
+      "ptr",
+      "u32",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "lmdb_database_delete": {
+    "args": [
+      "u64",
+      "u32",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "lmdb_database_cursor": {
+    "args": [
+      "ptr",
+      "u32"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_cursor_deinit": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "lmdb_cursor_get_current_key": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_cursor_get_current_value": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_cursor_set_current_value": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "lmdb_cursor_delete_current_key": {
+    "args": [
+      "u64"
+    ],
+    "returns": "i32"
+  },
+  "lmdb_cursor_go_to_next": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_cursor_go_to_previous": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_cursor_go_to_first": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_cursor_go_to_last": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_cursor_go_to_key": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "lmdb_cursor_seek": {
+    "args": [
+      "ptr",
+      "ptr",
+      "u32"
+    ],
+    "returns": "ptr"
+  },
+  "leveldb_get_len_ptr": {
+    "args": [],
+    "returns": "ptr"
+  },
+  "leveldb_get_err_ptr": {
+    "args": [],
+    "returns": "ptr"
+  },
+  "leveldb_free_": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "leveldb_db_open": {
+    "args": [
+      "ptr",
+      "bool",
+      "bool",
+      "bool",
+      "u32",
+      "i32",
+      "u32",
+      "i32"
+    ],
+    "returns": "ptr"
+  },
+  "leveldb_db_close": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "leveldb_db_destroy": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "i32"
+  },
+  "leveldb_db_put": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "leveldb_db_get": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "ptr"
+  },
+  "leveldb_db_delete": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "leveldb_writebatch_create_": {
+    "args": [],
+    "returns": "ptr"
+  },
+  "leveldb_writebatch_destroy_": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "leveldb_writebatch_clear_": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "leveldb_writebatch_put_": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32",
+      "ptr",
+      "u32"
+    ],
+    "returns": "void"
+  },
+  "leveldb_writebatch_delete_": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "void"
+  },
+  "leveldb_writebatch_append_": {
+    "args": [
+      "u64",
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "leveldb_db_write": {
+    "args": [
+      "u64",
+      "u64"
+    ],
+    "returns": "i32"
+  },
+  "leveldb_db_create_iterator": {
+    "args": [
+      "u64"
+    ],
+    "returns": "ptr"
+  },
+  "leveldb_iterator_destroy": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "leveldb_iterator_valid": {
+    "args": [
+      "u64"
+    ],
+    "returns": "bool"
+  },
+  "leveldb_iterator_seek_to_first": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "leveldb_iterator_seek_to_last": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "leveldb_iterator_seek": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "void"
+  },
+  "leveldb_iterator_next": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "leveldb_iterator_prev": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "leveldb_iterator_key": {
+    "args": [
+      "u64"
+    ],
+    "returns": "ptr"
+  },
+  "leveldb_iterator_value": {
+    "args": [
+      "u64"
+    ],
+    "returns": "ptr"
+  },
+  "leveldb_iterator_get_error": {
+    "args": [
+      "u64"
     ],
     "returns": "i32"
   },
@@ -360,401 +604,157 @@ const fns = {
     ],
     "returns": "i32"
   },
-  "leveldb_get_len_ptr": {
-    "args": [],
-    "returns": "ptr"
-  },
-  "leveldb_get_err_ptr": {
-    "args": [],
-    "returns": "ptr"
-  },
-  "leveldb_free_": {
-    "args": [
-      "u64"
-    ],
-    "returns": "void"
-  },
-  "leveldb_db_open": {
-    "args": [
-      "ptr",
-      "bool",
-      "bool",
-      "bool",
-      "u32",
-      "i32",
-      "u32",
-      "i32"
-    ],
-    "returns": "ptr"
-  },
-  "leveldb_db_close": {
-    "args": [
-      "u64"
-    ],
-    "returns": "void"
-  },
-  "leveldb_db_destroy": {
-    "args": [
-      "ptr"
-    ],
-    "returns": "i32"
-  },
-  "leveldb_db_put": {
-    "args": [
-      "u64",
-      "ptr",
-      "u32",
-      "ptr",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "leveldb_db_get": {
-    "args": [
-      "u64",
-      "ptr",
-      "u32"
-    ],
-    "returns": "ptr"
-  },
-  "leveldb_db_delete": {
-    "args": [
-      "u64",
-      "ptr",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "leveldb_writebatch_create_": {
-    "args": [],
-    "returns": "ptr"
-  },
-  "leveldb_writebatch_destroy_": {
-    "args": [
-      "u64"
-    ],
-    "returns": "void"
-  },
-  "leveldb_writebatch_clear_": {
-    "args": [
-      "u64"
-    ],
-    "returns": "void"
-  },
-  "leveldb_writebatch_put_": {
-    "args": [
-      "u64",
-      "ptr",
-      "u32",
-      "ptr",
-      "u32"
-    ],
-    "returns": "void"
-  },
-  "leveldb_writebatch_delete_": {
-    "args": [
-      "u64",
-      "ptr",
-      "u32"
-    ],
-    "returns": "void"
-  },
-  "leveldb_writebatch_append_": {
-    "args": [
-      "u64",
-      "u64"
-    ],
-    "returns": "void"
-  },
-  "leveldb_db_write": {
-    "args": [
-      "u64",
-      "u64"
-    ],
-    "returns": "i32"
-  },
-  "leveldb_db_create_iterator": {
-    "args": [
-      "u64"
-    ],
-    "returns": "ptr"
-  },
-  "leveldb_iterator_destroy": {
-    "args": [
-      "u64"
-    ],
-    "returns": "void"
-  },
-  "leveldb_iterator_valid": {
-    "args": [
-      "u64"
-    ],
-    "returns": "bool"
-  },
-  "leveldb_iterator_seek_to_first": {
-    "args": [
-      "u64"
-    ],
-    "returns": "void"
-  },
-  "leveldb_iterator_seek_to_last": {
-    "args": [
-      "u64"
-    ],
-    "returns": "void"
-  },
-  "leveldb_iterator_seek": {
-    "args": [
-      "u64",
-      "ptr",
-      "u32"
-    ],
-    "returns": "void"
-  },
-  "leveldb_iterator_next": {
-    "args": [
-      "u64"
-    ],
-    "returns": "void"
-  },
-  "leveldb_iterator_prev": {
-    "args": [
-      "u64"
-    ],
-    "returns": "void"
-  },
-  "leveldb_iterator_key": {
-    "args": [
-      "u64"
-    ],
-    "returns": "ptr"
-  },
-  "leveldb_iterator_value": {
-    "args": [
-      "u64"
-    ],
-    "returns": "ptr"
-  },
-  "leveldb_iterator_get_error": {
-    "args": [
-      "u64"
-    ],
-    "returns": "i32"
-  },
   "err_name": {
     "args": [
       "u16"
     ],
     "returns": "cstring"
   },
-  "u64_to_bytes": {
+  "persistent_merkle_tree_pool_init": {
     "args": [
-      "u64",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_pool_deinit": {
+    "args": [],
+    "returns": "void"
+  },
+  "persistent_merkle_tree_pool_create_leaf": {
+    "args": [
       "ptr",
+      "bool"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_pool_create_branch": {
+    "args": [
+      "u32",
       "u32",
       "bool"
     ],
     "returns": "i32"
   },
-  "bytes_to_u64": {
+  "persistent_merkle_tree_pool_ref": {
     "args": [
-      "ptr",
-      "u32",
-      "bool"
-    ],
-    "returns": "u64"
-  },
-  "bytes_to_u64_fast": {
-    "args": [
-      "ptr",
-      "u32",
-      "bool"
-    ],
-    "returns": "ptr"
-  },
-  "lmdb_set_len_ptr": {
-    "args": [
-      "ptr"
-    ],
-    "returns": "void"
-  },
-  "lmdb_set_err_ptr": {
-    "args": [
-      "ptr"
-    ],
-    "returns": "void"
-  },
-  "lmdb_environment_init": {
-    "args": [
-      "ptr",
-      "u32",
-      "u64"
-    ],
-    "returns": "ptr"
-  },
-  "lmdb_environment_deinit": {
-    "args": [
-      "u64"
-    ],
-    "returns": "void"
-  },
-  "lmdb_transaction_begin": {
-    "args": [
-      "ptr",
-      "bool"
-    ],
-    "returns": "ptr"
-  },
-  "lmdb_transaction_abort": {
-    "args": [
-      "u64"
-    ],
-    "returns": "void"
-  },
-  "lmdb_transaction_commit": {
-    "args": [
-      "u64"
+      "u32"
     ],
     "returns": "i32"
   },
-  "lmdb_database_open": {
+  "persistent_merkle_tree_pool_unref": {
     "args": [
-      "u64",
-      "ptr",
-      "bool",
-      "bool",
-      "bool"
+      "u32"
+    ],
+    "returns": "void"
+  },
+  "persistent_merkle_tree_node_get_left": {
+    "args": [
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_node_get_right": {
+    "args": [
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_node_get_hash": {
+    "args": [
+      "u32"
+    ],
+    "returns": "ptr"
+  },
+  "persistent_merkle_tree_node_get_state": {
+    "args": [
+      "u32"
     ],
     "returns": "u32"
   },
-  "lmdb_database_get": {
+  "persistent_merkle_tree_node_get_node": {
     "args": [
-      "ptr",
       "u32",
-      "ptr",
-      "u32"
-    ],
-    "returns": "ptr"
-  },
-  "lmdb_database_set": {
-    "args": [
-      "u64",
-      "u32",
-      "ptr",
-      "u32",
-      "ptr",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "lmdb_database_delete": {
-    "args": [
-      "u64",
-      "u32",
-      "ptr",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "lmdb_database_cursor": {
-    "args": [
-      "ptr",
-      "u32"
-    ],
-    "returns": "ptr"
-  },
-  "lmdb_cursor_deinit": {
-    "args": [
-      "u64"
-    ],
-    "returns": "void"
-  },
-  "lmdb_cursor_get_current_key": {
-    "args": [
-      "ptr"
-    ],
-    "returns": "ptr"
-  },
-  "lmdb_cursor_get_current_value": {
-    "args": [
-      "ptr"
-    ],
-    "returns": "ptr"
-  },
-  "lmdb_cursor_set_current_value": {
-    "args": [
-      "u64",
-      "ptr",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "lmdb_cursor_delete_current_key": {
-    "args": [
       "u64"
     ],
     "returns": "i32"
   },
-  "lmdb_cursor_go_to_next": {
+  "persistent_merkle_tree_node_get_node_at_depth": {
     "args": [
-      "ptr"
+      "u32",
+      "u8",
+      "u32"
     ],
-    "returns": "ptr"
+    "returns": "i32"
   },
-  "lmdb_cursor_go_to_previous": {
+  "persistent_merkle_tree_node_get_nodes_at_depth": {
     "args": [
-      "ptr"
+      "u32",
+      "u8",
+      "u32",
+      "ptr",
+      "u32"
     ],
-    "returns": "ptr"
+    "returns": "i32"
   },
-  "lmdb_cursor_go_to_first": {
+  "persistent_merkle_tree_node_set_node": {
     "args": [
-      "ptr"
-    ],
-    "returns": "ptr"
-  },
-  "lmdb_cursor_go_to_last": {
-    "args": [
-      "ptr"
-    ],
-    "returns": "ptr"
-  },
-  "lmdb_cursor_go_to_key": {
-    "args": [
+      "u32",
       "u64",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_node_set_node_at_depth": {
+    "args": [
+      "u32",
+      "u8",
+      "u32",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_node_set_nodes_at_depth": {
+    "args": [
+      "u32",
+      "u8",
+      "ptr",
       "ptr",
       "u32"
     ],
     "returns": "i32"
   },
-  "lmdb_cursor_seek": {
+  "persistent_merkle_tree_node_set_nodes": {
     "args": [
+      "u32",
       "ptr",
       "ptr",
       "u32"
     ],
-    "returns": "ptr"
+    "returns": "i32"
   },
-  "hashtree_hash_": {
+  "persistent_merkle_tree_node_fill_to_depth": {
     "args": [
-      "ptr",
-      "ptr",
-      "u64"
+      "u32",
+      "u8",
+      "bool"
     ],
     "returns": "i32"
   },
-  "hashtree_digest64": {
+  "persistent_merkle_tree_node_fill_to_length": {
     "args": [
-      "ptr",
-      "ptr"
+      "u32",
+      "u8",
+      "u32",
+      "bool"
     ],
     "returns": "i32"
   },
-  "hashtree_digest_2_bytes32": {
+  "persistent_merkle_tree_node_fill_with_contents": {
     "args": [
       "ptr",
-      "ptr",
-      "ptr"
+      "u32",
+      "u8",
+      "bool"
     ],
     "returns": "i32"
   }
