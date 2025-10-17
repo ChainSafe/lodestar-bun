@@ -269,15 +269,16 @@ pub export fn signatureAggregateVerify(
     pks_validate: bool,
 ) i32 {
     const sig_ptr: *const Signature = @ptrCast(sig);
-    const res = sig_ptr.aggregateVerify(
+    const res = sig_ptr.aggregateVerifyTwo(
         sig_groupcheck,
-        &scratch_pairing,
         msgs[0..len],
+        32,
         DST,
         @ptrCast(pks[0..len]),
         pks_validate,
-    ) catch |e| return toErrCode(e);
-    return @intFromBool(!res);
+        MP,
+    );
+    return @intCast(res);
 }
 
 /// Faster verify an aggregated signature `Signature` (as `c.blst_p2_affine`) against multiple messages and `PublicKey`s (as `c.blst_p1_affine`s).
@@ -294,7 +295,7 @@ pub export fn signatureFastAggregateVerify(
     const res = sig_ptr.fastAggregateVerify(
         sig_groupcheck,
         &scratch_pairing,
-        msg.*,
+        msg,
         DST,
         @ptrCast(pks[0..pks_len]),
     ) catch |e| return toErrCode(e);
@@ -395,6 +396,7 @@ const PublicKey = blst.PublicKey;
 const SecretKey = blst.SecretKey;
 const AggregateSignature = blst.AggregateSignature;
 const AggregatePublicKey = blst.AggregatePublicKey;
+const MP = blst.MemoryPoolMinPk;
 const DST = blst.DST;
 const MAX_AGGREGATE_PER_JOB = blst.MAX_AGGREGATE_PER_JOB;
 const toErrCode = @import("common.zig").toErrCode;
