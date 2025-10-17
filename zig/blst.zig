@@ -297,7 +297,6 @@ pub export fn signatureAggregateVerify(
     pks_validate: bool,
 ) i32 {
     const sig_ptr: *const Signature = @ptrCast(sig);
-
     const res = sig_ptr.aggregateVerifyTwo(
         sig_groupcheck,
         msgs[0..len],
