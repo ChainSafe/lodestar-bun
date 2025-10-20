@@ -17,7 +17,9 @@
     "@chainsafe/benchmark": "^2.0.1",
     "@chainsafe/hashtree": "^1.0.2",
     "@types/bun": "latest",
-    "bigint-buffer": "^1.1.5"
+    "@types/snappyjs": "^0.7.1",
+    "bigint-buffer": "^1.1.5",
+    "snappyjs": "^0.7.0"
   },
   "peerDependencies": {
     "typescript": "^5"

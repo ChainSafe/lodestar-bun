@@ -12,6 +12,8 @@ pub fn build(b: *std.Build) void {
 
     const dep_lmdb = b.dependency("lmdb", .{});
 
+    const dep_snappy = b.dependency("snappy", .{});
+
     const dep_ssz = b.dependency("ssz", .{});
 
     const module_lodestar_z_bun = b.createModule(.{
@@ -39,7 +41,7 @@ pub fn build(b: *std.Build) void {
     const test_lodestar_z_bun = b.addTest(.{
         .name = "lodestar_z_bun",
         .root_module = module_lodestar_z_bun,
-        .filters = &[_][]const u8{},
+        .filters = b.option([][]const u8, "lodestar_z_bun.filters", "lodestar_z_bun test filters") orelse &[_][]const u8{},
     });
     const install_test_lodestar_z_bun = b.addInstallArtifact(test_lodestar_z_bun, .{});
     const tls_install_test_lodestar_z_bun = b.step("build-test:lodestar_z_bun", "Install the lodestar_z_bun test");
@@ -53,5 +55,6 @@ pub fn build(b: *std.Build) void {
     module_lodestar_z_bun.addImport("hashtree", dep_hashtree.module("hashtree"));
     module_lodestar_z_bun.addImport("lmdb", dep_lmdb.module("lmdb"));
     module_lodestar_z_bun.addImport("leveldb", dep_leveldb.module("leveldb"));
+    module_lodestar_z_bun.addImport("snappy", dep_snappy.module("snappy"));
     module_lodestar_z_bun.addImport("ssz:persistent_merkle_tree", dep_ssz.module("persistent_merkle_tree"));
 }
