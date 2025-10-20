@@ -3,7 +3,7 @@ import {binding} from "./binding.ts";
 import {throwErr} from "./common.ts";
 
 // ptr to hold error codes from zig binding
-const errPtr = binding.leveldb_get_err_ptr() as Pointer;
+const errPtr = binding.snappy_get_err_ptr() as Pointer;
 
 export function snappyCompress(input: Uint8Array): Uint8Array {
   const maxCompressedLength = binding.snappy_max_compressed_length_(input.length) as number;
