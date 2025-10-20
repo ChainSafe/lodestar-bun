@@ -54,45 +54,6 @@ describe("lmdb", () => {
     lmdb.environmentDeinit(env);
   });
 
-  test.todo("value after commit", () => {
-    let retrieved: Uint8Array | null;
-    const key = new Uint8Array([1, 2, 3]);
-    const value = new Uint8Array([4, 5, 6]);
-    {
-      const env = lmdb.environmentInit(dbPath);
-      const txn = lmdb.transactionBegin(env, false);
-      const db = lmdb.databaseOpen(txn, "testdb", {create: true});
-
-
-      lmdb.databaseSet(txn, db, key, value);
-      retrieved = lmdb.databaseGet(txn, db, key);
-      expect(retrieved).toEqual(value);
-
-      lmdb.databaseDelete(txn, db, key);
-      const deleted = lmdb.databaseGet(txn, db, key);
-      expect(deleted).toBeNull();
-
-      lmdb.transactionCommit(txn);
-      lmdb.environmentDeinit(env);
-    }
-    {
-      const env = lmdb.environmentInit(dbPath);
-      const txn = lmdb.transactionBegin(env, false);
-      const db = lmdb.databaseOpen(txn, "testdb", {create: true});
-
-
-      lmdb.databaseSet(txn, db, key, new Uint8Array([7, 8, 9]));
-      lmdb.databaseDelete(txn, db, key);
-      const deleted = lmdb.databaseGet(txn, db, key);
-      expect(deleted).toBeNull();
-
-      lmdb.transactionCommit(txn);
-      lmdb.environmentDeinit(env);
-    }
-    // The value will NOT still be valid after the transaction is committed or subsequent update.
-    expect(retrieved).not.toEqual(value);
-  });
-
   test("transaction commit", () => {
     const env = lmdb.environmentInit(dbPath);
     const key = new Uint8Array([1, 2, 3]);

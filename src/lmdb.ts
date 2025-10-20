@@ -1,12 +1,11 @@
-import { toArrayBuffer, type Pointer } from "bun:ffi";
+import { read, toArrayBuffer, type Pointer } from "bun:ffi";
 import {binding} from "./binding.ts";
 import { throwErr } from "./common.ts";
 
-// Buffers to hold length and error codes from zig binding
-const lenBuf = new Uint32Array(1);
-const errBuf = new Int32Array(1);
-binding.lmdb_set_len_ptr(lenBuf);
-binding.lmdb_set_err_ptr(errBuf);
+// ptrs to hold length and error codes from zig binding
+const lenPtr = binding.lmdb_get_len_ptr() as Pointer;
+const errPtr = binding.lmdb_get_err_ptr() as Pointer;
+
 
 const textEncoder = new TextEncoder();
 
@@ -24,7 +23,7 @@ export type Environment = number & {["lmdb_environment"]: never};
 export function environmentInit(path: string, options: { mapSize?: number; maxDbs?: number } = {}): Environment {
   const env = binding.lmdb_environment_init(textEncoder.encode(path + "\0"), options.maxDbs ?? 64, options.mapSize ?? 1024 * 1024 * 1024);
   if (env === null) {
-    throwErr(errBuf[0] as number);
+    throwErr(read.i32(errPtr, 0));
   }
   return env as number as Environment;
 }
@@ -51,7 +50,7 @@ export type Transaction = number & {["lmdb_transaction"]: never};
 export function transactionBegin(env: Environment, readOnly = true): Transaction {
   const txn = binding.lmdb_transaction_begin(env as number as Pointer, readOnly);
   if (txn === null) {
-    throwErr(errBuf[0] as number);
+    throwErr(read.i32(errPtr, 0));
   }
   return txn as number as Transaction;
 }
@@ -92,16 +91,13 @@ export type Database = number & {["lmdb_database"]: never};
 export function databaseOpen(txn: Transaction, name: string | null, { create = false, integerKey = false, reverseKey = false } = {} ): Database {
   const dbi = binding.lmdb_database_open(txn as number as Pointer, name ? textEncoder.encode(name + "\0") : null, create, integerKey, reverseKey);
   if (dbi === 0) {
-    throwErr(errBuf[0] as number);
+    throwErr(read.i32(errPtr, 0));
   }
   return dbi as number as Database;
 }
 
 /**
  * Get a value from the database by key.
- * 
- * The memory pointed to by the returned values is owned by the database. The caller need not dispose of the memory, and may not modify it in any way. For values returned in a read-only transaction any modification attempts will cause a SIGSEGV. 
- * Values returned from the database are valid only until a subsequent update operation, or the end of the transaction. 
  * @param txn The transaction handle.
  * @param db The database handle.
  * @param key The key to retrieve.
@@ -110,10 +106,10 @@ export function databaseOpen(txn: Transaction, name: string | null, { create = f
 export function databaseGet(txn: Transaction, db: Database, key: Uint8Array): Uint8Array | null {
   const ptr = binding.lmdb_database_get(txn as number as Pointer, db as number as Pointer, key, key.length);
   if (ptr === null) {
-    throwErr(errBuf[0] as number);
+    throwErr(read.i32(errPtr, 0));
     return null;
   }
-  return new Uint8Array(toArrayBuffer(ptr, 0, lenBuf[0]));
+  return new Uint8Array(toArrayBuffer(ptr, 0, read.u32(lenPtr, 0)).slice());
 }
 
 /**
@@ -163,102 +159,84 @@ export function cursorDeinit(cursor: Cursor): void {
 
 /**
  * Get the current key the cursor is pointing to.
- *
- * The memory pointed to by the returned values is owned by the database. The caller need not dispose of the memory, and may not modify it in any way. For values returned in a read-only transaction any modification attempts will cause a SIGSEGV. 
- * Values returned from the database are valid only until a subsequent update operation, or the end of the transaction. 
  * @param cursor The cursor handle.
  * @returns The current key.
  */
 export function cursorGetCurrentKey(cursor: Cursor): Uint8Array {
   const ptr = binding.lmdb_cursor_get_current_key(cursor as number as Pointer);
   if (ptr === null) {
-    throwErr(errBuf[0] as number);
+    throwErr(read.i32(errPtr, 0));
   }
-  return new Uint8Array(toArrayBuffer(ptr as Pointer, 0, lenBuf[0]));
+  return new Uint8Array(toArrayBuffer(ptr as Pointer, 0, read.u32(lenPtr, 0)).slice());
 }
 
 /**
  * Get the current value the cursor is pointing to.
- *
- * The memory pointed to by the returned values is owned by the database. The caller need not dispose of the memory, and may not modify it in any way. For values returned in a read-only transaction any modification attempts will cause a SIGSEGV. 
- * Values returned from the database are valid only until a subsequent update operation, or the end of the transaction. 
  * @param cursor The cursor handle.
  * @returns The current value.
  */
 export function cursorGetCurrentValue(cursor: Cursor): Uint8Array {
   const ptr = binding.lmdb_cursor_get_current_value(cursor as number as Pointer);
   if (ptr === null) {
-    throwErr(errBuf[0] as number);
+    throwErr(read.i32(errPtr, 0));
   }
-  return new Uint8Array(toArrayBuffer(ptr as Pointer, 0, lenBuf[0]));
+  return new Uint8Array(toArrayBuffer(ptr as Pointer, 0, read.u32(lenPtr, 0)).slice());
 }
 
 /**
  * Move the cursor to the next entry in the database.
- *
- * The memory pointed to by the returned values is owned by the database. The caller need not dispose of the memory, and may not modify it in any way. For values returned in a read-only transaction any modification attempts will cause a SIGSEGV. 
- * Values returned from the database are valid only until a subsequent update operation, or the end of the transaction. 
  * @param cursor The cursor handle.
  * @returns The next key the cursor points to, or null if at the end.
  */
 export function cursorGoToNext(cursor: Cursor): Uint8Array | null {
   const ptr = binding.lmdb_cursor_go_to_next(cursor as number as Pointer);
   if (ptr === null) {
-    throwErr(errBuf[0] as number);
+    throwErr(read.i32(errPtr, 0));
     return null;
   }
-  return new Uint8Array(toArrayBuffer(ptr, 0, lenBuf[0]));
+  return new Uint8Array(toArrayBuffer(ptr, 0, read.u32(lenPtr, 0)).slice());
 }
 
 /**
  * Move the cursor to the previous entry in the database.
- *
- * The memory pointed to by the returned values is owned by the database. The caller need not dispose of the memory, and may not modify it in any way. For values returned in a read-only transaction any modification attempts will cause a SIGSEGV. 
- * Values returned from the database are valid only until a subsequent update operation, or the end of the transaction. 
  * @param cursor The cursor handle.
  * @returns The previous key the cursor points to, or null if at the beginning.
  */
 export function cursorGoToPrevious(cursor: Cursor): Uint8Array | null {
   const ptr = binding.lmdb_cursor_go_to_previous(cursor as number as Pointer);
   if (ptr === null) {
-    throwErr(errBuf[0] as number);
+    throwErr(read.i32(errPtr, 0));
     return null;
   }
-  return new Uint8Array(toArrayBuffer(ptr, 0, lenBuf[0]));
+  return new Uint8Array(toArrayBuffer(ptr, 0, read.u32(lenPtr, 0)).slice());
 }
 
 /**
  * Move the cursor to the first entry in the database.
- *
- * The memory pointed to by the returned values is owned by the database. The caller need not dispose of the memory, and may not modify it in any way. For values returned in a read-only transaction any modification attempts will cause a SIGSEGV. 
- * Values returned from the database are valid only until a subsequent update operation, or the end of the transaction. 
  * @param cursor The cursor handle.
  * @returns The first key the cursor points to, or null if the database is empty.
  */
 export function cursorGoToFirst(cursor: Cursor): Uint8Array | null {
   const ptr = binding.lmdb_cursor_go_to_first(cursor as number as Pointer);
   if (ptr === null) {
-    throwErr(errBuf[0] as number);
+    throwErr(read.i32(errPtr, 0));
     return null;
   }
-  return new Uint8Array(toArrayBuffer(ptr, 0, lenBuf[0]));
+  return new Uint8Array(toArrayBuffer(ptr, 0, read.u32(lenPtr, 0)).slice());
 }
 
 /**
  * Move the cursor to the last entry in the database.
- *
- * The memory pointed to by the returned values is owned by the database. The caller need not dispose of the memory, and may not modify it in any way. For values returned in a read-only transaction any modification attempts will cause a SIGSEGV. 
- * Values returned from the database are valid only until a subsequent update operation, or the end of the transaction. 
  * @param cursor The cursor handle.
  * @returns The last key the cursor points to, or null if the database is empty.
  */
 export function cursorGoToLast(cursor: Cursor): Uint8Array | null {
   const ptr = binding.lmdb_cursor_go_to_last(cursor as number as Pointer);
   if (ptr === null) {
-    throwErr(errBuf[0] as number);
+    throwErr(read.i32(errPtr, 0));
     return null;
   }
-  return new Uint8Array(toArrayBuffer(ptr, 0, lenBuf[0]));
+  return new Uint8Array(toArrayBuffer(ptr, 0, read.u32(lenPtr, 0)).slice());
 }
 
 /**
@@ -272,9 +250,6 @@ export function cursorGoToKey(cursor: Cursor, key: Uint8Array): void {
 
 /**
  * Seek the cursor to the first entry greater than or equal to the specified key.
- *
- * The memory pointed to by the returned values is owned by the database. The caller need not dispose of the memory, and may not modify it in any way. For values returned in a read-only transaction any modification attempts will cause a SIGSEGV. 
- * Values returned from the database are valid only until a subsequent update operation, or the end of the transaction. 
  * @param cursor The cursor handle.
  * @param key The key to seek to.
  * @returns The key the cursor points to after seeking, or null if not found.
@@ -282,8 +257,8 @@ export function cursorGoToKey(cursor: Cursor, key: Uint8Array): void {
 export function cursorSeek(cursor: Cursor, key: Uint8Array): Uint8Array | null {
   const ptr = binding.lmdb_cursor_seek(cursor as number as Pointer, key, key.length);
   if (ptr === null) {
-    throwErr(errBuf[0] as number);
+    throwErr(read.i32(errPtr, 0));
     return null;
   }
-  return new Uint8Array(toArrayBuffer(ptr as Pointer, 0, lenBuf[0]));
+  return new Uint8Array(toArrayBuffer(ptr as Pointer, 0, read.u32(lenPtr, 0)).slice());
 }
