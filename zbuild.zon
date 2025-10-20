@@ -3,7 +3,7 @@
     .version = "0.1.0",
     .dependencies = .{
         .blst = .{
-            .url = "git+https://github.com/Chainsafe/blst-z#88a7adf4244571803f78fbb60f93e347561569f6",
+            .url = "git+https://github.com/Chainsafe/blst-z#e5317b81e902510b3b80adc639ce24accdf55942",
         },
         .hashtree = .{
             .url = "git+https://github.com/chainsafe/hashtree-z#43a58b0fd4813515cda3d0ffc622125243a01c54",
