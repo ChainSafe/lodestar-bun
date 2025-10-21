@@ -6,15 +6,30 @@ pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
-    const dep_hashtree = b.dependency("hashtree", .{});
+    const dep_hashtree = b.dependency("hashtree", .{
+        .optimize = optimize,
+        .target = target,
+    });
 
-    const dep_leveldb = b.dependency("leveldb", .{});
+    const dep_leveldb = b.dependency("leveldb", .{
+        .optimize = optimize,
+        .target = target,
+    });
 
-    const dep_lmdb = b.dependency("lmdb", .{});
+    const dep_lmdb = b.dependency("lmdb", .{
+        .optimize = optimize,
+        .target = target,
+    });
 
-    const dep_snappy = b.dependency("snappy", .{});
+    const dep_snappy = b.dependency("snappy", .{
+        .optimize = optimize,
+        .target = target,
+    });
 
-    const dep_ssz = b.dependency("ssz", .{});
+    const dep_ssz = b.dependency("ssz", .{
+        .optimize = optimize,
+        .target = target,
+    });
 
     const module_lodestar_z_bun = b.createModule(.{
         .root_source_file = b.path("zig/root.zig"),
