@@ -1,5 +1,5 @@
-export * from "./bytes.ts";
-export * from "./hashtree.ts";
-export * from "./leveldb.ts";
-export * from "./lmdb.ts";
-export * from "./persistent_merkle_tree.ts";
+export * as bytes from "./bytes.ts";
+export * as hashtree from "./hashtree.ts";
+export * as leveldb from "./leveldb.ts";
+export * as lmdb from "./lmdb.ts";
+export * as persistentMerkleTree from "./persistent_merkle_tree.ts";

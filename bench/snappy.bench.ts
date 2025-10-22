@@ -3,11 +3,11 @@ import * as snappy from "../src/snappy.ts";
 import * as other from "snappyjs";
 
 const uncompressed = new Uint8Array(Buffer.from("The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog."));
-const compressed = snappy.snappyCompress(uncompressed);
+const compressed = snappy.compress(uncompressed);
 
 describe("snappy", () => {
   bench("compress", () => {
-    snappy.snappyCompress(uncompressed);
+    snappy.compress(uncompressed);
   });
 
   bench("compress (other)", () => {
@@ -15,7 +15,7 @@ describe("snappy", () => {
   });
 
   bench("uncompress", () => {
-    snappy.snappyUncompress(compressed);
+    snappy.uncompress(compressed);
   });
 
   bench("uncompress (other)", () => {
