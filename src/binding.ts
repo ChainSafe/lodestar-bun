@@ -53,17 +53,13 @@ const fns = {
     ],
     "returns": "i32"
   },
-  "lmdb_set_len_ptr": {
-    "args": [
-      "ptr"
-    ],
-    "returns": "void"
+  "lmdb_get_len_ptr": {
+    "args": [],
+    "returns": "ptr"
   },
-  "lmdb_set_err_ptr": {
-    "args": [
-      "ptr"
-    ],
-    "returns": "void"
+  "lmdb_get_err_ptr": {
+    "args": [],
+    "returns": "ptr"
   },
   "lmdb_environment_init": {
     "args": [
