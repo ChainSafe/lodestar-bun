@@ -33,11 +33,14 @@ export function compressInto(input: Uint8Array, output: Uint8Array): number {
   return outputLength as number;
 }
 
-export function uncompress(input: Uint8Array): Uint8Array {
+export function uncompress(input: Uint8Array, maxLength?: number): Uint8Array {
   const uncompressedLength = binding.snappy_uncompressed_length_(
     input,
     input.length,
   ) as number;
+  if (maxLength != null && uncompressedLength > maxLength) {
+    throw new Error("Uncompressed length exceeds maximum length");
+  }
   const output = new Uint8Array(uncompressedLength);
   const outputLength = binding.snappy_uncompress_(
     input,

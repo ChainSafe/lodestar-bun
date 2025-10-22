@@ -24,6 +24,10 @@ describe("snappy", () => {
     expect(uncompressed).toEqual(testData);
   });
 
+  it("should fail to uncompress data if max length is exceeded", () => {
+    expect(() => uncompress(compressed, 1)).toThrow();
+  });
+
   it("should uncompress into buffer", () => {
     const output = new Uint8Array(testData.length);
     const length = uncompressInto(compressed, output);
