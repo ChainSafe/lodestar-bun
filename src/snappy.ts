@@ -39,7 +39,7 @@ export function uncompress(input: Uint8Array, maxLength?: number): Uint8Array {
     input.length,
   ) as number;
   if (maxLength != null && uncompressedLength > maxLength) {
-    throw new Error("Uncompressed length exceeds maximum length");
+    throw new Error(`Uncompressed length (${uncompressedLength}) exceeds maximum length (${maxLength})`);
   }
   const output = new Uint8Array(uncompressedLength);
   const outputLength = binding.snappy_uncompress_(
