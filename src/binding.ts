@@ -550,6 +550,48 @@ const fns = {
       "bool"
     ],
     "returns": "i32"
+  },
+  "snappy_get_err_ptr": {
+    "args": [],
+    "returns": "ptr"
+  },
+  "snappy_compress_": {
+    "args": [
+      "ptr",
+      "u32",
+      "ptr",
+      "u32"
+    ],
+    "returns": "ptr"
+  },
+  "snappy_uncompress_": {
+    "args": [
+      "ptr",
+      "u32",
+      "ptr",
+      "u32"
+    ],
+    "returns": "ptr"
+  },
+  "snappy_max_compressed_length_": {
+    "args": [
+      "u64"
+    ],
+    "returns": "ptr"
+  },
+  "snappy_uncompressed_length_": {
+    "args": [
+      "ptr",
+      "u32"
+    ],
+    "returns": "ptr"
+  },
+  "snappy_validate_compressed_buffer_": {
+    "args": [
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
   }
 } as const;
 const lib = await openLibrary(path.join(import.meta.dirname, ".."), fns);

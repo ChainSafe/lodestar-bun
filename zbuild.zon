@@ -11,8 +11,11 @@
         .lmdb = .{
             .url = "git+https://github.com/nDimensional/zig-lmdb#557de4d6d89fe6818e143715cea224cbd33c4f7e",
         },
+        .snappy = .{
+            .url = "git+https://github.com/chainsafe/snappy.zig#8d820a38a54fd194310596655370ef66e5b083a3",
+        },
         .ssz = .{
-            .url = "git+https://github.com/chainsafe/ssz-z#c8d7ad9e31befb7eb696d570d31433b4e855a19b",
+            .url = "git+https://github.com/chainsafe/ssz-z#ef6e164c481068f60228ad9d865686b0232c0618",
         },
     },
     .fingerprint = 0xed854bdae2354180,
@@ -30,6 +33,7 @@
                     .hashtree,
                     .lmdb,
                     .leveldb,
+                    .snappy,
                     "ssz:persistent_merkle_tree",
                 },
                 .pic = true,

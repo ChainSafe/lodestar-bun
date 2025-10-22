@@ -6,13 +6,30 @@ pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
-    const dep_hashtree = b.dependency("hashtree", .{});
+    const dep_hashtree = b.dependency("hashtree", .{
+        .optimize = optimize,
+        .target = target,
+    });
 
-    const dep_leveldb = b.dependency("leveldb", .{});
+    const dep_leveldb = b.dependency("leveldb", .{
+        .optimize = optimize,
+        .target = target,
+    });
 
-    const dep_lmdb = b.dependency("lmdb", .{});
+    const dep_lmdb = b.dependency("lmdb", .{
+        .optimize = optimize,
+        .target = target,
+    });
 
-    const dep_ssz = b.dependency("ssz", .{});
+    const dep_snappy = b.dependency("snappy", .{
+        .optimize = optimize,
+        .target = target,
+    });
+
+    const dep_ssz = b.dependency("ssz", .{
+        .optimize = optimize,
+        .target = target,
+    });
 
     const module_lodestar_z_bun = b.createModule(.{
         .root_source_file = b.path("zig/root.zig"),
@@ -39,7 +56,7 @@ pub fn build(b: *std.Build) void {
     const test_lodestar_z_bun = b.addTest(.{
         .name = "lodestar_z_bun",
         .root_module = module_lodestar_z_bun,
-        .filters = &[_][]const u8{},
+        .filters = b.option([][]const u8, "lodestar_z_bun.filters", "lodestar_z_bun test filters") orelse &[_][]const u8{},
     });
     const install_test_lodestar_z_bun = b.addInstallArtifact(test_lodestar_z_bun, .{});
     const tls_install_test_lodestar_z_bun = b.step("build-test:lodestar_z_bun", "Install the lodestar_z_bun test");
@@ -53,5 +70,6 @@ pub fn build(b: *std.Build) void {
     module_lodestar_z_bun.addImport("hashtree", dep_hashtree.module("hashtree"));
     module_lodestar_z_bun.addImport("lmdb", dep_lmdb.module("lmdb"));
     module_lodestar_z_bun.addImport("leveldb", dep_leveldb.module("leveldb"));
+    module_lodestar_z_bun.addImport("snappy", dep_snappy.module("snappy"));
     module_lodestar_z_bun.addImport("ssz:persistent_merkle_tree", dep_ssz.module("persistent_merkle_tree"));
 }

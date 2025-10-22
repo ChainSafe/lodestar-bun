@@ -18,9 +18,13 @@
             .url = "git+https://github.com/nDimensional/zig-lmdb#557de4d6d89fe6818e143715cea224cbd33c4f7e",
             .hash = "lmdb-0.2.1-6TpzoNI-AADdNyodc3HCb9xo-srkPeDaAPWrrATdwNcf",
         },
+        .snappy = .{
+            .url = "git+https://github.com/chainsafe/snappy.zig#8d820a38a54fd194310596655370ef66e5b083a3",
+            .hash = "snappy-0.1.0-n4AaqtMYAACgB1kHWQ2_CFI-gbtYEUCbXyYlQZ2ENyfd",
+        },
         .ssz = .{
-            .url = "git+https://github.com/chainsafe/ssz-z#c8d7ad9e31befb7eb696d570d31433b4e855a19b",
-            .hash = "ssz-0.1.0-yORmzNDdBABQVmaEPy9-VDWHx7MH_qZFIxrZ4WWhtkTn",
+            .url = "git+https://github.com/chainsafe/ssz-z#ef6e164c481068f60228ad9d865686b0232c0618",
+            .hash = "ssz-0.1.0-yORmzIQUBQAS7wYVsMD2lIUqH13en3svqO8Rrtjbg9gF",
         },
     },
     .paths = .{ "build.zig", "build.zig.zon", "zig" },
