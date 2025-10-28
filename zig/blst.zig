@@ -34,7 +34,7 @@ export fn init() c_uint {
     const allocator = gpa.allocator();
 
     var mp = allocator.create(blst.MemoryPoolMinPk) catch unreachable;
-    mp.initAlloc(allocator) catch unreachable;
+    mp.init(allocator) catch unreachable;
     memory_pool = mp;
 
     return c.BLST_SUCCESS;
