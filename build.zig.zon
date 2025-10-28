@@ -27,8 +27,8 @@
             .hash = "ssz-0.1.0-yORmzIQUBQAS7wYVsMD2lIUqH13en3svqO8Rrtjbg9gF",
         },
         .state_transition = .{
-            .url = "git+https://github.com/chainsafe/state-transition-z#aa183d07a96f162986361c5af5e3aa745d5aa615",
-            .hash = "state_transition_z-0.0.0-BO5n4OBPCABrNxQmRZBSe75JsqAwbGC8oCe52UGhGY-T",
+            .url = "git+https://github.com/chainsafe/state-transition-z#22cd4532933de1cd2d0df299e52e6bc582e5a1c0",
+            .hash = "state_transition_z-0.0.0-BO5n4AetCADaGuua8Bx77ZefJhonyr7dma8bU1kVCz8-",
         },
     },
     .paths = .{ "build.zig", "build.zig.zon", "zig" },

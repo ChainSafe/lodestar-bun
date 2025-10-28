@@ -18,7 +18,7 @@
             .url = "git+https://github.com/chainsafe/ssz-z#ef6e164c481068f60228ad9d865686b0232c0618",
         },
         .state_transition = .{
-            .url = "git+https://github.com/chainsafe/state-transition-z#aa183d07a96f162986361c5af5e3aa745d5aa615",
+            .url = "git+https://github.com/chainsafe/state-transition-z#22cd4532933de1cd2d0df299e52e6bc582e5a1c0",
         },
     },
     .fingerprint = 0xed854bdae2354180,
