@@ -195,6 +195,14 @@ const fns = {
     ],
     "returns": "i32"
   },
+  "init": {
+    "args": [],
+    "returns": "u32"
+  },
+  "deinit": {
+    "args": [],
+    "returns": "void"
+  },
   "secretKeyFromBytes": {
     "args": [
       "ptr",

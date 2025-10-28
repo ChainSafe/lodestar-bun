@@ -22,6 +22,34 @@ pub const SCRATCH_SIZE_AGG: usize = 1024 * 16;
 /// Scratch buffer used for aggregation operations that require temporary storage.
 threadlocal var scratch_agg: [SCRATCH_SIZE_AGG]u64 = undefined;
 
+threadlocal var memory_pool: ?*blst.MemoryPoolMinPk = null;
+var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+
+/// Initializes threadlocal variables prior to performance-sensitive operations.
+///
+/// Call this before any multi-threaded operations in this binding.
+export fn init() c_uint {
+    blst.tp.initializeThreadPool(null) catch return c.BLST_BAD_ENCODING;
+
+    const allocator = gpa.allocator();
+
+    var mp = allocator.create(blst.MemoryPoolMinPk) catch unreachable;
+    mp.initAlloc(allocator) catch unreachable;
+    memory_pool = mp;
+
+    return c.BLST_SUCCESS;
+}
+
+/// a Bun application should call this after using any of the exported functions
+export fn deinit() void {
+    blst.tp.deinitializeThreadPool();
+    if (memory_pool) |pool| {
+        const allocator = pool.allocator;
+        pool.deinit();
+        allocator.destroy(pool);
+    }
+}
+
 ////// SecretKey
 
 /// Deserialize `SecretKey` represented as `c.blst_scalar` from bytes.
@@ -263,12 +291,13 @@ pub export fn signatureVerify(
 pub export fn signatureAggregateVerify(
     sig: *const c.blst_p2_affine,
     sig_groupcheck: bool,
-    msgs: [*c]const [32]u8,
-    pks: [*c]const c.blst_p1_affine,
+    msgs: [*c]const *[32]u8,
+    pks: [*c]const *const c.blst_p1_affine,
     len: c_uint,
     pks_validate: bool,
 ) i32 {
     const sig_ptr: *const Signature = @ptrCast(sig);
+
     const res = sig_ptr.aggregateVerifyTwo(
         sig_groupcheck,
         msgs[0..len],
@@ -276,7 +305,7 @@ pub export fn signatureAggregateVerify(
         DST,
         @ptrCast(pks[0..len]),
         pks_validate,
-        MP,
+        if (memory_pool) |mp| mp else @panic("Memory pool is not initialized"),
     );
     return @intCast(res);
 }
