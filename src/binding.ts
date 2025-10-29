@@ -5,212 +5,195 @@ import path from "node:path";
 import { openLibrary } from "@chainsafe/bun-ffi-z";
 
 const fns = {
-  "u64_to_bytes": {
-    "args": [
-      "u64",
-      "ptr",
-      "u32",
-      "bool"
-    ],
-    "returns": "i32"
-  },
-  "bytes_to_u64": {
-    "args": [
-      "ptr",
-      "u32",
-      "bool"
-    ],
-    "returns": "u64"
-  },
-  "bytes_to_u64_fast": {
-    "args": [
-      "ptr",
-      "u32",
-      "bool"
-    ],
-    "returns": "ptr"
-  },
-  "hashtree_hash_": {
-    "args": [
-      "ptr",
-      "ptr",
-      "u64"
-    ],
-    "returns": "i32"
-  },
-  "hashtree_digest64": {
-    "args": [
-      "ptr",
-      "ptr"
-    ],
-    "returns": "i32"
-  },
-  "hashtree_digest_2_bytes32": {
-    "args": [
-      "ptr",
-      "ptr",
-      "ptr"
-    ],
-    "returns": "i32"
-  },
-  "lmdb_get_len_ptr": {
+  "snappy_get_err_ptr": {
     "args": [],
     "returns": "ptr"
   },
-  "lmdb_get_err_ptr": {
-    "args": [],
-    "returns": "ptr"
-  },
-  "lmdb_environment_init": {
+  "snappy_compress_": {
     "args": [
       "ptr",
       "u32",
-      "u64"
+      "ptr",
+      "u32"
     ],
     "returns": "ptr"
   },
-  "lmdb_environment_deinit": {
-    "args": [
-      "u64"
-    ],
-    "returns": "void"
-  },
-  "lmdb_transaction_begin": {
+  "snappy_uncompress_": {
     "args": [
       "ptr",
-      "bool"
+      "u32",
+      "ptr",
+      "u32"
     ],
     "returns": "ptr"
   },
-  "lmdb_transaction_abort": {
+  "snappy_max_compressed_length_": {
     "args": [
       "u64"
     ],
-    "returns": "void"
+    "returns": "ptr"
   },
-  "lmdb_transaction_commit": {
+  "snappy_uncompressed_length_": {
     "args": [
-      "u64"
+      "ptr",
+      "u32"
+    ],
+    "returns": "ptr"
+  },
+  "snappy_validate_compressed_buffer_": {
+    "args": [
+      "ptr",
+      "u32"
     ],
     "returns": "i32"
   },
-  "lmdb_database_open": {
+  "persistent_merkle_tree_pool_init": {
     "args": [
-      "u64",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_pool_deinit": {
+    "args": [],
+    "returns": "void"
+  },
+  "persistent_merkle_tree_pool_create_leaf": {
+    "args": [
       "ptr",
-      "bool",
-      "bool",
       "bool"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_pool_create_branch": {
+    "args": [
+      "u32",
+      "u32",
+      "bool"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_pool_ref": {
+    "args": [
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_pool_unref": {
+    "args": [
+      "u32"
+    ],
+    "returns": "void"
+  },
+  "persistent_merkle_tree_node_get_left": {
+    "args": [
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_node_get_right": {
+    "args": [
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_node_get_hash": {
+    "args": [
+      "u32"
+    ],
+    "returns": "ptr"
+  },
+  "persistent_merkle_tree_node_get_state": {
+    "args": [
+      "u32"
     ],
     "returns": "u32"
   },
-  "lmdb_database_get": {
+  "persistent_merkle_tree_node_get_node": {
     "args": [
-      "ptr",
       "u32",
-      "ptr",
-      "u32"
-    ],
-    "returns": "ptr"
-  },
-  "lmdb_database_set": {
-    "args": [
-      "u64",
-      "u32",
-      "ptr",
-      "u32",
-      "ptr",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "lmdb_database_delete": {
-    "args": [
-      "u64",
-      "u32",
-      "ptr",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "lmdb_database_cursor": {
-    "args": [
-      "ptr",
-      "u32"
-    ],
-    "returns": "ptr"
-  },
-  "lmdb_cursor_deinit": {
-    "args": [
-      "u64"
-    ],
-    "returns": "void"
-  },
-  "lmdb_cursor_get_current_key": {
-    "args": [
-      "ptr"
-    ],
-    "returns": "ptr"
-  },
-  "lmdb_cursor_get_current_value": {
-    "args": [
-      "ptr"
-    ],
-    "returns": "ptr"
-  },
-  "lmdb_cursor_set_current_value": {
-    "args": [
-      "u64",
-      "ptr",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "lmdb_cursor_delete_current_key": {
-    "args": [
       "u64"
     ],
     "returns": "i32"
   },
-  "lmdb_cursor_go_to_next": {
+  "persistent_merkle_tree_node_get_node_at_depth": {
     "args": [
-      "ptr"
+      "u32",
+      "u8",
+      "u32"
     ],
-    "returns": "ptr"
+    "returns": "i32"
   },
-  "lmdb_cursor_go_to_previous": {
+  "persistent_merkle_tree_node_get_nodes_at_depth": {
     "args": [
-      "ptr"
-    ],
-    "returns": "ptr"
-  },
-  "lmdb_cursor_go_to_first": {
-    "args": [
-      "ptr"
-    ],
-    "returns": "ptr"
-  },
-  "lmdb_cursor_go_to_last": {
-    "args": [
-      "ptr"
-    ],
-    "returns": "ptr"
-  },
-  "lmdb_cursor_go_to_key": {
-    "args": [
-      "u64",
+      "u32",
+      "u8",
+      "u32",
       "ptr",
       "u32"
     ],
     "returns": "i32"
   },
-  "lmdb_cursor_seek": {
+  "persistent_merkle_tree_node_set_node": {
     "args": [
+      "u32",
+      "u64",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_node_set_node_at_depth": {
+    "args": [
+      "u32",
+      "u8",
+      "u32",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_node_set_nodes_at_depth": {
+    "args": [
+      "u32",
+      "u8",
       "ptr",
       "ptr",
       "u32"
     ],
-    "returns": "ptr"
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_node_set_nodes": {
+    "args": [
+      "u32",
+      "ptr",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_node_fill_to_depth": {
+    "args": [
+      "u32",
+      "u8",
+      "bool"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_node_fill_to_length": {
+    "args": [
+      "u32",
+      "u8",
+      "u32",
+      "bool"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_node_fill_with_contents": {
+    "args": [
+      "ptr",
+      "u32",
+      "u8",
+      "bool"
+    ],
+    "returns": "i32"
   },
   "leveldb_get_len_ptr": {
     "args": [],
@@ -399,193 +382,210 @@ const fns = {
     ],
     "returns": "cstring"
   },
-  "persistent_merkle_tree_pool_init": {
+  "u64_to_bytes": {
     "args": [
-      "u32"
+      "u64",
+      "ptr",
+      "u32",
+      "bool"
     ],
     "returns": "i32"
   },
-  "persistent_merkle_tree_pool_deinit": {
+  "bytes_to_u64": {
+    "args": [
+      "ptr",
+      "u32",
+      "bool"
+    ],
+    "returns": "u64"
+  },
+  "bytes_to_u64_fast": {
+    "args": [
+      "ptr",
+      "u32",
+      "bool"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_get_len_ptr": {
     "args": [],
+    "returns": "ptr"
+  },
+  "lmdb_get_err_ptr": {
+    "args": [],
+    "returns": "ptr"
+  },
+  "lmdb_environment_init": {
+    "args": [
+      "ptr",
+      "u32",
+      "u64"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_environment_deinit": {
+    "args": [
+      "u64"
+    ],
     "returns": "void"
   },
-  "persistent_merkle_tree_pool_create_leaf": {
+  "lmdb_transaction_begin": {
     "args": [
       "ptr",
       "bool"
     ],
-    "returns": "i32"
+    "returns": "ptr"
   },
-  "persistent_merkle_tree_pool_create_branch": {
+  "lmdb_transaction_abort": {
     "args": [
-      "u32",
-      "u32",
-      "bool"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_pool_ref": {
-    "args": [
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_pool_unref": {
-    "args": [
-      "u32"
+      "u64"
     ],
     "returns": "void"
   },
-  "persistent_merkle_tree_node_get_left": {
+  "lmdb_transaction_commit": {
     "args": [
-      "u32"
+      "u64"
     ],
     "returns": "i32"
   },
-  "persistent_merkle_tree_node_get_right": {
+  "lmdb_database_open": {
     "args": [
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_node_get_hash": {
-    "args": [
-      "u32"
-    ],
-    "returns": "ptr"
-  },
-  "persistent_merkle_tree_node_get_state": {
-    "args": [
-      "u32"
+      "u64",
+      "ptr",
+      "bool",
+      "bool",
+      "bool"
     ],
     "returns": "u32"
   },
-  "persistent_merkle_tree_node_get_node": {
+  "lmdb_database_get": {
     "args": [
-      "u32",
-      "u64"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_node_get_node_at_depth": {
-    "args": [
-      "u32",
-      "u8",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_node_get_nodes_at_depth": {
-    "args": [
-      "u32",
-      "u8",
+      "ptr",
       "u32",
       "ptr",
       "u32"
     ],
-    "returns": "i32"
+    "returns": "ptr"
   },
-  "persistent_merkle_tree_node_set_node": {
+  "lmdb_database_set": {
     "args": [
-      "u32",
       "u64",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_node_set_node_at_depth": {
-    "args": [
       "u32",
-      "u8",
-      "u32",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_node_set_nodes_at_depth": {
-    "args": [
-      "u32",
-      "u8",
       "ptr",
+      "u32",
       "ptr",
       "u32"
     ],
     "returns": "i32"
   },
-  "persistent_merkle_tree_node_set_nodes": {
+  "lmdb_database_delete": {
     "args": [
+      "u64",
       "u32",
-      "ptr",
       "ptr",
       "u32"
     ],
     "returns": "i32"
   },
-  "persistent_merkle_tree_node_fill_to_depth": {
+  "lmdb_database_cursor": {
     "args": [
-      "u32",
-      "u8",
-      "bool"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_node_fill_to_length": {
-    "args": [
-      "u32",
-      "u8",
-      "u32",
-      "bool"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_node_fill_with_contents": {
-    "args": [
-      "ptr",
-      "u32",
-      "u8",
-      "bool"
-    ],
-    "returns": "i32"
-  },
-  "snappy_get_err_ptr": {
-    "args": [],
-    "returns": "ptr"
-  },
-  "snappy_compress_": {
-    "args": [
-      "ptr",
-      "u32",
       "ptr",
       "u32"
     ],
     "returns": "ptr"
   },
-  "snappy_uncompress_": {
-    "args": [
-      "ptr",
-      "u32",
-      "ptr",
-      "u32"
-    ],
-    "returns": "ptr"
-  },
-  "snappy_max_compressed_length_": {
+  "lmdb_cursor_deinit": {
     "args": [
       "u64"
     ],
+    "returns": "void"
+  },
+  "lmdb_cursor_get_current_key": {
+    "args": [
+      "ptr"
+    ],
     "returns": "ptr"
   },
-  "snappy_uncompressed_length_": {
+  "lmdb_cursor_get_current_value": {
     "args": [
+      "ptr"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_cursor_set_current_value": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "lmdb_cursor_delete_current_key": {
+    "args": [
+      "u64"
+    ],
+    "returns": "i32"
+  },
+  "lmdb_cursor_go_to_next": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_cursor_go_to_previous": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_cursor_go_to_first": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_cursor_go_to_last": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "ptr"
+  },
+  "lmdb_cursor_go_to_key": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "lmdb_cursor_seek": {
+    "args": [
+      "ptr",
       "ptr",
       "u32"
     ],
     "returns": "ptr"
   },
-  "snappy_validate_compressed_buffer_": {
+  "hashtree_hash_": {
     "args": [
       "ptr",
-      "u32"
+      "ptr",
+      "u64"
+    ],
+    "returns": "i32"
+  },
+  "hashtree_digest64": {
+    "args": [
+      "ptr",
+      "ptr"
+    ],
+    "returns": "i32"
+  },
+  "hashtree_digest_2_bytes32": {
+    "args": [
+      "ptr",
+      "ptr",
+      "ptr"
     ],
     "returns": "i32"
   }
