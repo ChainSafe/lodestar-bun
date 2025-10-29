@@ -16,8 +16,6 @@ export function dbOpen(path: string, options: {
   paranoid_checks?: boolean;
   write_buffer_size?: number;
   max_open_files?: number;
-  block_size?: number;
-  block_restart_interval?: number;
 } = {
 }): DB {
   const db = binding.rocksdb_db_open(
@@ -27,8 +25,6 @@ export function dbOpen(path: string, options: {
     options.paranoid_checks ?? true,
     options.write_buffer_size ?? 4 * 1024 * 1024,
     options.max_open_files ?? 1000,
-    options.block_size ?? 4 * 1024,
-    options.block_restart_interval ?? 16,
   );
   if (db === null) {
     throwErr(read.i32(errPtr, 0));
@@ -41,9 +37,9 @@ export function dbClose(db: DB): void {
   binding.rocksdb_db_close(db);
 }
 
-export function dbDestroy(path: string): void {
-  throwErr(binding.rocksdb_db_destroy(textEncoder.encode(path + "\0")));
-}
+// export function dbDestroy(path: string): void {
+//   throwErr(binding.rocksdb_db_destroy(textEncoder.encode(path + "\0")));
+// }
 
 export function dbPut(db: DB, key: Uint8Array, value: Uint8Array): void {
   throwErr(binding.rocksdb_db_put(

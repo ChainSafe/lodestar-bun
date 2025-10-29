@@ -1,6 +1,8 @@
 const std = @import("std");
 const rocksdb = @import("rocksdb");
 const toErrCode = @import("common.zig").toErrCode;
+var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+const allocator = gpa.allocator();
 
 threadlocal var len: u32 = undefined;
 threadlocal var err: i32 = undefined;
@@ -38,7 +40,9 @@ pub export fn rocksdb_db_open(
         mode = rocksdb.Options.OpenMode.exclusive_create;
     }
 
-    var db = rocksdb.Database.open(std.mem.span(path), rocksdb.Options{
+    const dbp = allocator.create(rocksdb.Database) catch return 0;
+
+    dbp.* = rocksdb.Database.open(std.mem.span(path), rocksdb.Options{
         .mode = mode,
         .paranoid_checks = paranoid_checks,
         .write_buffer_size = write_buffer_size,
@@ -48,15 +52,14 @@ pub export fn rocksdb_db_open(
         return 0;
     };
 
-    return @intFromPtr(&db);
+    return @intFromPtr(dbp);
 }
 
 pub export fn rocksdb_db_close(db_ptr: u64) void {
     const db: *rocksdb.Database = @ptrFromInt(db_ptr);
     db.close();
+    allocator.destroy(db);
 }
-
-// pub export fn rocksdb_db_destroy(path: [*c]const u8) i32 {}
 
 pub export fn rocksdb_db_put(db_ptr: u64, key: [*c]const u8, key_len: u32, value: [*c]const u8, value_len: u32) i32 {
     const db: *rocksdb.Database = @ptrFromInt(db_ptr);
@@ -67,7 +70,6 @@ pub export fn rocksdb_db_put(db_ptr: u64, key: [*c]const u8, key_len: u32, value
     return 0;
 }
 
-// bun-ffi-z: rocksdb_db_get (u64, ptr, u32) ptr
 pub export fn rocksdb_db_get(db_ptr: u64, key: [*c]const u8, key_len: u32) u64 {
     const db: *rocksdb.Database = @ptrFromInt(db_ptr);
 
