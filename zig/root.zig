@@ -18,4 +18,5 @@ comptime {
     std.testing.refAllDecls(snappy);
     std.testing.refAllDecls(pubkey_map);
     std.testing.refAllDecls(inner_shuffle_list);
+    std.testing.refAllDecls(committee_indices);
 }
