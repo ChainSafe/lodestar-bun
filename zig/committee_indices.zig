@@ -16,6 +16,9 @@ pub export fn computeProposerIndexElectra(
     active_indices_len: usize,
     effective_balance_increments: [*c]u16,
     effective_balance_increments_len: usize,
+    max_effective_balance_electra: u64,
+    effective_balance_increment: u32,
+    rounds: u32,
 ) u32 {
     const allocator = gpa.allocator();
     // TODO: is it better to define a Result struct with code and value
@@ -24,9 +27,9 @@ pub export fn computeProposerIndexElectra(
         seed[0..seed_len],
         active_indices[0..active_indices_len],
         effective_balance_increments[0..effective_balance_increments_len],
-        2,
-        4,
-        2,
+        max_effective_balance_electra,
+        effective_balance_increment,
+        rounds,
     ) catch return ERROR_INDEX;
     return proposer_index;
 }
