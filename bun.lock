@@ -4,7 +4,7 @@
     "": {
       "name": "bun",
       "dependencies": {
-        "@chainsafe/bun-ffi-z": "^1.1.4",
+        "@chainsafe/bun-ffi-z": "^1.1.5",
       },
       "devDependencies": {
         "@chainsafe/as-sha256": "^1.2.0",
@@ -67,7 +67,7 @@
 
     "@chainsafe/benchmark": ["@chainsafe/benchmark@2.0.1", "", { "dependencies": { "@actions/cache": "^4.0.0", "@actions/github": "^6.0.0", "@vitest/runner": "^2.1.8", "ajv": "^8.17.1", "aws-sdk": "^2.932.0", "cli-table3": "^0.6.5", "csv-parse": "^5.6.0", "csv-stringify": "^6.5.2", "debug": "^4.4.0", "glob": "^10.4.5", "log-symbols": "^7.0.0", "yaml": "^2.7.0", "yargs": "^17.7.2" }, "bin": { "benchmark": "bin/index.js" } }, "sha512-Noecu9z6kjXWdKl9ZL/PckJxfi+Ax4/8/i4F862jo3FZcViK8LWR5Byc8pKeNC5vcDMSP73/ME3vgUovYGqwUw=="],
 
-    "@chainsafe/bun-ffi-z": ["@chainsafe/bun-ffi-z@1.1.4", "", { "peerDependencies": { "typescript": "^5" }, "bin": { "bun-ffi-z": "src/cli.ts" } }, "sha512-yegYWjcj9pMwrf554iuFGoUc+Kq8EWDrVpeGiPl/nmXu/lm5EaUzxsiLG6WR1J9tpTQk012213y9RA5PwDrUTQ=="],
+    "@chainsafe/bun-ffi-z": ["@chainsafe/bun-ffi-z@1.1.5", "", { "peerDependencies": { "typescript": "^5" }, "bin": { "bun-ffi-z": "src/cli.ts" } }, "sha512-nmiRudOInH2JQk32FEyOq/VeBftKuHxP44TYd345xCdZKv2j4ajecM6IZ9SzTQTNozFqt7gCsnWINJXYikfRzw=="],
 
     "@chainsafe/hashtree": ["@chainsafe/hashtree@1.0.2", "", { "optionalDependencies": { "@chainsafe/hashtree-darwin-arm64": "1.0.2", "@chainsafe/hashtree-linux-arm64-gnu": "1.0.2", "@chainsafe/hashtree-linux-arm64-musl": "1.0.2", "@chainsafe/hashtree-linux-x64-gnu": "1.0.2", "@chainsafe/hashtree-linux-x64-musl": "1.0.2", "@chainsafe/hashtree-win32-x64-msvc": "1.0.2" } }, "sha512-OaWjsZ6S/GaT2RvaqdpsF5Mux8qQOE2KbitX2yHmQJZNUZkdh7C3N4PA5LsvewqX+z8Nkv8mr1uSe0LSrHGiQw=="],
 
