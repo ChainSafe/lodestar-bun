@@ -41,10 +41,8 @@ jobs:
 
       - name: Generate bindings
         run: |
-          mv src/binding.ts ${{ runner.temp }}/binding.ts
           bun run generate
-          CMP=$(cmp src/binding.ts ${{ runner.temp }}/binding.ts) 
-          if [ -n "$CMP" ]; then
+          if [[ $(git diff --stat src/binding.ts) != '' ]]; then
               echo "Bindings changed but was not committed. Re-generate and commit the new binding.ts!"
               exit 1
           fi
