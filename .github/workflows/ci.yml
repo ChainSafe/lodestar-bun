@@ -43,6 +43,7 @@ jobs:
         run: |
           bun run generate
           if [[ $(git diff --stat src/binding.ts) != '' ]]; then
+              git --no-pager diff
               echo "Bindings changed but was not committed. Re-generate and commit the new binding.ts!"
               exit 1
           fi
