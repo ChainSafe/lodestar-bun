@@ -43,9 +43,9 @@ jobs:
         run: |
           mv src/binding.ts ${{ runner.temp }}/binding.ts
           bun run generate
-          DIFF=$(diff src/binding.ts ${{ runner.temp }}/binding.ts) 
-          if [ "$DIFF" == "" ]; then
-              echo "Bindings changed but was not committed. Run `bun run generate` and commit the new binding.ts!"
+          CMP=$(cmp src/binding.ts ${{ runner.temp }}/binding.ts) 
+          if [ -n "$CMP" ]; then
+              echo "Bindings changed but was not committed. Re-generate and commit the new binding.ts!"
               exit 1
           fi
 
