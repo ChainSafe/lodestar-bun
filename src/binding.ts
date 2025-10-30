@@ -195,6 +195,137 @@ const fns = {
     ],
     "returns": "i32"
   },
+  "createPubkeyIndexMap": {
+    "args": [],
+    "returns": "u64"
+  },
+  "destroyPubkeyIndexMap": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "getNotFoundIndex": {
+    "args": [],
+    "returns": "u32"
+  },
+  "getErrorIndex": {
+    "args": [],
+    "returns": "u32"
+  },
+  "pubkeyIndexMapSet": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "pubkeyIndexMapGet": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "u32"
+  },
+  "pubkeyIndexMapClear": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "pubkeyIndexMapClone": {
+    "args": [
+      "u64"
+    ],
+    "returns": "u64"
+  },
+  "pubkeyIndexMapHas": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "bool"
+  },
+  "pubkeyIndexMapDelete": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "bool"
+  },
+  "pubkeyIndexMapSize": {
+    "args": [
+      "u64"
+    ],
+    "returns": "u32"
+  },
+  "computeProposerIndexElectra": {
+    "args": [
+      "ptr",
+      "u64",
+      "ptr",
+      "u64",
+      "ptr",
+      "u64",
+      "u64",
+      "u32",
+      "u32"
+    ],
+    "returns": "u32"
+  },
+  "computeProposerIndex": {
+    "args": [
+      "ptr",
+      "u64",
+      "ptr",
+      "u64",
+      "ptr",
+      "u64",
+      "u8",
+      "u64",
+      "u32",
+      "u32"
+    ],
+    "returns": "u32"
+  },
+  "computeSyncCommitteeIndicesElectra": {
+    "args": [
+      "ptr",
+      "u64",
+      "ptr",
+      "u64",
+      "ptr",
+      "u64",
+      "u64",
+      "u32",
+      "u32",
+      "ptr",
+      "u64"
+    ],
+    "returns": "u32"
+  },
+  "computeSyncCommitteeIndices": {
+    "args": [
+      "ptr",
+      "u64",
+      "ptr",
+      "u64",
+      "ptr",
+      "u64",
+      "u8",
+      "u64",
+      "u32",
+      "u32",
+      "ptr",
+      "u64"
+    ],
+    "returns": "u32"
+  },
   "leveldb_get_len_ptr": {
     "args": [],
     "returns": "ptr"
@@ -381,6 +512,69 @@ const fns = {
       "u16"
     ],
     "returns": "cstring"
+  },
+  "asyncShuffleList": {
+    "args": [
+      "ptr",
+      "u64",
+      "ptr",
+      "u64",
+      "u8"
+    ],
+    "returns": "u64"
+  },
+  "asyncUnshuffleList": {
+    "args": [
+      "ptr",
+      "u64",
+      "ptr",
+      "u64",
+      "u8"
+    ],
+    "returns": "u64"
+  },
+  "releaseAsyncResult": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "pollAsyncResult": {
+    "args": [
+      "u64"
+    ],
+    "returns": "i32"
+  },
+  "shuffleList": {
+    "args": [
+      "ptr",
+      "u64",
+      "ptr",
+      "u64",
+      "u8"
+    ],
+    "returns": "i32"
+  },
+  "unshuffleList": {
+    "args": [
+      "ptr",
+      "u64",
+      "ptr",
+      "u64",
+      "u8"
+    ],
+    "returns": "i32"
+  },
+  "doShuffleList": {
+    "args": [
+      "ptr",
+      "u64",
+      "ptr",
+      "u64",
+      "u8",
+      "bool"
+    ],
+    "returns": "i32"
   },
   "u64_to_bytes": {
     "args": [
