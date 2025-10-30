@@ -39,6 +39,15 @@ jobs:
 
       - run: bun install
 
+      - name: Generate bindings
+        run: |
+          bun run generate
+          if [[ $(git diff --stat src/binding.ts) != '' ]]; then
+              git --no-pager diff
+              echo "Bindings changed but was not committed. Re-generate and commit the new binding.ts!"
+              exit 1
+          fi
+
       # check/build/test
 
       # Zig fmt is failing on windows and is redundant to run all platforms. So we run only on linux.
