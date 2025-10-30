@@ -9,7 +9,7 @@ var gpa = @import("std").heap.GeneralPurposeAllocator(.{}){};
 // this special index 4,294,967,295 is used to mark a not found
 pub const ERROR_INDEX = 0xffffffff;
 
-pub export fn computeProposerIndexElectra(
+export fn computeProposerIndexElectra(
     seed: [*c]u8,
     seed_len: usize,
     active_indices: [*c]u32,
