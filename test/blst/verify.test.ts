@@ -1,8 +1,9 @@
-import {afterAll, beforeAll, describe, expect, it} from "bun:test";
+import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 
-import {sullyUint8Array} from "./utils/helpers.js";
-import {getTestSet} from "./utils/testSets.js";
-import type {TestSet} from "./utils/types.js";
+import { sullyUint8Array } from "./utils/helpers.js";
+import { getTestSet } from "./utils/testSets.js";
+import type { TestSet } from "./utils/types.js";
+import { init } from "../../src/blst.ts";
 
 describe("Verify", () => {
 	let testSet: TestSet;
@@ -29,6 +30,7 @@ describe("Aggregate Verify", () => {
 	let testSet: TestSet;
 	beforeAll(() => {
 		testSet = getTestSet();
+		init();
 	});
 	describe("aggregateVerify", () => {
 		it("should return a boolean", () => {
