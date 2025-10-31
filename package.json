@@ -8,13 +8,14 @@
   "exports": "./src/index.ts",
   "scripts": {
     "bench:files": "bun node_modules/.bin/benchmark",
-    "bench": "bun run bench:files bench/bytes.bench.ts",
+    "bench": "bun run bench:files",
     "check": "tsc --noEmit",
     "generate": "bun node_modules/.bin/bun-ffi-z generate-binding"
   },
   "devDependencies": {
     "@chainsafe/as-sha256": "^1.2.0",
     "@chainsafe/benchmark": "^2.0.1",
+    "@chainsafe/blst": "^2.2.0",
     "@chainsafe/hashtree": "^1.0.2",
     "@types/bun": "latest",
     "@types/snappyjs": "^0.7.1",

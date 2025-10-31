@@ -8,6 +8,7 @@ const snappy = @import("snappy.zig");
 const pubkey_map = @import("pubkey_map.zig");
 const committee_indices = @import("committee_indices.zig");
 const inner_shuffle_list = @import("inner_shuffle_list.zig");
+const blst = @import("blst.zig");
 
 comptime {
     std.testing.refAllDecls(hashtree);
@@ -19,4 +20,5 @@ comptime {
     std.testing.refAllDecls(pubkey_map);
     std.testing.refAllDecls(inner_shuffle_list);
     std.testing.refAllDecls(committee_indices);
+    std.testing.refAllDecls(blst);
 }
