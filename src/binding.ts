@@ -5,30 +5,436 @@ import path from "node:path";
 import { openLibrary } from "@chainsafe/bun-ffi-z";
 
 const fns = {
-  "u64_to_bytes": {
+  "snappy_get_err_ptr": {
+    "args": [],
+    "returns": "ptr"
+  },
+  "snappy_compress_": {
     "args": [
-      "u64",
       "ptr",
+      "u32",
+      "ptr",
+      "u32"
+    ],
+    "returns": "ptr"
+  },
+  "snappy_uncompress_": {
+    "args": [
+      "ptr",
+      "u32",
+      "ptr",
+      "u32"
+    ],
+    "returns": "ptr"
+  },
+  "snappy_max_compressed_length_": {
+    "args": [
+      "u64"
+    ],
+    "returns": "ptr"
+  },
+  "snappy_uncompressed_length_": {
+    "args": [
+      "ptr",
+      "u32"
+    ],
+    "returns": "ptr"
+  },
+  "snappy_validate_compressed_buffer_": {
+    "args": [
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_pool_init": {
+    "args": [
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_pool_deinit": {
+    "args": [],
+    "returns": "void"
+  },
+  "persistent_merkle_tree_pool_create_leaf": {
+    "args": [
+      "ptr",
+      "bool"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_pool_create_branch": {
+    "args": [
+      "u32",
       "u32",
       "bool"
     ],
     "returns": "i32"
   },
-  "bytes_to_u64": {
+  "persistent_merkle_tree_pool_ref": {
+    "args": [
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_pool_unref": {
+    "args": [
+      "u32"
+    ],
+    "returns": "void"
+  },
+  "persistent_merkle_tree_node_get_left": {
+    "args": [
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_node_get_right": {
+    "args": [
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_node_get_hash": {
+    "args": [
+      "u32"
+    ],
+    "returns": "ptr"
+  },
+  "persistent_merkle_tree_node_get_state": {
+    "args": [
+      "u32"
+    ],
+    "returns": "u32"
+  },
+  "persistent_merkle_tree_node_get_node": {
+    "args": [
+      "u32",
+      "u64"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_node_get_node_at_depth": {
+    "args": [
+      "u32",
+      "u8",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_node_get_nodes_at_depth": {
+    "args": [
+      "u32",
+      "u8",
+      "u32",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_node_set_node": {
+    "args": [
+      "u32",
+      "u64",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_node_set_node_at_depth": {
+    "args": [
+      "u32",
+      "u8",
+      "u32",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_node_set_nodes_at_depth": {
+    "args": [
+      "u32",
+      "u8",
+      "ptr",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_node_set_nodes": {
+    "args": [
+      "u32",
+      "ptr",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_node_fill_to_depth": {
+    "args": [
+      "u32",
+      "u8",
+      "bool"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_node_fill_to_length": {
+    "args": [
+      "u32",
+      "u8",
+      "u32",
+      "bool"
+    ],
+    "returns": "i32"
+  },
+  "persistent_merkle_tree_node_fill_with_contents": {
     "args": [
       "ptr",
       "u32",
+      "u8",
       "bool"
+    ],
+    "returns": "i32"
+  },
+  "rocksdb_get_len_ptr": {
+    "args": [],
+    "returns": "ptr"
+  },
+  "rocksdb_get_err_ptr": {
+    "args": [],
+    "returns": "ptr"
+  },
+  "rocksdb_free_": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "rocksdb_db_open": {
+    "args": [
+      "ptr",
+      "bool",
+      "bool",
+      "bool",
+      "u32",
+      "i32"
+    ],
+    "returns": "ptr"
+  },
+  "rocksdb_db_close": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "rocksdb_db_destroy": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "i32"
+  },
+  "rocksdb_db_put": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "rocksdb_db_get": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "ptr"
+  },
+  "rocksdb_db_delete": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "rocksdb_writebatch_create_": {
+    "args": [],
+    "returns": "u64"
+  },
+  "rocksdb_writebatch_destroy_": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "rocksdb_writebatch_clear_": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "rocksdb_writebatch_put_": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32",
+      "ptr",
+      "u32"
+    ],
+    "returns": "void"
+  },
+  "rocksdb_writebatch_delete_": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "void"
+  },
+  "rocksdb_db_write": {
+    "args": [
+      "u64",
+      "u64"
+    ],
+    "returns": "i32"
+  },
+  "rocksdb_db_create_iterator": {
+    "args": [
+      "u64"
+    ],
+    "returns": "ptr"
+  },
+  "rocksdb_iterator_destroy": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "rocksdb_iterator_valid": {
+    "args": [
+      "u64"
+    ],
+    "returns": "bool"
+  },
+  "rocksdb_iterator_seek_to_first": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "rocksdb_iterator_seek_to_last": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "rocksdb_iterator_seek": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "void"
+  },
+  "rocksdb_iterator_next": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "rocksdb_iterator_prev": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "rocksdb_iterator_key": {
+    "args": [
+      "u64"
+    ],
+    "returns": "ptr"
+  },
+  "rocksdb_iterator_value": {
+    "args": [
+      "u64"
+    ],
+    "returns": "ptr"
+  },
+  "rocksdb_iterator_get_error": {
+    "args": [
+      "u64"
+    ],
+    "returns": "i32"
+  },
+  "createPubkeyIndexMap": {
+    "args": [],
+    "returns": "u64"
+  },
+  "destroyPubkeyIndexMap": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "getNotFoundIndex": {
+    "args": [],
+    "returns": "u32"
+  },
+  "getErrorIndex": {
+    "args": [],
+    "returns": "u32"
+  },
+  "pubkeyIndexMapSet": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "pubkeyIndexMapGet": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "u32"
+  },
+  "pubkeyIndexMapClear": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "pubkeyIndexMapClone": {
+    "args": [
+      "u64"
     ],
     "returns": "u64"
   },
-  "bytes_to_u64_fast": {
+  "pubkeyIndexMapHas": {
     "args": [
+      "u64",
       "ptr",
-      "u32",
-      "bool"
+      "u32"
     ],
-    "returns": "ptr"
+    "returns": "bool"
+  },
+  "pubkeyIndexMapDelete": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "bool"
+  },
+  "pubkeyIndexMapSize": {
+    "args": [
+      "u64"
+    ],
+    "returns": "u32"
   },
   "computeProposerIndexElectra": {
     "args": [
@@ -91,98 +497,6 @@ const fns = {
       "u64"
     ],
     "returns": "u32"
-  },
-  "err_name": {
-    "args": [
-      "u16"
-    ],
-    "returns": "cstring"
-  },
-  "hashtree_hash_": {
-    "args": [
-      "ptr",
-      "ptr",
-      "u64"
-    ],
-    "returns": "i32"
-  },
-  "hashtree_digest64": {
-    "args": [
-      "ptr",
-      "ptr"
-    ],
-    "returns": "i32"
-  },
-  "hashtree_digest_2_bytes32": {
-    "args": [
-      "ptr",
-      "ptr",
-      "ptr"
-    ],
-    "returns": "i32"
-  },
-  "asyncShuffleList": {
-    "args": [
-      "ptr",
-      "u64",
-      "ptr",
-      "u64",
-      "u8"
-    ],
-    "returns": "u64"
-  },
-  "asyncUnshuffleList": {
-    "args": [
-      "ptr",
-      "u64",
-      "ptr",
-      "u64",
-      "u8"
-    ],
-    "returns": "u64"
-  },
-  "releaseAsyncResult": {
-    "args": [
-      "u64"
-    ],
-    "returns": "void"
-  },
-  "pollAsyncResult": {
-    "args": [
-      "u64"
-    ],
-    "returns": "i32"
-  },
-  "shuffleList": {
-    "args": [
-      "ptr",
-      "u64",
-      "ptr",
-      "u64",
-      "u8"
-    ],
-    "returns": "i32"
-  },
-  "unshuffleList": {
-    "args": [
-      "ptr",
-      "u64",
-      "ptr",
-      "u64",
-      "u8"
-    ],
-    "returns": "i32"
-  },
-  "doShuffleList": {
-    "args": [
-      "ptr",
-      "u64",
-      "ptr",
-      "u64",
-      "u8",
-      "bool"
-    ],
-    "returns": "i32"
   },
   "leveldb_get_len_ptr": {
     "args": [],
@@ -365,6 +679,100 @@ const fns = {
     ],
     "returns": "i32"
   },
+  "err_name": {
+    "args": [
+      "u16"
+    ],
+    "returns": "cstring"
+  },
+  "asyncShuffleList": {
+    "args": [
+      "ptr",
+      "u64",
+      "ptr",
+      "u64",
+      "u8"
+    ],
+    "returns": "u64"
+  },
+  "asyncUnshuffleList": {
+    "args": [
+      "ptr",
+      "u64",
+      "ptr",
+      "u64",
+      "u8"
+    ],
+    "returns": "u64"
+  },
+  "releaseAsyncResult": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "pollAsyncResult": {
+    "args": [
+      "u64"
+    ],
+    "returns": "i32"
+  },
+  "shuffleList": {
+    "args": [
+      "ptr",
+      "u64",
+      "ptr",
+      "u64",
+      "u8"
+    ],
+    "returns": "i32"
+  },
+  "unshuffleList": {
+    "args": [
+      "ptr",
+      "u64",
+      "ptr",
+      "u64",
+      "u8"
+    ],
+    "returns": "i32"
+  },
+  "doShuffleList": {
+    "args": [
+      "ptr",
+      "u64",
+      "ptr",
+      "u64",
+      "u8",
+      "bool"
+    ],
+    "returns": "i32"
+  },
+  "u64_to_bytes": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32",
+      "bool"
+    ],
+    "returns": "i32"
+  },
+  "bytes_to_u64": {
+    "args": [
+      "ptr",
+      "u32",
+      "bool"
+    ],
+    "returns": "u64"
+  },
+  "bytes_to_u64_fast": {
+    "args": [
+      "ptr",
+      "u32",
+      "bool"
+    ],
+    "returns": "ptr"
+  },
   "lmdb_get_len_ptr": {
     "args": [],
     "returns": "ptr"
@@ -524,262 +932,26 @@ const fns = {
     ],
     "returns": "ptr"
   },
-  "persistent_merkle_tree_pool_init": {
-    "args": [
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_pool_deinit": {
-    "args": [],
-    "returns": "void"
-  },
-  "persistent_merkle_tree_pool_create_leaf": {
+  "hashtree_hash_": {
     "args": [
       "ptr",
-      "bool"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_pool_create_branch": {
-    "args": [
-      "u32",
-      "u32",
-      "bool"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_pool_ref": {
-    "args": [
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_pool_unref": {
-    "args": [
-      "u32"
-    ],
-    "returns": "void"
-  },
-  "persistent_merkle_tree_node_get_left": {
-    "args": [
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_node_get_right": {
-    "args": [
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_node_get_hash": {
-    "args": [
-      "u32"
-    ],
-    "returns": "ptr"
-  },
-  "persistent_merkle_tree_node_get_state": {
-    "args": [
-      "u32"
-    ],
-    "returns": "u32"
-  },
-  "persistent_merkle_tree_node_get_node": {
-    "args": [
-      "u32",
+      "ptr",
       "u64"
     ],
     "returns": "i32"
   },
-  "persistent_merkle_tree_node_get_node_at_depth": {
+  "hashtree_digest64": {
     "args": [
-      "u32",
-      "u8",
-      "u32"
+      "ptr",
+      "ptr"
     ],
     "returns": "i32"
   },
-  "persistent_merkle_tree_node_get_nodes_at_depth": {
-    "args": [
-      "u32",
-      "u8",
-      "u32",
-      "ptr",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_node_set_node": {
-    "args": [
-      "u32",
-      "u64",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_node_set_node_at_depth": {
-    "args": [
-      "u32",
-      "u8",
-      "u32",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_node_set_nodes_at_depth": {
-    "args": [
-      "u32",
-      "u8",
-      "ptr",
-      "ptr",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_node_set_nodes": {
-    "args": [
-      "u32",
-      "ptr",
-      "ptr",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_node_fill_to_depth": {
-    "args": [
-      "u32",
-      "u8",
-      "bool"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_node_fill_to_length": {
-    "args": [
-      "u32",
-      "u8",
-      "u32",
-      "bool"
-    ],
-    "returns": "i32"
-  },
-  "persistent_merkle_tree_node_fill_with_contents": {
+  "hashtree_digest_2_bytes32": {
     "args": [
       "ptr",
-      "u32",
-      "u8",
-      "bool"
-    ],
-    "returns": "i32"
-  },
-  "createPubkeyIndexMap": {
-    "args": [],
-    "returns": "u64"
-  },
-  "destroyPubkeyIndexMap": {
-    "args": [
-      "u64"
-    ],
-    "returns": "void"
-  },
-  "getNotFoundIndex": {
-    "args": [],
-    "returns": "u32"
-  },
-  "getErrorIndex": {
-    "args": [],
-    "returns": "u32"
-  },
-  "pubkeyIndexMapSet": {
-    "args": [
-      "u64",
       "ptr",
-      "u32",
-      "u32"
-    ],
-    "returns": "i32"
-  },
-  "pubkeyIndexMapGet": {
-    "args": [
-      "u64",
-      "ptr",
-      "u32"
-    ],
-    "returns": "u32"
-  },
-  "pubkeyIndexMapClear": {
-    "args": [
-      "u64"
-    ],
-    "returns": "void"
-  },
-  "pubkeyIndexMapClone": {
-    "args": [
-      "u64"
-    ],
-    "returns": "u64"
-  },
-  "pubkeyIndexMapHas": {
-    "args": [
-      "u64",
-      "ptr",
-      "u32"
-    ],
-    "returns": "bool"
-  },
-  "pubkeyIndexMapDelete": {
-    "args": [
-      "u64",
-      "ptr",
-      "u32"
-    ],
-    "returns": "bool"
-  },
-  "pubkeyIndexMapSize": {
-    "args": [
-      "u64"
-    ],
-    "returns": "u32"
-  },
-  "snappy_get_err_ptr": {
-    "args": [],
-    "returns": "ptr"
-  },
-  "snappy_compress_": {
-    "args": [
-      "ptr",
-      "u32",
-      "ptr",
-      "u32"
-    ],
-    "returns": "ptr"
-  },
-  "snappy_uncompress_": {
-    "args": [
-      "ptr",
-      "u32",
-      "ptr",
-      "u32"
-    ],
-    "returns": "ptr"
-  },
-  "snappy_max_compressed_length_": {
-    "args": [
-      "u64"
-    ],
-    "returns": "ptr"
-  },
-  "snappy_uncompressed_length_": {
-    "args": [
-      "ptr",
-      "u32"
-    ],
-    "returns": "ptr"
-  },
-  "snappy_validate_compressed_buffer_": {
-    "args": [
-      "ptr",
-      "u32"
+      "ptr"
     ],
     "returns": "i32"
   }

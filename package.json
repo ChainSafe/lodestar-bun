@@ -8,7 +8,7 @@
   "exports": "./src/index.ts",
   "scripts": {
     "bench:files": "bun node_modules/.bin/benchmark",
-    "bench": "bun run bench:files bench/bytes.bench.ts",
+    "bench": "bun run bench:files",
     "check": "tsc --noEmit",
     "generate": "bun node_modules/.bin/bun-ffi-z generate-binding"
   },
