@@ -85,8 +85,6 @@
 
     "@chainsafe/blst-win32-x64-msvc": ["@chainsafe/blst-win32-x64-msvc@2.2.0", "", { "os": "win32", "cpu": "x64" }, "sha512-UFrZshl4dfX5Uh2zeKXAZtrkQ+otczHMON2tsrapQNICWmfHZrzE6pKuBL+9QeGAbgflwpbz7+D5nQRDpiuHxQ=="],
 
-    "@chainsafe/bun-ffi-z": ["@chainsafe/bun-ffi-z@1.1.4", "", { "peerDependencies": { "typescript": "^5" }, "bin": { "bun-ffi-z": "src/cli.ts" } }, "sha512-yegYWjcj9pMwrf554iuFGoUc+Kq8EWDrVpeGiPl/nmXu/lm5EaUzxsiLG6WR1J9tpTQk012213y9RA5PwDrUTQ=="],
-
     "@chainsafe/hashtree": ["@chainsafe/hashtree@1.0.2", "", { "optionalDependencies": { "@chainsafe/hashtree-darwin-arm64": "1.0.2", "@chainsafe/hashtree-linux-arm64-gnu": "1.0.2", "@chainsafe/hashtree-linux-arm64-musl": "1.0.2", "@chainsafe/hashtree-linux-x64-gnu": "1.0.2", "@chainsafe/hashtree-linux-x64-musl": "1.0.2", "@chainsafe/hashtree-win32-x64-msvc": "1.0.2" } }, "sha512-OaWjsZ6S/GaT2RvaqdpsF5Mux8qQOE2KbitX2yHmQJZNUZkdh7C3N4PA5LsvewqX+z8Nkv8mr1uSe0LSrHGiQw=="],
 
     "@chainsafe/hashtree-darwin-arm64": ["@chainsafe/hashtree-darwin-arm64@1.0.2", "", { "os": "darwin", "cpu": "arm64" }, "sha512-yIIwn9SUR5ZTl2vN1QqRtDFL/w2xYW4o68A1k8UexMbieGAnE7Ab7NvtCZRHRe8x0eONO46F/bWn5bxxyYlFXw=="],
