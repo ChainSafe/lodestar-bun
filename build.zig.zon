@@ -30,6 +30,10 @@
             .url = "git+https://github.com/chainsafe/state-transition-z#22cd4532933de1cd2d0df299e52e6bc582e5a1c0",
             .hash = "state_transition_z-0.0.0-BO5n4AetCADaGuua8Bx77ZefJhonyr7dma8bU1kVCz8-",
         },
+        .rocksdb = .{
+            .url = "git+https://github.com/chainsafe/rocksdb.zig#52f1b3981fd091aba5d6f55531219570b9e88a05",
+            .hash = "rocksdb-0.1.0-HUNo2UGpAABHfkGiOryeHpo4xcDogOUzEndZfwBgsZKC",
+        },
     },
     .paths = .{ "build.zig", "build.zig.zon", "zig" },
 }

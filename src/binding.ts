@@ -741,6 +741,178 @@ const fns = {
     ],
     "returns": "u32"
   },
+  "rocksdb_get_len_ptr": {
+    "args": [],
+    "returns": "ptr"
+  },
+  "rocksdb_get_err_ptr": {
+    "args": [],
+    "returns": "ptr"
+  },
+  "rocksdb_free_": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "rocksdb_db_open": {
+    "args": [
+      "ptr",
+      "bool",
+      "bool",
+      "bool",
+      "u32",
+      "i32"
+    ],
+    "returns": "ptr"
+  },
+  "rocksdb_db_close": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "rocksdb_db_destroy": {
+    "args": [
+      "ptr"
+    ],
+    "returns": "i32"
+  },
+  "rocksdb_db_put": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "rocksdb_db_get": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "ptr"
+  },
+  "rocksdb_db_delete": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "i32"
+  },
+  "rocksdb_writebatch_create_": {
+    "args": [],
+    "returns": "u64"
+  },
+  "rocksdb_writebatch_destroy_": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "rocksdb_writebatch_clear_": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "rocksdb_writebatch_put_": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32",
+      "ptr",
+      "u32"
+    ],
+    "returns": "void"
+  },
+  "rocksdb_writebatch_delete_": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "void"
+  },
+  "rocksdb_db_write": {
+    "args": [
+      "u64",
+      "u64"
+    ],
+    "returns": "i32"
+  },
+  "rocksdb_db_create_iterator": {
+    "args": [
+      "u64"
+    ],
+    "returns": "ptr"
+  },
+  "rocksdb_iterator_destroy": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "rocksdb_iterator_valid": {
+    "args": [
+      "u64"
+    ],
+    "returns": "bool"
+  },
+  "rocksdb_iterator_seek_to_first": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "rocksdb_iterator_seek_to_last": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "rocksdb_iterator_seek": {
+    "args": [
+      "u64",
+      "ptr",
+      "u32"
+    ],
+    "returns": "void"
+  },
+  "rocksdb_iterator_next": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "rocksdb_iterator_prev": {
+    "args": [
+      "u64"
+    ],
+    "returns": "void"
+  },
+  "rocksdb_iterator_key": {
+    "args": [
+      "u64"
+    ],
+    "returns": "ptr"
+  },
+  "rocksdb_iterator_value": {
+    "args": [
+      "u64"
+    ],
+    "returns": "ptr"
+  },
+  "rocksdb_iterator_get_error": {
+    "args": [
+      "u64"
+    ],
+    "returns": "i32"
+  },
   "snappy_get_err_ptr": {
     "args": [],
     "returns": "ptr"

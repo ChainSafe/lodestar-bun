@@ -21,6 +21,11 @@ pub fn build(b: *std.Build) void {
         .target = target,
     });
 
+    const dep_rocksdb = b.dependency("rocksdb", .{
+        .optimize = optimize,
+        .target = target,
+    });
+
     const dep_snappy = b.dependency("snappy", .{
         .optimize = optimize,
         .target = target,
@@ -75,6 +80,7 @@ pub fn build(b: *std.Build) void {
     module_lodestar_z_bun.addImport("hashtree", dep_hashtree.module("hashtree"));
     module_lodestar_z_bun.addImport("lmdb", dep_lmdb.module("lmdb"));
     module_lodestar_z_bun.addImport("leveldb", dep_leveldb.module("leveldb"));
+    module_lodestar_z_bun.addImport("rocksdb", dep_rocksdb.module("rocksdb"));
     module_lodestar_z_bun.addImport("snappy", dep_snappy.module("snappy"));
     module_lodestar_z_bun.addImport("state_transition", dep_state_transition.module("state_transition"));
     module_lodestar_z_bun.addImport("ssz:persistent_merkle_tree", dep_ssz.module("persistent_merkle_tree"));
