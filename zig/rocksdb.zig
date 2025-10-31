@@ -57,6 +57,7 @@ pub export fn rocksdb_db_open(
         .max_open_files = max_open_files,
     }) catch |e| {
         err = toErrCode(e);
+        allocator.destroy(dbp);
         return 0;
     };
 
@@ -72,6 +73,7 @@ pub export fn rocksdb_db_close(db_ptr: u64) void {
 pub export fn rocksdb_db_destroy(path: [*c]const u8) i32 {
     rocksdb.Database.destroy(std.mem.span(path)) catch |e| {
         err = toErrCode(e);
+        return err;
     };
     return 0;
 }
@@ -80,7 +82,7 @@ pub export fn rocksdb_db_put(db_ptr: u64, key: [*c]const u8, key_len: u32, value
     const db: *rocksdb.Database = @ptrFromInt(db_ptr);
     db.put(key[0..key_len], value[0..value_len]) catch |e| {
         err = toErrCode(e);
-        return 0;
+        return err;
     };
     return 0;
 }
@@ -112,7 +114,10 @@ pub export fn rocksdb_db_delete(db_ptr: u64, key: [*c]const u8, key_len: u32) i3
 
 // / bun-ffi-z: rocksdb_writebatch_create_ () ptr
 pub export fn rocksdb_writebatch_create_() u64 {
-    const batch = rocksdb.WriteBatch.init() catch return 0;
+    const batch = rocksdb.WriteBatch.init() catch |e| {
+        err = toErrCode(e);
+        return 0;
+    };
     return @intFromPtr(batch.handle);
 }
 
@@ -153,6 +158,7 @@ pub export fn rocksdb_db_create_iterator(db_ptr: u64) u64 {
     const iter_ptr = allocator.create(rocksdb.Iterator) catch return 0;
     iter_ptr.* = rocksdb.Iterator.init(db, .{}) catch |e| {
         err = toErrCode(e);
+        allocator.destroy(iter_ptr);
         return 0;
     };
     return @intFromPtr(iter_ptr);

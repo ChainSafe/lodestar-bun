@@ -52,10 +52,12 @@ export function dbGet(db: DB, key: Uint8Array): Uint8Array | null {
     throwErr(read.i32(errPtr, 0));
     return null;
   }
-  const valueLen = read.u32(lenPtr, 0);
-  const value = new Uint8Array(toArrayBuffer(valuePtr, 0, valueLen).slice());
-  binding.rocksdb_free_(valuePtr);
-  return value;
+  try {
+    const valueLen = read.u32(lenPtr, 0);
+    return new Uint8Array(toArrayBuffer(valuePtr, 0, valueLen).slice());
+  } finally {
+    binding.rocksdb_free_(valuePtr);
+  }
 }
 
 export function dbDelete(db: DB, key: Uint8Array): void {
@@ -67,28 +69,45 @@ export function dbBatchPut(
   batch: { key: Uint8Array; value: Uint8Array }[]
 ): void {
   const batchPtr = binding.rocksdb_writebatch_create_();
-  for (const { key, value } of batch) {
-    binding.rocksdb_writebatch_put_(
-      batchPtr,
-      key,
-      key.length,
-      value,
-      value.length
-    );
+  if (batchPtr === BigInt(0)) {
+    throwErr(read.i32(errPtr, 0));
+    throw new Error("Failed to create write batch");
   }
-  const result = binding.rocksdb_db_write(db, batchPtr);
-  binding.rocksdb_writebatch_destroy_(batchPtr);
-  throwErr(result);
+
+  try {
+    for (const { key, value } of batch) {
+      binding.rocksdb_writebatch_put_(
+        batchPtr,
+        key,
+        key.length,
+        value,
+        value.length
+      );
+    }
+    const result = binding.rocksdb_db_write(db, batchPtr);
+    throwErr(result);
+  } finally {
+    binding.rocksdb_writebatch_destroy_(batchPtr);
+  }
 }
 
 export function dbBatchDelete(db: DB, batch: Uint8Array[]): void {
   const batchPtr = binding.rocksdb_writebatch_create_();
-  for (const key of batch) {
-    binding.rocksdb_writebatch_delete_(batchPtr, key, key.length);
+  if (batchPtr === BigInt(0)) {
+    throwErr(read.i32(errPtr, 0));
+    throw new Error("Failed to create write batch");
   }
-  const result = binding.rocksdb_db_write(db, batchPtr);
-  binding.rocksdb_writebatch_destroy_(batchPtr);
-  throwErr(result);
+
+  try {
+    for (const key of batch) {
+      binding.rocksdb_writebatch_delete_(batchPtr, key, key.length);
+    }
+    const result = binding.rocksdb_db_write(db, batchPtr);
+
+    throwErr(result);
+  } finally {
+    binding.rocksdb_writebatch_destroy_(batchPtr);
+  }
 }
 
 export type Iterator = number & { rocksdb_iterator: never };
@@ -129,6 +148,7 @@ export function iteratorKey(it: Iterator): Uint8Array {
   const keyPtr = binding.rocksdb_iterator_key(it);
   if (keyPtr === null) {
     throwErr(read.i32(errPtr, 0));
+    throw new Error("Failed to get iterator key: pointer is null");
   }
   const keyLen = read.u32(lenPtr, 0);
   return new Uint8Array(toArrayBuffer(keyPtr as Pointer, 0, keyLen).slice());
@@ -138,6 +158,7 @@ export function iteratorValue(it: Iterator): Uint8Array {
   const valuePtr = binding.rocksdb_iterator_value(it);
   if (valuePtr === null) {
     throwErr(read.i32(errPtr, 0));
+    throw new Error("Failed to get iterator value: pointer is null");
   }
   const valueLen = read.u32(lenPtr, 0);
   return new Uint8Array(
