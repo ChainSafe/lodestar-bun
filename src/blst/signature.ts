@@ -1,9 +1,10 @@
-import type {Pointer} from "bun:ffi";
-import {binding} from "../binding.js";
-import {msgsU8, pksU8, writeMessages, writePublicKeys} from "./buffer.js";
-import {SIGNATURE_LENGTH, SIGNATURE_LENGTH_COMPRESSED} from "./const.js";
-import type {PublicKey} from "./publicKey.js";
-import {assertSuccess, fromHex, toHex} from "./util.js";
+import type { Pointer } from "bun:ffi";
+import { binding } from "../binding.js";
+import { msgsU8, pksU8, writeMessages, writePublicKeys } from "./buffer.js";
+import { writeReference } from "./writers.js";
+import { SIGNATURE_LENGTH, SIGNATURE_LENGTH_COMPRESSED } from "./const.js";
+import type { PublicKey } from "./publicKey.js";
+import { assertSuccess, fromHex, toHex } from "./util.js";
 
 export class Signature {
 	// this is mapped directly to `*const Signature` in Zig
@@ -142,16 +143,51 @@ export class Signature {
 			}
 		}
 
-		writeMessages(msgs);
-		writePublicKeys(pks);
+		const msgsRefs = writeMessagesReference(msgs);
+		const pksRefs = writePublicKeysReference(pks);
 		const res = binding.signatureAggregateVerify(
 			this.ptr,
 			sigsGroupcheck ?? false,
-			msgsU8,
-			pksU8,
+			msgsRefs,
+			pksRefs,
 			pks.length,
 			pkValidate ?? false
 		);
 		return res === 0;
 	}
+}
+
+const MAX_PKS = 128;
+const MAX_MSGS = MAX_PKS;
+
+// global public key references to be reused across multiple calls
+const publicKeysRefs = new Uint32Array(MAX_PKS * 2);
+// global messages references to be reused across multiple calls
+const messagesRefs = new Uint32Array(MAX_MSGS * 2);
+
+function writeMessagesReference(msgs: Uint8Array[]): Uint32Array {
+	if (msgs.length > MAX_MSGS) {
+		throw new Error(`Too many messages, max is ${MAX_MSGS}`);
+	}
+
+	for (let i = 0; i < msgs.length; i++) {
+		writeReference(msgs[i], messagesRefs, i * 2);
+	}
+
+	return messagesRefs.subarray(0, msgs.length * 2);
+}
+
+/**
+ * Map PublicKey[] in typescript to [*c]const *const blst_p1_affine in Zig.
+ */
+export function writePublicKeysReference(pks: PublicKey[]): Uint32Array {
+	if (pks.length > MAX_PKS) {
+		throw new Error(`Too many public keys, max is ${MAX_PKS}`);
+	}
+
+	for (let i = 0; i < pks.length; i++) {
+		writeReference(pks[i].ptr, publicKeysRefs, i * 2);
+	}
+
+	return publicKeysRefs.subarray(0, pks.length * 2);
 }
